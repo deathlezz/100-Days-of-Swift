@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Project1-Storm-Viewer
 //
-//  Created by test on 11/06/2022.
+//  Created by deathlezz on 11/06/2022.
 //
 
 import UIKit
