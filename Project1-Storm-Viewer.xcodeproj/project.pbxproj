@@ -82,11 +82,11 @@
 				52B21BC5285502EA00D46D63 /* SceneDelegate.swift */,
 				52B21BC7285502EA00D46D63 /* ViewController.swift */,
 				5231FC21285664E3001971EE /* DetailViewController.swift */,
+				52B21BD7285504D200D46D63 /* Content */,
 				52B21BC9285502EA00D46D63 /* Main.storyboard */,
 				52B21BCC285502EC00D46D63 /* Assets.xcassets */,
 				52B21BCE285502EC00D46D63 /* LaunchScreen.storyboard */,
 				52B21BD1285502EC00D46D63 /* Info.plist */,
-				52B21BD7285504D200D46D63 /* Content */,
 			);
 			path = "Project1-Storm-Viewer";
 			sourceTree = "<group>";
