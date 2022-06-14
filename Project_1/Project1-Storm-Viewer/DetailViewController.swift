@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view..
         
-        title = "Picture \(selectedImageNumber!) of \(totalPictures!)"
+        title = "\(selectedImageNumber!) of \(totalPictures!)"
         navigationItem.largeTitleDisplayMode = .never
         
         if let imageToLoad = selectedImage {
