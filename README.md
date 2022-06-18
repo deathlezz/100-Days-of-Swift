@@ -4,3 +4,4 @@
 ## Projects
 - [Project 1: Storm Viewer](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Project_1) - [Course](https://www.hackingwithswift.com/100/16)
 - [Project 2: Guess the Flag](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Project_2) - [Course](https://www.hackingwithswift.com/100/19)
+- [Project 3: Social media](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Project_3) - [Course](https://www.hackingwithswift.com/100/22)
