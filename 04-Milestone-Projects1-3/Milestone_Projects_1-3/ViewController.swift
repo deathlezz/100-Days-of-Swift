@@ -16,13 +16,10 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view.
         
         flags += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
-        
-        let fm = FileManager.default
-        let path = Bundle.main.resourcePath!
-        let _ = try! fm.contentsOfDirectory(atPath: path)
-        
+                
         print(flags)
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return flags.count
     }
@@ -31,9 +28,12 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Flag", for: indexPath)
         cell.textLabel?.text = flags[indexPath.row]
         cell.imageView?.image = UIImage(named: flags[indexPath.row])
+        cell.imageView?.layer.borderWidth = 0.5
+        cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
+        cell.imageView?.layer.cornerRadius = 3
         return cell
     }
-
+    
 
 }
 
