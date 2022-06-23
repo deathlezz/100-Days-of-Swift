@@ -20,8 +20,6 @@ class ViewController: UITableViewController {
         
         flags += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
-        self.tableView.rowHeight = 60
-                
         print(flags)
     }
     
