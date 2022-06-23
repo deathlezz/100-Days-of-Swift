@@ -9,11 +9,21 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-
+    @IBOutlet var imageView: UIImageView!
+    
+    var selectedImage: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        title = selectedImage?.uppercased()
+        navigationItem.largeTitleDisplayMode = .never
+        
+        if let imageToLoad = selectedImage {
+            imageView.image = UIImage(named: imageToLoad)
+        }
     }
     
 

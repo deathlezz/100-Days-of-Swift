@@ -15,7 +15,12 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        title = "Countries"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         flags += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+        
+        self.tableView.rowHeight = 60
                 
         print(flags)
     }
@@ -26,12 +31,19 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Flag", for: indexPath)
-        cell.textLabel?.text = flags[indexPath.row]
+        cell.textLabel?.text = flags[indexPath.row].uppercased()
         cell.imageView?.image = UIImage(named: flags[indexPath.row])
         cell.imageView?.layer.borderWidth = 0.5
         cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
         cell.imageView?.layer.cornerRadius = 3
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.selectedImage = flags[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 
