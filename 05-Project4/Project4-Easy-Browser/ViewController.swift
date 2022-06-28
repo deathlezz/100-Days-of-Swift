@@ -12,7 +12,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "razer.com"]
+    var websites = ["apple.com", "razer.com", "google.com"]
+    var blockedWebsites = ["google.com"]
     
     override func loadView() {
         webView = WKWebView()
@@ -77,8 +78,15 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         if let host = url?.host {
             for website in websites {
-                if host.contains(website) {
+                if host.contains(website) && !blockedWebsites.contains(website) {
                     decisionHandler(.allow)
+                    return
+                } else if host.contains(website) && blockedWebsites.contains(website) {
+                    let ac = UIAlertController(title: "Page blocked", message: "This page has been blocked", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                    
+                    decisionHandler(.cancel)
                     return
                 }
             }
