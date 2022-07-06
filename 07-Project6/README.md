@@ -1,5 +1,4 @@
-## This project lets us modify [Project 2](https://github.com/deathlezz/100-Days-of-Swift/tree/main/02-Project2) to fix the problem with hidden buttons in landscape mode.
+## This repository contains two projects which let user interface adapts to different devices and rotation changes. 
 
-### Screenshots
-
-<img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/07-Project6a/Screenshots/Screenshot1.png" width=250> ‎ <img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/07-Project6a/Screenshots/Screenshot2.png" width=250>
+- [Project 6a](https://github.com/deathlezz/100-Days-of-Swift/tree/main/07-Project6/Project6a) - creates Auto Layout constraints using interface builder
+- [Project 6b]() - creates Auto Layout constraints using Visual Format language
