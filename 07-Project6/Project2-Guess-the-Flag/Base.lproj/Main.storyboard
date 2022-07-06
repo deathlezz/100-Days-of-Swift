@@ -18,6 +18,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9LL-BO-DXP">
                                 <rect key="frame" x="95" y="100" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9LL-BO-DXP" secondAttribute="height" multiplier="2:1" id="Ie5-QL-5hR"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -26,6 +29,9 @@
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v36-xk-kkw">
                                 <rect key="frame" x="95" y="360" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="v36-xk-kkw" secondAttribute="height" multiplier="2:1" id="Nca-rF-SLy"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -34,6 +40,9 @@
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGe-cz-WOP">
                                 <rect key="frame" x="95" y="230" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LGe-cz-WOP" secondAttribute="height" multiplier="2:1" id="3p8-b0-asV"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -47,9 +56,12 @@
                             <constraint firstItem="LGe-cz-WOP" firstAttribute="centerX" secondItem="9LL-BO-DXP" secondAttribute="centerX" id="99X-j5-j1P"/>
                             <constraint firstItem="LGe-cz-WOP" firstAttribute="top" secondItem="9LL-BO-DXP" secondAttribute="bottom" constant="30" id="BUE-iD-5yq"/>
                             <constraint firstItem="v36-xk-kkw" firstAttribute="top" secondItem="LGe-cz-WOP" secondAttribute="bottom" constant="30" id="GGY-A8-Mo8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v36-xk-kkw" secondAttribute="bottom" constant="20" id="JQR-VB-8E9"/>
                             <constraint firstItem="9LL-BO-DXP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="RbE-5e-4wg"/>
                             <constraint firstItem="v36-xk-kkw" firstAttribute="centerX" secondItem="LGe-cz-WOP" secondAttribute="centerX" id="Ude-p0-EfE"/>
+                            <constraint firstItem="LGe-cz-WOP" firstAttribute="height" secondItem="9LL-BO-DXP" secondAttribute="height" id="o8x-9s-aDg"/>
                             <constraint firstItem="9LL-BO-DXP" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="qxN-hc-mnC"/>
+                            <constraint firstItem="v36-xk-kkw" firstAttribute="height" secondItem="LGe-cz-WOP" secondAttribute="height" id="sgy-n5-e9o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IDn-Og-2PF"/>
