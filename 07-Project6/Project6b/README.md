@@ -1,4 +1,4 @@
-## This project lets us set up Auto Layout to make our UI look great.
+## This project lets us set up [Auto Layout](https://www.hackingwithswift.com/articles/140/the-auto-layout-cheat-sheet) to make our UI look great.
 
 ### Screenshots
 
