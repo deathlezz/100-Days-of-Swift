@@ -9,3 +9,4 @@
 - [Project 4: Easy Browser](https://github.com/deathlezz/100-Days-of-Swift/tree/main/05-Project4) - [Course](https://www.hackingwithswift.com/100/24)
 - [Project 5: Word Scramble](https://github.com/deathlezz/100-Days-of-Swift/tree/main/06-Project5) - [Course](https://www.hackingwithswift.com/100/27)
 - [Project 6: Auto Layout](https://github.com/deathlezz/100-Days-of-Swift/tree/main/07-Project6) - [Course](https://www.hackingwithswift.com/100/30)
+- [Milestone: Projects 4-6](https://github.com/deathlezz/100-Days-of-Swift/tree/main/08-Milestone-Projects4-6) - [Course](https://www.hackingwithswift.com/100/32)
