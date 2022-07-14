@@ -54,8 +54,8 @@ class ViewController: UIViewController {
         view.addSubview(submit)
         
         let clear = UIButton(type: .system)
-        submit.translatesAutoresizingMaskIntoConstraints = false
-        submit.setTitle("CLEAR", for: .normal)
+        clear.translatesAutoresizingMaskIntoConstraints = false
+        clear.setTitle("CLEAR", for: .normal)
         view.addSubview(clear)
         
         NSLayoutConstraint.activate([
@@ -79,13 +79,16 @@ class ViewController: UIViewController {
             submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
             submit.heightAnchor.constraint(equalToConstant: 44),
             
-//            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-//            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-//            clear.heightAnchor.constraint(equalToConstant: 44),
+            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
+            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+            clear.heightAnchor.constraint(equalToConstant: 44)
             
         ])
         cluesLabel.backgroundColor = .red
         answersLabel.backgroundColor = .blue
+        currentAnswer.backgroundColor = .gray
+        submit.backgroundColor = .green
+        clear.backgroundColor = .brown
     }
 
     override func viewDidLoad() {
