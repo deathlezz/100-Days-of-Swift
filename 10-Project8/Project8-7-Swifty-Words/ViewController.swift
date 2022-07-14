@@ -74,6 +74,8 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -160,7 +162,14 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Let's go", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+            return
         }
+        
+        clearTapped(sender)
+        
+        let ac = UIAlertController(title: "Wrong", message: "\"\(answerText)\" does not match one of the answers", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
     func levelUp(action: UIAlertAction) {
