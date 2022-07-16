@@ -11,3 +11,4 @@
 - [Project 6: Auto Layout](https://github.com/deathlezz/100-Days-of-Swift/tree/main/07-Project6) - [Course](https://www.hackingwithswift.com/100/30)
 - [Milestone: Projects 4-6](https://github.com/deathlezz/100-Days-of-Swift/tree/main/08-Milestone-Projects4-6) - [Course](https://www.hackingwithswift.com/100/32)
 - [Project 7: Whitehouse Petitions](https://github.com/deathlezz/100-Days-of-Swift/tree/main/09-Project7) - [Course](https://www.hackingwithswift.com/100/33)
+- [Project 8: 7 Swifty Words](https://github.com/deathlezz/100-Days-of-Swift/tree/main/10-Project8) - [Course](https://www.hackingwithswift.com/100/36)
