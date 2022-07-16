@@ -1,3 +1,5 @@
+# Project 5: Word Scramble
+
 ## This project lets us make a word game that deals with anagrams.
 
 ### Screenshots
