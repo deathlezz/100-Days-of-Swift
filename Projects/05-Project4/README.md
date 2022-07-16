@@ -1,3 +1,5 @@
+# Project 4: Easy Browser
+
 ## This project lets us build a simple web browser using [WebKit](https://developer.apple.com/documentation/webkit).
 
 ### Screenshots
