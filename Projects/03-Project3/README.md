@@ -1,6 +1,6 @@
 # Project 3: Social media 
 
-## This project lets us modify [Project 1](https://github.com/deathlezz/100-Days-of-Swift/tree/main/01-Project1) to allow users to share and save images.
+## This project lets us modify [Project 1](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/01-Project1) to allow users to share and save images.
 
 ### Screenshots
 
