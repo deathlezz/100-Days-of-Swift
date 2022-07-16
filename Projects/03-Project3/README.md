@@ -2,4 +2,4 @@
 
 ### Screenshots
 
-<img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/03-Project3/Screenshots/Screenshot1.png" width=250> ‎ <img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/03-Project3/Screenshots/Screenshot2.png" width=250>
+<img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/Projects/03-Project3/Screenshots/Screenshot1.png" width=250> ‎ <img src="https://github.com/deathlezz/100-Days-of-Swift/blob/main/Projects/03-Project3/Screenshots/Screenshot2.png" width=250>
