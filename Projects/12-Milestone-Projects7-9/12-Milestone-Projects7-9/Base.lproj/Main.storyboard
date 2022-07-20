@@ -20,33 +20,6 @@
                                 <rect key="frame" x="0.0" y="70" width="390" height="390"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NeU-Fi-8Ud" userLabel="Letters">
-                                <rect key="frame" x="-10" y="521" width="408" height="289"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYR-jw-TwA" userLabel="row1">
-                                        <rect key="frame" x="8" y="8" width="392" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fDp-8P-Zau" userLabel="row2">
-                                        <rect key="frame" x="8" y="77" width="392" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgm-1l-VbM" userLabel="row3">
-                                        <rect key="frame" x="8" y="155" width="392" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z0f-JW-ZWa" userLabel="row4">
-                                        <rect key="frame" x="8" y="233" width="392" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="W O R D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yho-Qc-UbJ">
                                 <rect key="frame" x="-1" y="448" width="390" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,6 +27,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGc-2J-h2F" userLabel="row1">
+                                <rect key="frame" x="16" y="526" width="358" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7f-LP-XE5" userLabel="row2">
+                                <rect key="frame" x="15" y="599" width="358" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2CB-i4-i8X" userLabel="row3">
+                                <rect key="frame" x="16" y="672" width="358" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qot-lM-9eh" userLabel="row4">
+                                <rect key="frame" x="15" y="745" width="358" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -61,10 +54,10 @@
                     <navigationItem key="navigationItem" title="Hangman" id="nRk-fR-eZU"/>
                     <connections>
                         <outlet property="imageView" destination="PQm-7f-GEv" id="l5y-mv-EeX"/>
-                        <outlet property="row1" destination="CYR-jw-TwA" id="Jdy-6p-nSu"/>
-                        <outlet property="row2" destination="fDp-8P-Zau" id="5y2-kt-BFo"/>
-                        <outlet property="row3" destination="xgm-1l-VbM" id="BLh-dd-bQv"/>
-                        <outlet property="row4" destination="z0f-JW-ZWa" id="3VR-x7-4RT"/>
+                        <outlet property="row1" destination="hGc-2J-h2F" id="uTD-G8-ddA"/>
+                        <outlet property="row2" destination="R7f-LP-XE5" id="YhZ-VB-fNn"/>
+                        <outlet property="row3" destination="2CB-i4-i8X" id="aWj-9E-8sa"/>
+                        <outlet property="row4" destination="Qot-lM-9eh" id="5j7-Xt-LsI"/>
                         <outlet property="wordLabel" destination="yho-Qc-UbJ" id="Ypn-UO-R2i"/>
                     </connections>
                 </viewController>
