@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     var letterButtons = [UIButton]()
     
-    var currentWord = "SILKWORM"
+    var currentWord: String = "SILKWORM"
     var allWorlds = [String]()
     var usedLetters = [String]()
     var wrongAnswers = 0
@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         let wordLabel = UILabel()
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
         wordLabel.text = currentWord
+        wordLabel.textAlignment = .center
         wordLabel.font = UIFont.init(name: "BRADLEY HAND", size: 30)
         view.addSubview(wordLabel)
         
@@ -53,27 +54,31 @@ class ViewController: UIViewController {
             wordLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
             wordLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            buttonsView.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 20),
-            buttonsView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            buttonsView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            buttonsView.widthAnchor.constraint(equalToConstant: 350),
+            buttonsView.heightAnchor.constraint(equalToConstant: 390),
+            buttonsView.topAnchor.constraint(greaterThanOrEqualTo: wordLabel.bottomAnchor, constant: 20),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             
         ])
+
         wordLabel.backgroundColor = .red
         buttonsView.backgroundColor = .gray
         
         let width = 50
         let height = 75
         
-        var columns = 7
+        var firstColumn = 0
+        var lastColumn = 7
         var index = 0
         
         for row in 0..<4 {
-            for column in 0..<columns {
+            for column in firstColumn..<lastColumn {
                 let letterButton = UIButton(type: .system)
                 letterButton.titleLabel?.font = UIFont.init(name: "BRADLEY HAND", size: 35)
                 letterButton.setTitle(letters[index], for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                letterButton.backgroundColor = .green
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -83,10 +88,9 @@ class ViewController: UIViewController {
                 index += 1
             }
             
-            if columns == 7 {
-                columns = 6
-            } else {
-                columns = 7
+            if index > 20 {
+                lastColumn = 6
+                firstColumn = 1
             }
         }
     }
@@ -96,30 +100,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        title = "Hangman"
-//        imageView.image = UIImage(named: "hangman0")
-//
-//        if let wordsURL = Bundle.main.url(forResource: "english", withExtension: "txt") {
-//            if let words = try? String(contentsOf: wordsURL) {
-//                allWorlds = words.components(separatedBy: "\n")
-//            }
-//        }
-//        currentWord = allWorlds.randomElement()!
-//        wordLabel.text = String(repeating: "_ ", count: currentWord.count).trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        startGame()
         
-//        addButtonsToRow(index: 0, columns: 6, view: row1)
-//        addButtonsToRow(index: 6, columns: 7, view: row2)
-//        addButtonsToRow(index: 13, columns: 6, view: row3)
-//        addButtonsToRow(index: 19, columns: 7, view: row4)
-//
-//        let buttonsView = UIView()
-//        buttonsView.translatesAutoresizingMaskIntoConstraints = false
-//        buttonsView.layer.borderWidth = 1
-//        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
-//        view.addSubview(buttonsView)
-                
     }
     
+    func startGame() {
+        if let wordsURL = Bundle.main.url(forResource: "english", withExtension: "txt") {
+            if let words = try? String(contentsOf: wordsURL) {
+                allWorlds = words.components(separatedBy: "\n")
+            }
+        }
+        
+        if allWorlds.isEmpty {
+            allWorlds.append("silkworm")
+        }
+        
+        currentWord = allWorlds.randomElement()!
+    }
     
     @objc func letterTapped() {
         
