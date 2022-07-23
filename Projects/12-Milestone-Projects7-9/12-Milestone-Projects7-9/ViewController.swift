@@ -16,9 +16,15 @@ class ViewController: UIViewController {
     let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     var letterButtons = [UIButton]()
     
-    var currentWord: String = "SILKWORM"
+    var currentWord: String = "SILKWORM" {
+        didSet {
+            wordLabel.text = currentWord
+        }
+    }
+    
     var allWorlds = [String]()
     var usedLetters = [String]()
+    
     var wrongAnswers = 0
     var score = 0
     
@@ -28,20 +34,21 @@ class ViewController: UIViewController {
         
         title = "Hangman"
         
-        let imageView = UIImageView()
+        imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "hangman0")
         view.addSubview(imageView)
         
-        let wordLabel = UILabel()
+        wordLabel = UILabel()
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
         wordLabel.text = currentWord
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.init(name: "BRADLEY HAND", size: 30)
         view.addSubview(wordLabel)
         
-        let buttonsView = UIView()
+        buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.sizeToFit()
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -56,7 +63,7 @@ class ViewController: UIViewController {
             
             buttonsView.widthAnchor.constraint(equalToConstant: 350),
             buttonsView.heightAnchor.constraint(equalToConstant: 390),
-            buttonsView.topAnchor.constraint(greaterThanOrEqualTo: wordLabel.bottomAnchor, constant: 20),
+            buttonsView.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 20),
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             
@@ -82,8 +89,8 @@ class ViewController: UIViewController {
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
-                buttonsView.addSubview(letterButton)
                 
+                buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
                 index += 1
             }
@@ -115,11 +122,29 @@ class ViewController: UIViewController {
             allWorlds.append("silkworm")
         }
         
-        currentWord = allWorlds.randomElement()!
+        currentWord = allWorlds.randomElement()!.uppercased()
+        
+        let hiddenWord = String(repeating: "?", count: currentWord.count)
+        wordLabel.text = hiddenWord
     }
     
-    @objc func letterTapped() {
+    @objc func letterTapped(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text else { return }
         
+        var wordText = ""
+        
+        if currentWord.contains(buttonTitle) {
+            for letter in currentWord {
+                let stringLetter = String(letter)
+                
+                if stringLetter == buttonTitle {
+                    wordText += "\(stringLetter) "
+                } else {
+                    wordText += "_ "
+                }
+            }
+        }
+        wordLabel.text = wordText.trimmingCharacters(in: .whitespaces)
     }
 }
 
