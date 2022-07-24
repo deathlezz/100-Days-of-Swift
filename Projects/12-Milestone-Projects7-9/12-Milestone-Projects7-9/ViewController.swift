@@ -16,11 +16,7 @@ class ViewController: UIViewController {
     let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     var letterButtons = [UIButton]()
     
-    var currentWord: String = "SILKWORM" {
-        didSet {
-            wordLabel.text = currentWord
-        }
-    }
+    var currentWord = "silkworm"
     
     var allWorlds = [String]()
     var usedLetters = [String]()
@@ -122,29 +118,34 @@ class ViewController: UIViewController {
             allWorlds.append("silkworm")
         }
         
-        currentWord = allWorlds.randomElement()!.uppercased()
+        currentWord = allWorlds.randomElement()!.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        let hiddenWord = String(repeating: "?", count: currentWord.count)
+        let hiddenWord = String(repeating: "_ ", count: currentWord.count)
         wordLabel.text = hiddenWord
     }
     
     @objc func letterTapped(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text else { return }
         
-        var wordText = ""
-        
         if currentWord.contains(buttonTitle) {
+            var wordString = ""
+            usedLetters.append(buttonTitle)
+            
             for letter in currentWord {
                 let stringLetter = String(letter)
                 
-                if stringLetter == buttonTitle {
-                    wordText += "\(stringLetter) "
+                if usedLetters.contains(stringLetter) {
+                    wordString += "\(stringLetter) "
                 } else {
-                    wordText += "_ "
+                    wordString += "_ "
                 }
             }
+            wordLabel.text = wordString.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+        } else {
+            wrongAnswers += 1
+            imageView.image = UIImage(named: "hangman\(wrongAnswers)")
         }
-        wordLabel.text = wordText.trimmingCharacters(in: .whitespaces)
     }
 }
 
