@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
         wordLabel.text = currentWord
         wordLabel.textAlignment = .center
-        wordLabel.font = UIFont.init(name: "BRADLEY HAND", size: 30)
+        wordLabel.font = UIFont.init(name: "BRADLEY HAND", size: 35)
         view.addSubview(wordLabel)
         
         buttonsView = UIView()
@@ -65,8 +65,8 @@ class ViewController: UIViewController {
             
         ])
 
-        wordLabel.backgroundColor = .red
-        buttonsView.backgroundColor = .gray
+//        wordLabel.backgroundColor = .red
+//        buttonsView.backgroundColor = .gray
         
         let width = 50
         let height = 75
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.init(name: "BRADLEY HAND", size: 35)
                 letterButton.setTitle(letters[index], for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
-                letterButton.backgroundColor = .green
+//                letterButton.backgroundColor = .green
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -107,7 +107,7 @@ class ViewController: UIViewController {
         
     }
     
-    func startGame() {
+    @objc func startGame() {
         if let wordsURL = Bundle.main.url(forResource: "english", withExtension: "txt") {
             if let words = try? String(contentsOf: wordsURL) {
                 allWorlds = words.components(separatedBy: "\n")
@@ -122,6 +122,15 @@ class ViewController: UIViewController {
         
         let hiddenWord = String(repeating: "_ ", count: currentWord.count)
         wordLabel.text = hiddenWord
+        
+        wrongAnswers = 0
+        imageView.image = UIImage(named: "hangman\(wrongAnswers)")
+        usedLetters.removeAll()
+        
+        for button in letterButtons {
+            button.isEnabled = true
+        }
+        print(currentWord)
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -141,11 +150,34 @@ class ViewController: UIViewController {
                 }
             }
             wordLabel.text = wordString.trimmingCharacters(in: .whitespacesAndNewlines)
+            sender.isEnabled = false
+            score += 1
+            
+            if usedLetters.joined().trimmingCharacters(in: .whitespacesAndNewlines) == currentWord {
+                let alert = UIAlertController(title: "Congratulations!", message: "Word found \(currentWord)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: levelUp))
+                present(alert, animated: true)
+            }
             
         } else {
             wrongAnswers += 1
+            
+            if wrongAnswers == 7 {
+                let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: newGameTapped))
+                present(alert, animated: true)
+            }
             imageView.image = UIImage(named: "hangman\(wrongAnswers)")
         }
+    }
+    
+    @objc func newGameTapped(_ action: UIAlertAction) {
+        startGame()
+        score = 0
+    }
+    
+    @objc func levelUp(_ action: UIAlertAction) {
+        startGame()
     }
 }
 
