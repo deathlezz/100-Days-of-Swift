@@ -44,7 +44,6 @@ class ViewController: UIViewController {
         
         buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        buttonsView.sizeToFit()
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -65,8 +64,8 @@ class ViewController: UIViewController {
             
         ])
 
-//        wordLabel.backgroundColor = .red
-//        buttonsView.backgroundColor = .gray
+        wordLabel.backgroundColor = .red
+        buttonsView.backgroundColor = .gray
         
         let width = 50
         let height = 75
@@ -81,7 +80,7 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.init(name: "BRADLEY HAND", size: 35)
                 letterButton.setTitle(letters[index], for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
-//                letterButton.backgroundColor = .green
+                letterButton.backgroundColor = .green
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -104,6 +103,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         startGame()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .plain, target: self, action: #selector(startGame))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .plain, target: self, action: #selector(showScore))
         
     }
     
@@ -149,12 +151,12 @@ class ViewController: UIViewController {
                     wordString += "_ "
                 }
             }
-            wordLabel.text = wordString.trimmingCharacters(in: .whitespacesAndNewlines)
+            wordLabel.text = wordString.trimmingCharacters(in: .whitespaces)
             sender.isEnabled = false
             score += 1
             
-            if usedLetters.joined().trimmingCharacters(in: .whitespacesAndNewlines) == currentWord {
-                let alert = UIAlertController(title: "Congratulations!", message: "Word found \(currentWord)", preferredStyle: .alert)
+            if wordLabel.text?.replacingOccurrences(of: " ", with: "") == currentWord {
+                let alert = UIAlertController(title: "Congratulations!", message: "Word found \"\(currentWord)\"", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: levelUp))
                 present(alert, animated: true)
             }
@@ -163,7 +165,7 @@ class ViewController: UIViewController {
             wrongAnswers += 1
             
             if wrongAnswers == 7 {
-                let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Game Over", message: "Word to find was \"\(currentWord)\"", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: newGameTapped))
                 present(alert, animated: true)
             }
@@ -178,6 +180,12 @@ class ViewController: UIViewController {
     
     @objc func levelUp(_ action: UIAlertAction) {
         startGame()
+    }
+    
+    @objc func showScore() {
+        let alert = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
