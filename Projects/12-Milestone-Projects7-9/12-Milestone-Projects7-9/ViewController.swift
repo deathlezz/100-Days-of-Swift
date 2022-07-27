@@ -64,8 +64,8 @@ class ViewController: UIViewController {
             
         ])
 
-        wordLabel.backgroundColor = .red
-        buttonsView.backgroundColor = .gray
+//        wordLabel.backgroundColor = .red
+//        buttonsView.backgroundColor = .gray
         
         let width = 50
         let height = 75
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.init(name: "BRADLEY HAND", size: 35)
                 letterButton.setTitle(letters[index], for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
-                letterButton.backgroundColor = .green
+//                letterButton.backgroundColor = .green
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -97,19 +97,17 @@ class ViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        startGame()
+        performSelector(inBackground: #selector(loadWords), with: nil)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .plain, target: self, action: #selector(startGame))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .plain, target: self, action: #selector(newGameTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .plain, target: self, action: #selector(showScore))
-        
     }
     
-    @objc func startGame() {
+    @objc func loadWords() {
         if let wordsURL = Bundle.main.url(forResource: "english", withExtension: "txt") {
             if let words = try? String(contentsOf: wordsURL) {
                 allWorlds = words.components(separatedBy: "\n")
@@ -120,6 +118,10 @@ class ViewController: UIViewController {
             allWorlds.append("silkworm")
         }
         
+        performSelector(onMainThread: #selector(startGame), with: nil, waitUntilDone: false)
+    }
+    
+    @objc func startGame() {
         currentWord = allWorlds.randomElement()!.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
         let hiddenWord = String(repeating: "_ ", count: currentWord.count)
@@ -151,31 +153,32 @@ class ViewController: UIViewController {
                     wordString += "_ "
                 }
             }
+            
             wordLabel.text = wordString.trimmingCharacters(in: .whitespaces)
-            sender.isEnabled = false
-            score += 1
             
             if wordLabel.text?.replacingOccurrences(of: " ", with: "") == currentWord {
                 let alert = UIAlertController(title: "Congratulations!", message: "Word found \"\(currentWord)\"", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: levelUp))
                 present(alert, animated: true)
+                score += 1
             }
             
         } else {
             wrongAnswers += 1
             
             if wrongAnswers == 7 {
-                let alert = UIAlertController(title: "Game Over", message: "Word to find was \"\(currentWord)\"", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Game Over", message: "Your score is \(score),\n Word to find was \"\(currentWord)\"", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: newGameTapped))
                 present(alert, animated: true)
             }
             imageView.image = UIImage(named: "hangman\(wrongAnswers)")
         }
+        sender.isEnabled = false
     }
     
     @objc func newGameTapped(_ action: UIAlertAction) {
-        startGame()
         score = 0
+        startGame()
     }
     
     @objc func levelUp(_ action: UIAlertAction) {
