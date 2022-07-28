@@ -51,21 +51,16 @@ class ViewController: UIViewController {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: wordLabel.topAnchor),
-            
+
             wordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wordLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            wordLabel.bottomAnchor.constraint(equalTo: buttonsView.topAnchor, constant: -20),
             wordLabel.heightAnchor.constraint(equalToConstant: 40),
             
             buttonsView.widthAnchor.constraint(equalToConstant: 350),
-            buttonsView.heightAnchor.constraint(equalToConstant: 390),
-            buttonsView.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 20),
+            buttonsView.heightAnchor.constraint(equalToConstant: 300),
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            
         ])
-
-//        wordLabel.backgroundColor = .red
-//        buttonsView.backgroundColor = .gray
         
         let width = 50
         let height = 75
@@ -80,7 +75,6 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.init(name: "BRADLEY HAND", size: 35)
                 letterButton.setTitle(letters[index], for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
-//                letterButton.backgroundColor = .green
 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -134,7 +128,6 @@ class ViewController: UIViewController {
         for button in letterButtons {
             button.isEnabled = true
         }
-        print(currentWord)
     }
     
     @objc func letterTapped(_ sender: UIButton) {
