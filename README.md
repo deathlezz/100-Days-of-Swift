@@ -13,3 +13,4 @@
 - [Project 7: Whitehouse Petitions](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/09-Project7) - [Course](https://www.hackingwithswift.com/100/33)
 - [Project 8: 7 Swifty Words](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/10-Project8) - [Course](https://www.hackingwithswift.com/100/36)
 - [Project 9: Grand Central Dispatch](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/11-Project9) - [Course](https://www.hackingwithswift.com/100/39)
+-[Milestone: Projects 7-9](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/12-Milestone-Projects7-9) - [Course](https://www.hackingwithswift.com/100/41)

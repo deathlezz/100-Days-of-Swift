@@ -1,6 +1,6 @@
 # Milestone: Projects 7-9
 
-## This challenge lets us make a hangman game using UIKit.
+## This challenge lets us make a hangman game using [UIKit](https://developer.apple.com/documentation/uikit).
 
 ### Screenshots
 
