@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52359F212895BF20009ABDC6 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52359F202895BF20009ABDC6 /* PersonCell.swift */; };
 		52646BE22895BAAB0062C0CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52646BE12895BAAB0062C0CD /* AppDelegate.swift */; };
 		52646BE42895BAAB0062C0CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52646BE32895BAAB0062C0CD /* SceneDelegate.swift */; };
 		52646BE62895BAAB0062C0CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52646BE52895BAAB0062C0CD /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52359F202895BF20009ABDC6 /* PersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
 		52646BDE2895BAAB0062C0CD /* Project10-Names-to-Faces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project10-Names-to-Faces.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52646BE12895BAAB0062C0CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52646BE32895BAAB0062C0CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				52646BE32895BAAB0062C0CD /* SceneDelegate.swift */,
 				52646BE52895BAAB0062C0CD /* ViewController.swift */,
 				52646BE72895BAAB0062C0CD /* Main.storyboard */,
+				52359F202895BF20009ABDC6 /* PersonCell.swift */,
 				52646BEA2895BAAD0062C0CD /* Assets.xcassets */,
 				52646BEC2895BAAD0062C0CD /* LaunchScreen.storyboard */,
 				52646BEF2895BAAD0062C0CD /* Info.plist */,
@@ -140,6 +143,7 @@
 			files = (
 				52646BE62895BAAB0062C0CD /* ViewController.swift in Sources */,
 				52646BE22895BAAB0062C0CD /* AppDelegate.swift in Sources */,
+				52359F212895BF20009ABDC6 /* PersonCell.swift in Sources */,
 				52646BE42895BAAB0062C0CD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
