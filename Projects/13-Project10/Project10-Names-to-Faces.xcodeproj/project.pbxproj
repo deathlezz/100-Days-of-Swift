@@ -14,6 +14,7 @@
 		52646BE92895BAAB0062C0CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52646BE72895BAAB0062C0CD /* Main.storyboard */; };
 		52646BEB2895BAAD0062C0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52646BEA2895BAAD0062C0CD /* Assets.xcassets */; };
 		52646BEE2895BAAD0062C0CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52646BEC2895BAAD0062C0CD /* LaunchScreen.storyboard */; };
+		52DD1D222897E6C300008CC0 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DD1D212897E6C300008CC0 /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		52646BEA2895BAAD0062C0CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52646BED2895BAAD0062C0CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52646BEF2895BAAD0062C0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52DD1D212897E6C300008CC0 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				52646BE12895BAAB0062C0CD /* AppDelegate.swift */,
 				52646BE32895BAAB0062C0CD /* SceneDelegate.swift */,
 				52646BE52895BAAB0062C0CD /* ViewController.swift */,
+				52DD1D212897E6C300008CC0 /* Person.swift */,
 				52359F202895BF20009ABDC6 /* PersonCell.swift */,
 				52646BE72895BAAB0062C0CD /* Main.storyboard */,
 				52646BEA2895BAAD0062C0CD /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DD1D222897E6C300008CC0 /* Person.swift in Sources */,
 				52646BE62895BAAB0062C0CD /* ViewController.swift in Sources */,
 				52646BE22895BAAB0062C0CD /* AppDelegate.swift in Sources */,
 				52359F212895BF20009ABDC6 /* PersonCell.swift in Sources */,
