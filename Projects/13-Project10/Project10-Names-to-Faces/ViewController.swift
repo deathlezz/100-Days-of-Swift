@@ -59,7 +59,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             try? jpegData.write(to: imagePath)
         }
         
-        let person = Person(name: "Unknows", image: imageName)
+        let person = Person(name: "Unknown", image: imageName)
         people.append(person)
         collectionView.reloadData()
         
