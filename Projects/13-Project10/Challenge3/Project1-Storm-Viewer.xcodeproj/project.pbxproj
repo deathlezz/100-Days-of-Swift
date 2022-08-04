@@ -11,7 +11,6 @@
 		52B21BC4285502EA00D46D63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B21BC3285502EA00D46D63 /* AppDelegate.swift */; };
 		52B21BC6285502EA00D46D63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B21BC5285502EA00D46D63 /* SceneDelegate.swift */; };
 		52B21BC8285502EA00D46D63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B21BC7285502EA00D46D63 /* ViewController.swift */; };
-		52B21BCB285502EA00D46D63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BC9285502EA00D46D63 /* Main.storyboard */; };
 		52B21BCD285502EC00D46D63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BCC285502EC00D46D63 /* Assets.xcassets */; };
 		52B21BD0285502EC00D46D63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BCE285502EC00D46D63 /* LaunchScreen.storyboard */; };
 		52B21BE2285504D200D46D63 /* nssl0049.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BD8285504D200D46D63 /* nssl0049.jpg */; };
@@ -24,6 +23,8 @@
 		52B21BE9285504D200D46D63 /* nssl0043.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BDF285504D200D46D63 /* nssl0043.jpg */; };
 		52B21BEA285504D200D46D63 /* nssl0033.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BE0285504D200D46D63 /* nssl0033.jpg */; };
 		52B21BEB285504D200D46D63 /* nssl0034.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52B21BE1285504D200D46D63 /* nssl0034.jpg */; };
+		52F35F5C289BCEF900940817 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F35F5B289BCEF900940817 /* PictureCell.swift */; };
+		52F35F5E289BD17B00940817 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F35F5D289BD17B00940817 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +33,6 @@
 		52B21BC3285502EA00D46D63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52B21BC5285502EA00D46D63 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		52B21BC7285502EA00D46D63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		52B21BCA285502EA00D46D63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52B21BCC285502EC00D46D63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52B21BCF285502EC00D46D63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52B21BD1285502EC00D46D63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +46,8 @@
 		52B21BDF285504D200D46D63 /* nssl0043.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0043.jpg; sourceTree = "<group>"; };
 		52B21BE0285504D200D46D63 /* nssl0033.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0033.jpg; sourceTree = "<group>"; };
 		52B21BE1285504D200D46D63 /* nssl0034.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0034.jpg; sourceTree = "<group>"; };
+		52F35F5B289BCEF900940817 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		52F35F5D289BD17B00940817 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +83,10 @@
 				52B21BC3285502EA00D46D63 /* AppDelegate.swift */,
 				52B21BC5285502EA00D46D63 /* SceneDelegate.swift */,
 				52B21BC7285502EA00D46D63 /* ViewController.swift */,
+				52F35F5B289BCEF900940817 /* PictureCell.swift */,
+				52F35F5D289BD17B00940817 /* Main.storyboard */,
 				5231FC21285664E3001971EE /* DetailViewController.swift */,
 				52B21BD7285504D200D46D63 /* Content */,
-				52B21BC9285502EA00D46D63 /* Main.storyboard */,
 				52B21BCC285502EC00D46D63 /* Assets.xcassets */,
 				52B21BCE285502EC00D46D63 /* LaunchScreen.storyboard */,
 				52B21BD1285502EC00D46D63 /* Info.plist */,
@@ -173,12 +176,12 @@
 				52B21BE9285504D200D46D63 /* nssl0043.jpg in Resources */,
 				52B21BEB285504D200D46D63 /* nssl0034.jpg in Resources */,
 				52B21BE2285504D200D46D63 /* nssl0049.jpg in Resources */,
+				52F35F5E289BD17B00940817 /* Main.storyboard in Resources */,
 				52B21BE7285504D200D46D63 /* nssl0041.jpg in Resources */,
 				52B21BE8285504D200D46D63 /* nssl0042.jpg in Resources */,
 				52B21BD0285502EC00D46D63 /* LaunchScreen.storyboard in Resources */,
 				52B21BCD285502EC00D46D63 /* Assets.xcassets in Resources */,
 				52B21BE5285504D200D46D63 /* nssl0045.jpg in Resources */,
-				52B21BCB285502EA00D46D63 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +194,7 @@
 			files = (
 				52B21BC8285502EA00D46D63 /* ViewController.swift in Sources */,
 				52B21BC4285502EA00D46D63 /* AppDelegate.swift in Sources */,
+				52F35F5C289BCEF900940817 /* PictureCell.swift in Sources */,
 				52B21BC6285502EA00D46D63 /* SceneDelegate.swift in Sources */,
 				5231FC22285664E3001971EE /* DetailViewController.swift in Sources */,
 			);
@@ -199,14 +203,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		52B21BC9285502EA00D46D63 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				52B21BCA285502EA00D46D63 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		52B21BCE285502EC00D46D63 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
