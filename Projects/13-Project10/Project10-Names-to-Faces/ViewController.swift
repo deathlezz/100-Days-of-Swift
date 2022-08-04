@@ -43,9 +43,32 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     }
     
     @objc func addNewPerson() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let ac = UIAlertController(title: "Source", message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
+                self?.showPicker(fromCamera: true)
+            })
+            
+            ac.addAction(UIAlertAction(title: "Photos", style: .default) { [weak self] _ in
+                self?.showPicker(fromCamera: false)
+            })
+            
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(ac, animated: true)
+            
+        } else {
+            showPicker(fromCamera: false)
+        }
+    }
+    
+    func showPicker(fromCamera: Bool) {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
+        
+        if fromCamera {
+            picker.sourceType = .camera
+        }
         present(picker, animated: true)
     }
     
