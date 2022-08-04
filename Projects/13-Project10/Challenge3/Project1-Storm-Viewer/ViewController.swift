@@ -20,6 +20,10 @@ class ViewController: UICollectionViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(recommendApp))
         
+        performSelector(inBackground: #selector(loadPictures), with: nil)
+    }
+    
+    @objc func loadPictures() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
@@ -31,6 +35,8 @@ class ViewController: UICollectionViewController {
             }
         }
         pictures.sort()
+        
+        collectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: false)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
