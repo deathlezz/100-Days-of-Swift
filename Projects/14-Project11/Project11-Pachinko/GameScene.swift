@@ -140,11 +140,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func destroy(ball: SKNode) {
+        if let fileParticles = SKEmitterNode(fileNamed: "FireParticles") {
+            fileParticles.position = ball.position
+            addChild(fileParticles)
+        }
+        
         ball.removeFromParent()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
         
