@@ -10,7 +10,16 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let balls = ["ballBlue", "ballCyan", "ballGreen", "ballGrey", "ballPurple", "ballRed", "ballYellow"]
-    var ballsLeft = 5
+    
+    var ballsLeft = 5 {
+        didSet {
+            ballsLeftLabel.text = "Balls: \(ballsLeft)"
+        }
+    }
+    
+    var ballsLeftLabel: SKLabelNode!
+    
+    var boxesLeft = 17
     
     var scoreLabel: SKLabelNode!
     
@@ -20,17 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    var editLabel: SKLabelNode!
-    
-    var editingMode: Bool = false {
-        didSet {
-            if editingMode {
-                editLabel.text = "Done"
-            } else {
-                editLabel.text = "Edit"
-            }
-        }
-    }
+    var newGameLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
@@ -45,10 +44,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 980, y: 700)
         addChild(scoreLabel)
         
-        editLabel = SKLabelNode(fontNamed: "Chalkduster")
-        editLabel.text = "Edit"
-        editLabel.position = CGPoint(x: 80, y: 700)
-        addChild(editLabel)
+        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        newGameLabel.text = "New Game"
+        newGameLabel.position = CGPoint(x: 120, y: 700)
+        addChild(newGameLabel)
+        
+        ballsLeftLabel = SKLabelNode(fontNamed: "Chalkduster")
+        ballsLeftLabel.text = "Balls: 5"
+        ballsLeftLabel.position = CGPoint(x: 500, y: 700)
+        addChild(ballsLeftLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -63,11 +67,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeBouncer(at: CGPoint(x: 512, y: 0))
         makeBouncer(at: CGPoint(x: 768, y: 0))
         makeBouncer(at: CGPoint(x: 1024, y: 0))
+        
+        newGame()
     }
     
-    func startGame() {
-        score = 0
+    func newGame() {
         ballsLeft = 5
+        
+        for node in children {
+            if node.name == "ball" || node.name == "box" {
+                node.removeFromParent()
+            }
+        }
+        
+        makeRandomBoxes()
+    }
+    
+    func restart(_ action: UIAlertAction) {
+        newGame()
+        score = 0
+    }
+    
+    func levelUp(_ action: UIAlertAction) {
+        newGame()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -76,30 +98,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let objects = nodes(at: location)
         
-        if objects.contains(editLabel) {
-            editingMode.toggle()
+        if objects.contains(newGameLabel) {
+            newGame()
+            score = 0
+            
         } else {
-            if editingMode {
-                // create a box
-                let size = CGSize(width: Int.random(in: 16...128), height: 16)
-                let box = SKSpriteNode(color: UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1), size: size)
-                box.zRotation = CGFloat.random(in: 0...3)
-                box.position = location
-                box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
-                box.physicsBody?.isDynamic = false
-                box.name = "box"
-                addChild(box)
-                
-            } else {
+            if ballsLeft > 0 {
                 let ball = SKSpriteNode(imageNamed: balls.randomElement() ?? "ballRed")
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
                 ball.physicsBody?.restitution = 0.4
                 ball.physicsBody?.contactTestBitMask = ball.physicsBody?.collisionBitMask ?? 0
                 ball.position = CGPoint(x: location.x, y: 700)
                 ball.name = "ball"
+                ballsLeft -= 1
                 addChild(ball)
             }
         }
+    }
+    
+    func makeRandomBoxes() {
+        for _ in 0...16 {
+            let size = CGSize(width: Int.random(in: 50...128), height: 16)
+            let box = SKSpriteNode(color: boxColor(), size: size)
+            let position = CGPoint(x: CGFloat.random(in: 50...950), y: CGFloat.random(in: 200...500))
+            
+            box.zRotation = CGFloat.random(in: 0...2)
+            box.position = position
+            box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
+            box.physicsBody?.isDynamic = false
+            box.name = "box"
+            addChild(box)
+        }
+    }
+    
+    func boxColor() -> UIColor {
+        let colors = [UIColor.magenta, UIColor.red, UIColor.green, UIColor.blue, UIColor.orange]
+        return colors.randomElement()!
     }
     
     func makeBouncer(at position: CGPoint) {
@@ -141,14 +175,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func collision(between ball: SKNode, object: SKNode) {
         if object.name == "good" {
             destroy(ball: ball)
-            score += 1
             ballsLeft += 1
         } else if object.name == "bad" {
             destroy(ball: ball)
-            score -= 1
-            ballsLeft -= 1
         } else if object.name == "box" {
             object.removeFromParent()
+            score += 1
+            boxesLeft -= 1
         }
     }
     
@@ -159,6 +192,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         ball.removeFromParent()
+        
+        if ballsLeft == 0 && boxesLeft > 0 {
+            let ac = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "New Game", style: .default, handler: restart))
+            view?.window?.rootViewController?.present(ac, animated: true)
+        } else if boxesLeft == 0 {
+            let ac = UIAlertController(title: "Level completed!", message: "Are you ready for the next level?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: levelUp))
+            view?.window?.rootViewController?.present(ac, animated: true)
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
