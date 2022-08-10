@@ -11,17 +11,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let balls = ["ballBlue", "ballCyan", "ballGreen", "ballGrey", "ballPurple", "ballRed", "ballYellow"]
     
-    var ballsLeft = 5 {
-        didSet {
-            ballsLeftLabel.text = "Balls: \(ballsLeft)"
-        }
-    }
-    
+    var newGameLabel: SKLabelNode!
+    var resultLabel: SKLabelNode!
     var ballsLeftLabel: SKLabelNode!
+    var scoreLabel: SKLabelNode!
     
     var boxesLeft = 17
-    
-    var scoreLabel: SKLabelNode!
     
     var score = 0 {
         didSet {
@@ -29,8 +24,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    var newGameLabel: SKLabelNode!
-    
+    var ballsLeft = 5 {
+        didSet {
+            ballsLeftLabel.text = "Balls: \(ballsLeft)"
+        }
+    }
+
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: 512, y: 384)
@@ -38,20 +37,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = -1
         addChild(background)
         
+        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        newGameLabel.text = "New Game"
+        newGameLabel.position = CGPoint(x: 120, y: 700)
+        addChild(newGameLabel)
+        
+        resultLabel = SKLabelNode(fontNamed: "Chalkduster")
+        resultLabel.text = ""
+        resultLabel.fontSize = 40
+        resultLabel.horizontalAlignmentMode = .center
+        resultLabel.position = CGPoint(x: 512, y: 690)
+        addChild(resultLabel)
+
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.text = "Score: 0"
         scoreLabel.horizontalAlignmentMode = .right
         scoreLabel.position = CGPoint(x: 980, y: 700)
         addChild(scoreLabel)
         
-        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
-        newGameLabel.text = "New Game"
-        newGameLabel.position = CGPoint(x: 120, y: 700)
-        addChild(newGameLabel)
-        
         ballsLeftLabel = SKLabelNode(fontNamed: "Chalkduster")
         ballsLeftLabel.text = "Balls: 5"
-        ballsLeftLabel.position = CGPoint(x: 500, y: 700)
+        ballsLeftLabel.horizontalAlignmentMode = .right
+        ballsLeftLabel.position = CGPoint(x: 980, y: 650)
         addChild(ballsLeftLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
@@ -73,6 +80,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func newGame() {
         ballsLeft = 5
+        resultLabel.text = ""
+        boxesLeft = 17
         
         for node in children {
             if node.name == "ball" || node.name == "box" {
@@ -83,15 +92,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeRandomBoxes()
     }
     
-    func restart(_ action: UIAlertAction) {
-        newGame()
-        score = 0
-    }
-    
-    func levelUp(_ action: UIAlertAction) {
-        newGame()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -99,11 +99,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let objects = nodes(at: location)
         
         if objects.contains(newGameLabel) {
-            newGame()
-            score = 0
+            if newGameLabel.text == "New Game" {
+                newGame()
+                score = 0
+            } else {
+                newGame()
+                newGameLabel.text = "New Game"
+            }
             
         } else {
-            if ballsLeft > 0 {
+            if ballsLeft > 0 && newGameLabel.text != "Level Up" {
                 let ball = SKSpriteNode(imageNamed: balls.randomElement() ?? "ballRed")
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
                 ball.physicsBody?.restitution = 0.4
@@ -171,13 +176,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spinForever = SKAction.repeatForever(spin)
         slotGlow.run(spinForever)
     }
+    
+    func manageResult() {
+        if boxesLeft == 0 {
+            resultLabel.text = "VICTORY"
+            resultLabel.fontColor = UIColor.green
+            
+            newGameLabel.text = "Level Up"
+            
+        } else if ballsLeft == 0 && boxesLeft > 0 {
+            resultLabel.text = "DEFEAT"
+            resultLabel.fontColor = UIColor.red
+        }
+    }
 
     func collision(between ball: SKNode, object: SKNode) {
         if object.name == "good" {
             destroy(ball: ball)
             ballsLeft += 1
+            manageResult()
         } else if object.name == "bad" {
             destroy(ball: ball)
+            manageResult()
         } else if object.name == "box" {
             object.removeFromParent()
             score += 1
@@ -192,16 +212,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         ball.removeFromParent()
-        
-        if ballsLeft == 0 && boxesLeft > 0 {
-            let ac = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "New Game", style: .default, handler: restart))
-            view?.window?.rootViewController?.present(ac, animated: true)
-        } else if boxesLeft == 0 {
-            let ac = UIAlertController(title: "Level completed!", message: "Are you ready for the next level?", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: levelUp))
-            view?.window?.rootViewController?.present(ac, animated: true)
-        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
