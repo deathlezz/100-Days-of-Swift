@@ -184,7 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             newGameLabel.text = "Level Up"
             
-        } else if ballsLeft == 0 && boxesLeft > 0 {
+        } else if ballsLeft == 0 && boxesLeft > 0 && !areBallsInPlay() {
             resultLabel.text = "DEFEAT"
             resultLabel.fontColor = UIColor.red
         }
@@ -203,6 +203,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score += 1
             boxesLeft -= 1
         }
+    }
+    
+    func areBallsInPlay() -> Bool {
+        for node in children {
+            if node.name == "ball" {
+                return true
+            }
+        }
+        return false
     }
     
     func destroy(ball: SKNode) {
