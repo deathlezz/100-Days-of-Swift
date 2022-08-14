@@ -56,7 +56,7 @@ class ViewController: UITableViewController {
             viewCount[pictures[indexPath.row], default: 0] += 1
             save()
             navigationController?.pushViewController(vc, animated: true)
-            tableView.reloadData()
+            tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
     
@@ -72,5 +72,6 @@ class ViewController: UITableViewController {
         let defaults = UserDefaults.standard
         defaults.set(viewCount, forKey: "ViewCount")
     }
+
 }
 
