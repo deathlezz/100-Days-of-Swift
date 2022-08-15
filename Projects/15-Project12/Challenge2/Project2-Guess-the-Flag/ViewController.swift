@@ -72,7 +72,13 @@ class ViewController: UIViewController {
             present(ac, animated: true)
 
         } else {
-            let ac = UIAlertController(title: "Game Over", message: "Your final score is \(score)", preferredStyle: .alert)
+            
+            if score > topScore {
+                topScore = score
+                saveTopScore()
+            }
+            
+            let ac = UIAlertController(title: "Game Over", message: "Your final score is \(score)\n Your best score is \(topScore)", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "New Game", style: .default, handler: askQuestion))
             present(ac, animated: true)
             
