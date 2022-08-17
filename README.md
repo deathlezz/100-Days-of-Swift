@@ -16,3 +16,4 @@
 - [Milestone: Projects 7-9](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/12-Milestone-Projects7-9) - [Course](https://www.hackingwithswift.com/100/41)
 - [Project 10: Names to Faces](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/13-Project10) - [Course](https://www.hackingwithswift.com/100/42)
 - [Project 11: Pachinko](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/14-Project11) - [Course](https://www.hackingwithswift.com/100/45)
+- [Project 12: UserDefaults](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/15-Project12) - [Course](https://www.hackingwithswift.com/100/48)
