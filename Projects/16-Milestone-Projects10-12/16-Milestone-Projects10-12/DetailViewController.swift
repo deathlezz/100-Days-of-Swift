@@ -11,7 +11,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     
-    var pictures: [Picture]!
     var selectedImage: Picture!
     var selectedImageNumber: Int?
     var totalPictures: Int?
@@ -38,7 +37,7 @@ class DetailViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak alert, weak self] _ in
                 guard let newName = alert?.textFields?[0].text else { return }
                 self?.selectedImage.name = newName
-                self?.title = "\(self!.selectedImage.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
+                self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
             })
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))

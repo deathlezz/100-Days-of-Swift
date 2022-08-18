@@ -98,18 +98,20 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         cell.pictureView.layer.cornerRadius = 5
         cell.pictureView.layer.borderColor = UIColor.black.cgColor
         cell.pictureView.layer.borderWidth = 0.1
-
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
-            vc.pictures = pictures
             vc.selectedImage = pictures[indexPath.row]
             vc.selectedImageNumber = indexPath.row + 1
             vc.totalPictures = pictures.count
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
 }
