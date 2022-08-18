@@ -88,7 +88,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath) as? PictureCell else {
-            fatalError("Unable to dequeue PersonCell")
+            fatalError("Unable to dequeue PictureCell")
         }
         
         let path = getDocumentDirectory().appendingPathComponent(pictures[indexPath.row].image)
@@ -100,6 +100,16 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         cell.pictureView.layer.borderWidth = 0.1
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.pictures = pictures
+            vc.selectedImage = pictures[indexPath.row]
+            vc.selectedImageNumber = indexPath.row + 1
+            vc.totalPictures = pictures.count
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
 }

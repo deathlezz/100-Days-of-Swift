@@ -73,13 +73,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2VL-bB-yy4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VL-bB-yy4">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="afD-6u-pG7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2VL-bB-yy4" secondAttribute="trailing" id="B3v-Td-dQ4"/>
+                            <constraint firstAttribute="bottom" secondItem="2VL-bB-yy4" secondAttribute="bottom" id="Cd9-Gd-tsK"/>
+                            <constraint firstItem="2VL-bB-yy4" firstAttribute="leading" secondItem="8Eq-qY-gTr" secondAttribute="leading" id="TwV-yU-acF"/>
+                            <constraint firstItem="2VL-bB-yy4" firstAttribute="top" secondItem="8Eq-qY-gTr" secondAttribute="top" id="pb6-Py-6Iz"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="2VL-bB-yy4" id="cB3-I6-I6a"/>
