@@ -30,21 +30,14 @@ class DetailViewController: UIViewController {
     }
     
     @objc func editPhoto() {
-        let ac = UIAlertController(title: "Edit", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Change name", style: .default) { [weak self] _ in
-            let alert = UIAlertController(title: "Enter new name", message: nil, preferredStyle: .alert)
-            alert.addTextField()
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak alert, weak self] _ in
-                guard let newName = alert?.textFields?[0].text else { return }
-                self?.selectedImage.name = newName
-                self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
-            })
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self?.present(alert, animated: true)
+        let ac = UIAlertController(title: "Enter new name", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak ac, weak self] _ in
+            guard let newName = ac?.textFields?[0].text else { return }
+            self?.selectedImage.name = newName
+            self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
         })
         
-        ac.addAction(UIAlertAction(title: "Delete", style: .destructive))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
