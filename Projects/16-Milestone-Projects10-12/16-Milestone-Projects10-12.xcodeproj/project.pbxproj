@@ -16,6 +16,7 @@
 		52E7AF4E28AD5E1B005121D7 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7AF4D28AD5E1B005121D7 /* Picture.swift */; };
 		52E7AF5028AD5EB3005121D7 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7AF4F28AD5EB3005121D7 /* PictureCell.swift */; };
 		52E7AF5228AD83CE005121D7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7AF5128AD83CE005121D7 /* DetailViewController.swift */; };
+		52EDAF5128B0EB4900512BF5 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EDAF5028B0EB4900512BF5 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		52E7AF4D28AD5E1B005121D7 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		52E7AF4F28AD5EB3005121D7 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 		52E7AF5128AD83CE005121D7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		52EDAF5028B0EB4900512BF5 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				52E7AF5128AD83CE005121D7 /* DetailViewController.swift */,
 				52E7AF4D28AD5E1B005121D7 /* Picture.swift */,
 				52E7AF4F28AD5EB3005121D7 /* PictureCell.swift */,
+				52EDAF5028B0EB4900512BF5 /* Utilities.swift */,
 				52E7AF3F28AD50A5005121D7 /* Main.storyboard */,
 				52E7AF4228AD50A7005121D7 /* Assets.xcassets */,
 				52E7AF4428AD50A7005121D7 /* LaunchScreen.storyboard */,
@@ -149,6 +152,7 @@
 			files = (
 				52E7AF4E28AD5E1B005121D7 /* Picture.swift in Sources */,
 				52E7AF3E28AD50A5005121D7 /* ViewController.swift in Sources */,
+				52EDAF5128B0EB4900512BF5 /* Utilities.swift in Sources */,
 				52E7AF5028AD5EB3005121D7 /* PictureCell.swift in Sources */,
 				52E7AF5228AD83CE005121D7 /* DetailViewController.swift in Sources */,
 				52E7AF3A28AD50A5005121D7 /* AppDelegate.swift in Sources */,

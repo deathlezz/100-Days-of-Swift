@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     
+    var pictures: [Picture]!
     var selectedImage: Picture!
     var selectedImageNumber: Int?
     var totalPictures: Int?
@@ -25,7 +26,7 @@ class DetailViewController: UIViewController {
         title = "\(selectedImage!.name) | \(selectedImageNumber!) of \(totalPictures!)"
         navigationItem.largeTitleDisplayMode = .never
         
-        let path = ViewController().getDocumentDirectory().appendingPathComponent(selectedImage!.image)
+        let path = Utilities.getDocumentDirectory().appendingPathComponent(selectedImage!.image)
         imageView.image = UIImage(contentsOfFile: path.path)
     }
     
@@ -35,22 +36,12 @@ class DetailViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak ac, weak self] _ in
             guard let newName = ac?.textFields?[0].text else { return }
             self?.selectedImage.name = newName
+            Utilities.savePicture(self!.pictures)
             self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
         })
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

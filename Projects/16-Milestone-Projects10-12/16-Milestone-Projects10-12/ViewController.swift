@@ -18,6 +18,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         tableView.rowHeight = 100
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPicture))
+        
+        pictures = Utilities.loadPicture()
     }
     
     @objc func addPicture() {
@@ -55,7 +57,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         guard let image = info[.editedImage] as? UIImage else { return }
         
         let imageName = UUID().uuidString
-        let imagePath = getDocumentDirectory().appendingPathComponent(imageName)
+        let imagePath = Utilities.getDocumentDirectory().appendingPathComponent(imageName)
         
         if let jpegData = image.jpegData(compressionQuality: 1) {
             try? jpegData.write(to: imagePath)
@@ -70,16 +72,12 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             let picture = Picture(name: caption, image: imageName)
             let indexPath = IndexPath(row: 0, section: 0)
             self?.pictures.insert(picture, at: 0)
+            Utilities.savePicture(self!.pictures)
             self?.tableView.insertRows(at: [indexPath], with: .automatic)
         })
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
-    }
-    
-    func getDocumentDirectory() -> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return path[0]
     }
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,7 +89,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             fatalError("Unable to dequeue PictureCell")
         }
         
-        let path = getDocumentDirectory().appendingPathComponent(pictures[indexPath.row].image)
+        let path = Utilities.getDocumentDirectory().appendingPathComponent(pictures[indexPath.row].image)
         
         cell.pictureLabel.text = pictures[indexPath.row].name
         cell.pictureView.image = UIImage(contentsOfFile: path.path)
@@ -103,6 +101,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.pictures = pictures
             vc.selectedImage = pictures[indexPath.row]
             vc.selectedImageNumber = indexPath.row + 1
             vc.totalPictures = pictures.count
@@ -117,6 +116,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             pictures.remove(at: indexPath.row)
+            Utilities.savePicture(pictures)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
