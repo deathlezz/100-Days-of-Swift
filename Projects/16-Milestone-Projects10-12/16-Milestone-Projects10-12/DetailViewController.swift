@@ -37,10 +37,6 @@ class DetailViewController: UIViewController {
             guard let newName = ac?.textFields?[0].text else { return }
             self?.selectedImage.name = newName
             
-//            self?.performSelector(inBackground: #selector(Utilities.savePicture), with: nil)
-            
-//            Utilities.savePicture(self!.pictures)
-            
             DispatchQueue.global().async { [weak self] in
                 Utilities.savePicture(self!.pictures)
                 
@@ -48,7 +44,7 @@ class DetailViewController: UIViewController {
                     self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
                 }
             }
-//            self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
+            
         })
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
