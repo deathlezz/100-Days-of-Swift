@@ -14,7 +14,7 @@ class Utilities {
         return path[0]
     }
     
-    static func savePicture(_ pictures: [Picture]) {
+    @objc static func savePicture(_ pictures: [Picture]) {
         let jsonEncoder = JSONEncoder()
         
         if let savedPictures = try? jsonEncoder.encode(pictures) {
@@ -25,7 +25,7 @@ class Utilities {
         }
     }
     
-    static func loadPicture() -> [Picture] {
+    @objc static func loadPicture() -> [Picture] {
         let defaults = UserDefaults.standard
         
         if let savedPictures = defaults.object(forKey: "pictures") as? Data {

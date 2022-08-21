@@ -36,8 +36,19 @@ class DetailViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak ac, weak self] _ in
             guard let newName = ac?.textFields?[0].text else { return }
             self?.selectedImage.name = newName
-            Utilities.savePicture(self!.pictures)
-            self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
+            
+//            self?.performSelector(inBackground: #selector(Utilities.savePicture), with: nil)
+            
+//            Utilities.savePicture(self!.pictures)
+            
+            DispatchQueue.global().async { [weak self] in
+                Utilities.savePicture(self!.pictures)
+                
+                DispatchQueue.main.async {
+                    self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
+                }
+            }
+//            self?.title = "\(self!.selectedImage!.name) | \(self!.selectedImageNumber!) of \(self!.totalPictures!)"
         })
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))

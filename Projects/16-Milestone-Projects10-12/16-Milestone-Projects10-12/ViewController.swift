@@ -19,7 +19,10 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPicture))
         
-        pictures = Utilities.loadPicture()
+        DispatchQueue.global().async { [weak self] in
+            self?.pictures = Utilities.loadPicture()
+        }
+        
     }
     
     @objc func addPicture() {
@@ -56,28 +59,39 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         
-        let imageName = UUID().uuidString
-        let imagePath = Utilities.getDocumentDirectory().appendingPathComponent(imageName)
-        
-        if let jpegData = image.jpegData(compressionQuality: 1) {
-            try? jpegData.write(to: imagePath)
+        DispatchQueue.global().async { [weak self] in
+            let imageName = UUID().uuidString
+            let imagePath = Utilities.getDocumentDirectory().appendingPathComponent(imageName)
+            
+            if let jpegData = image.jpegData(compressionQuality: 1) {
+                try? jpegData.write(to: imagePath)
+            }
+            
+            DispatchQueue.main.async {
+                self?.dismiss(animated: true)
+                
+                let ac = UIAlertController(title: "Enter caption", message: nil, preferredStyle: .alert)
+                ac.addTextField()
+                ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak ac, weak self] _ in
+                    guard let caption = ac?.textFields?[0].text else { return }
+                    let picture = Picture(name: caption, image: imageName)
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    self?.pictures.insert(picture, at: 0)
+                    
+                    DispatchQueue.global().async { [weak self] in
+                        Utilities.savePicture(self!.pictures)
+                        
+                        DispatchQueue.main.async {
+                            self?.tableView.insertRows(at: [indexPath], with: .automatic)
+                        }
+                    }
+                
+                })
+                
+                ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                self?.present(ac, animated: true)
+            }
         }
-        
-        dismiss(animated: true)
-        
-        let ac = UIAlertController(title: "Enter caption", message: nil, preferredStyle: .alert)
-        ac.addTextField()
-        ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak ac, weak self] _ in
-            guard let caption = ac?.textFields?[0].text else { return }
-            let picture = Picture(name: caption, image: imageName)
-            let indexPath = IndexPath(row: 0, section: 0)
-            self?.pictures.insert(picture, at: 0)
-            Utilities.savePicture(self!.pictures)
-            self?.tableView.insertRows(at: [indexPath], with: .automatic)
-        })
-        
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
     }
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,14 +124,23 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             pictures.remove(at: indexPath.row)
-            Utilities.savePicture(pictures)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            DispatchQueue.global().async { [weak self] in
+                Utilities.savePicture(self!.pictures)
+                
+                DispatchQueue.main.async {
+                    self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+        
         }
     }
 
