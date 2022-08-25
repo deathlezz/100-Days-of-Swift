@@ -55,7 +55,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Change Filter"/>
                                 <connections>
-                                    <action selector="intensity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="phJ-IS-2Jb"/>
+                                    <action selector="changeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="18q-aD-F6I"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yh-St-Kjz">
@@ -92,7 +92,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q8n-eR-hYd"/>
                     <connections>
-                        <outlet property="changeFilter" destination="m19-xO-EqH" id="lu7-Uz-FzJ"/>
                         <outlet property="imageView" destination="rtZ-Hc-4vD" id="J5z-SM-Jo7"/>
                         <outlet property="intensity" destination="wDZ-mj-nSL" id="HMz-0u-TNM"/>
                     </connections>
