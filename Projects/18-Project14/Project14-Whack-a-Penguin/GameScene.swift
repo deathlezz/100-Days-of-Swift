@@ -52,6 +52,11 @@ class GameScene: SKScene {
         let tappedNodes = nodes(at: location)
         
         for node in tappedNodes {
+            if node.name == "newGameLabel" {
+                newGame()
+                return
+            }
+            
             guard let whackSlot = node.parent?.parent as? WhackSlot else { continue }
             
             if !whackSlot.isVisible { continue }
@@ -74,6 +79,24 @@ class GameScene: SKScene {
         }
     }
     
+    func newGame() {
+        score = 0
+        popupTime = 0.85
+        numRounds = 0
+        
+        for child in children {
+            if child.name == "gameOver" || child.name == "finalScore" || child.name == "newGameLabel" {
+                child.removeFromParent()
+            }
+        }
+        
+        run(SKAction.playSoundFileNamed("smb_coin", waitForCompletion: false))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.createEnemy()
+        }
+    }
+    
     func createSlot(at position: CGPoint) {
         let slot = WhackSlot()
         slot.configure(at: position)
@@ -91,8 +114,31 @@ class GameScene: SKScene {
             
             let gameOver = SKSpriteNode(imageNamed: "gameOver")
             gameOver.position = CGPoint(x: 512, y: 384)
-            gameOver.zPosition = 1
+            gameOver.zPosition = 2
+            gameOver.name = "gameOver"
+            
+            let finalScore = SKLabelNode(fontNamed: "Chalkduster")
+            finalScore.position = CGPoint(x: 512, y: 304)
+            finalScore.fontSize = 32
+            finalScore.text = "Final Score: \(score)"
+            finalScore.horizontalAlignmentMode = .center
+            finalScore.zPosition = 2
+            finalScore.name = "finalScore"
+            
+            let newGameLabel = SKLabelNode(fontNamed: "Verdana Bold")
+            newGameLabel.text = "> NEW GAME <"
+            newGameLabel.position = CGPoint(x: 512, y: 244)
+            newGameLabel.fontSize = 28
+            newGameLabel.horizontalAlignmentMode = .center
+            newGameLabel.zPosition = 2
+            newGameLabel.name = "newGameLabel"
+            
+            run(SKAction.playSoundFileNamed("smb_mariodie", waitForCompletion: false))
+            
+            addChild(finalScore)
             addChild(gameOver)
+            addChild(newGameLabel)
+            
             return
         }
         
