@@ -19,3 +19,4 @@
 - [Project 12: UserDefaults](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/15-Project12) - [Course](https://www.hackingwithswift.com/100/48)
 - [Milestone: Projects 10-12](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/16-Milestone-Projects10-12) - [Course](https://www.hackingwithswift.com/100/50)
 - [Project 13: Instafilter](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/17-Project13) - [Course](https://www.hackingwithswift.com/100/52)
+- [Project 14: Whack-a-Penguin](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/18-Project14) - [Course](https://www.hackingwithswift.com/100/55)
