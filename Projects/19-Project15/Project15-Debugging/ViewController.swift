@@ -13,9 +13,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        print("Some message", terminator: "")
+        assert(myReallySlowMethod() == true, "The slow method returned false, which is a bad thing!")
     }
 
+    func myReallySlowMethod() -> Bool {
+        return false
+    }
 
 }
 
