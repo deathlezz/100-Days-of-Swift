@@ -9,7 +9,7 @@ import Foundation
 
 struct Country: Codable {
     let name: String
-    let flag: String
+    let alpha2Code: String
     let population: Int
     let subregion: String
     let capital: String?
