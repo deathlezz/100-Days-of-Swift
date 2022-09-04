@@ -63,6 +63,57 @@
             </objects>
             <point key="canvasLocation" x="684.61538461538464" y="92.417061611374407"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="dNl-ko-syO">
+            <objects>
+                <tableViewController storyboardIdentifier="Detail" id="vEr-it-8lg" customClass="DetailViewController" customModule="Milestone_Projects13_15" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="3g2-X6-NiV">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Text" id="Rli-CS-4kj">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rli-CS-4kj" id="wyd-4Z-m6i">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Flag" rowHeight="180" id="wi7-Va-ruV" customClass="FlagCell" customModule="Milestone_Projects13_15" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88.333333969116211" width="390" height="180"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wi7-Va-ruV" id="JAo-Hx-gBd">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="180"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="48s-fV-6Xp">
+                                            <rect key="frame" x="55" y="6" width="280" height="168"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerY" secondItem="JAo-Hx-gBd" secondAttribute="centerY" id="0Lo-OV-KsJ"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="height" secondItem="JAo-Hx-gBd" secondAttribute="height" multiplier="0.933333" id="MQU-0v-vaw"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="width" secondItem="JAo-Hx-gBd" secondAttribute="height" multiplier="14:9" id="Rjl-6D-vYg"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerX" secondItem="JAo-Hx-gBd" secondAttribute="centerX" id="XkL-hT-GkW"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="width" secondItem="JAo-Hx-gBd" secondAttribute="width" multiplier="0.717949" id="hcF-r8-yfL"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="flagView" destination="48s-fV-6Xp" id="L0g-by-Blp"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vEr-it-8lg" id="kpY-wT-Y5g"/>
+                            <outlet property="delegate" destination="vEr-it-8lg" id="81I-2G-n9a"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Fg-zZ-rQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1597" y="92"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uWH-uj-3Md">
             <objects>

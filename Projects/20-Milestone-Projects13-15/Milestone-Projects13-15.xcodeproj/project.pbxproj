@@ -515,6 +515,8 @@
 		52C3690628C36B3100DDC12D /* flag_hd_KZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C3671228C36B3000DDC12D /* flag_hd_KZ.png */; };
 		52C3690728C36B3100DDC12D /* flag_hd_IR.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C3671328C36B3000DDC12D /* flag_hd_IR.png */; };
 		52C3690828C36B3100DDC12D /* flag_hd_KM.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C3671428C36B3000DDC12D /* flag_hd_KM.png */; };
+		52F7133D28C4A14600FC08FF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F7133C28C4A14600FC08FF /* DetailViewController.swift */; };
+		52F7133F28C4A2B200FC08FF /* FlagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F7133E28C4A2B200FC08FF /* FlagCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1028,6 +1030,8 @@
 		52C3671228C36B3000DDC12D /* flag_hd_KZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_hd_KZ.png; sourceTree = "<group>"; };
 		52C3671328C36B3000DDC12D /* flag_hd_IR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_hd_IR.png; sourceTree = "<group>"; };
 		52C3671428C36B3000DDC12D /* flag_hd_KM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_hd_KM.png; sourceTree = "<group>"; };
+		52F7133C28C4A14600FC08FF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		52F7133E28C4A2B200FC08FF /* FlagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1063,9 +1067,11 @@
 				527ED2C028C1F6B900E3465E /* AppDelegate.swift */,
 				527ED2C228C1F6B900E3465E /* SceneDelegate.swift */,
 				527ED2C428C1F6B900E3465E /* ViewController.swift */,
+				52F7133C28C4A14600FC08FF /* DetailViewController.swift */,
 				527ED2D428C1FA0000E3465E /* Country.swift */,
 				52C3651D28C3482C00DDC12D /* CountryCell.swift */,
 				527ED2C628C1F6B900E3465E /* Main.storyboard */,
+				52F7133E28C4A2B200FC08FF /* FlagCell.swift */,
 				527ED2C928C1F6BB00E3465E /* Assets.xcassets */,
 				527ED2CB28C1F6BB00E3465E /* LaunchScreen.storyboard */,
 				527ED2CE28C1F6BB00E3465E /* Info.plist */,
@@ -2163,7 +2169,9 @@
 				527ED2D528C1FA0000E3465E /* Country.swift in Sources */,
 				527ED2C528C1F6B900E3465E /* ViewController.swift in Sources */,
 				52C3651E28C3482C00DDC12D /* CountryCell.swift in Sources */,
+				52F7133D28C4A14600FC08FF /* DetailViewController.swift in Sources */,
 				527ED2C128C1F6B900E3465E /* AppDelegate.swift in Sources */,
+				52F7133F28C4A2B200FC08FF /* FlagCell.swift in Sources */,
 				527ED2C328C1F6B900E3465E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
