@@ -131,5 +131,4 @@ class DetailViewController: UITableViewController {
         let vc = UIActivityViewController(activityItems: [image, text], applicationActivities: [])
         present(vc, animated: true)
     }
-    
 }
