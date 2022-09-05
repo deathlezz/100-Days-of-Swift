@@ -34,6 +34,7 @@ class ViewController: UITableViewController {
             self?.submit(word)
             self?.tableView.reloadData()
         })
+        
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
@@ -101,6 +102,5 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
 }
 

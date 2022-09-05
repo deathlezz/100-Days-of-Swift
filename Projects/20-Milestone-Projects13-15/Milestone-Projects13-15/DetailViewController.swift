@@ -10,10 +10,8 @@ import UIKit
 class DetailViewController: UITableViewController {
     
     var country: Country!
-    
-    let sectionTitles = ["Flag", "General", "Currencies", "Languages"]
-    
     let formatter = NumberFormatter()
+    let sectionTitles = ["Flag", "General", "Currencies", "Languages"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +20,6 @@ class DetailViewController: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
-
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
