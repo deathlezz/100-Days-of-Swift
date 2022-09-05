@@ -12,12 +12,16 @@ class DetailViewController: UITableViewController {
     var country: Country!
     
     let sectionTitles = ["Flag", "General", "Currencies", "Languages"]
+    
+    let formatter = NumberFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = country.name
         navigationItem.largeTitleDisplayMode = .never
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
 
     }
     
@@ -34,7 +38,7 @@ class DetailViewController: UITableViewController {
         case "Flag":
             return 1
         case "General":
-            return 5
+            return 6
         case "Currencies":
             return country.currencies?.count ?? 1
         case "Languages":
@@ -47,7 +51,6 @@ class DetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sectionTitles[indexPath.section] {
         case "Flag":
-
             if let cell = tableView.dequeueReusableCell(withIdentifier: "Flag", for: indexPath) as? FlagCell {
                 cell.flagView.image = UIImage(named: "flag_hd_\(country.alpha2Code)")
                 cell.flagView.layer.borderWidth = 0.5
@@ -58,6 +61,7 @@ class DetailViewController: UITableViewController {
         case "General":
             let cell = tableView.dequeueReusableCell(withIdentifier: "Text", for: indexPath)
             cell.textLabel?.numberOfLines = 0
+            formatter.numberStyle = .decimal
             
             switch indexPath.row {
             case 0:
@@ -65,11 +69,13 @@ class DetailViewController: UITableViewController {
             case 1:
                 cell.textLabel?.text = "Capital: \(country.capital ?? "N/A")"
             case 2:
-                cell.textLabel?.text = "Region: \(country.subregion)"
+                cell.textLabel?.text = "Region: \(country.region)"
             case 3:
-                cell.textLabel?.text = "Population: \(country.population)"
+                cell.textLabel?.text = "Subregion: \(country.subregion)"
             case 4:
-                cell.textLabel?.text = "Area: \(country.area ?? 0) km²"
+                cell.textLabel?.text = "Population: \(formatter.string(for: country.population) ?? "N/A")"
+            case 5:
+                cell.textLabel?.text = "Area: \(formatter.string(for: country.area) ?? "N/A") km²"
             default:
                 return cell
             }
@@ -92,6 +98,41 @@ class DetailViewController: UITableViewController {
         }
         
         return UITableViewCell()
+    }
+    
+    @objc func shareTapped() {
+        guard let image = UIImage(named: "flag_hd_\(country.alpha2Code)")?.jpegData(compressionQuality: 0.8) else {
+            print("Image not found.")
+            return
+        }
+        
+        var text = """
+        GENERAL
+            Name: \(country.name)
+            Capital: \(country.capital ?? "N/A")
+            Region: \(country.region)
+            Subregion: \(country.subregion)
+            Population: \(formatter.string(for: country.population) ?? "N/A")
+            Area: \(formatter.string(for: country.area) ?? "N/A") km²
+        CURRENCIES
+        """
+        
+        if country.currencies == nil {
+            text.append("\n    N/A")
+        } else {
+            for currency in country.currencies! {
+                text.append(contentsOf: "\n    \(currency.code)")
+            }
+        }
+        
+        text.append("\nLANGUAGES")
+        
+        for language in country.languages {
+            text.append(contentsOf: "\n    \(language.name)")
+        }
+        
+        let vc = UIActivityViewController(activityItems: [image, text], applicationActivities: [])
+        present(vc, animated: true)
     }
     
 }

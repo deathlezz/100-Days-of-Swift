@@ -11,8 +11,6 @@ class ViewController: UITableViewController {
     
     var countries = [Country]()
     var filteredCountries = [Country]()
-    var currencies = [Currency]()
-    var language: Language!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +21,9 @@ class ViewController: UITableViewController {
         title = "Countries"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        loadData()
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterTapped))
+        
+        performSelector(inBackground: #selector(loadData), with: nil)
     }
     
     @objc func filterTapped() {
@@ -74,7 +72,8 @@ class ViewController: UITableViewController {
         if let jsonCountries = try? decoder.decode([Country].self, from: json) {
             countries = jsonCountries
             filteredCountries = countries
-            tableView.reloadData()
+            
+            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         }
     }
     

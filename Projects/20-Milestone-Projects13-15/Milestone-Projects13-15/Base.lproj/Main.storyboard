@@ -24,13 +24,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gwW-pA-Fxg">
-                                            <rect key="frame" x="5" y="5" width="100" height="60"/>
+                                            <rect key="frame" x="9" y="5" width="100" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="rhp-N5-lWY"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFA-eJ-1ha">
-                                            <rect key="frame" x="113" y="24" width="240" height="22"/>
+                                            <rect key="frame" x="117" y="24" width="236" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                                     <constraints>
                                         <constraint firstItem="tFA-eJ-1ha" firstAttribute="top" secondItem="hBI-ZO-NUd" secondAttribute="topMargin" constant="13" id="09t-D5-orX"/>
                                         <constraint firstItem="gwW-pA-Fxg" firstAttribute="centerY" secondItem="hBI-ZO-NUd" secondAttribute="centerY" id="33q-Sg-cn4"/>
-                                        <constraint firstItem="gwW-pA-Fxg" firstAttribute="leading" secondItem="hBI-ZO-NUd" secondAttribute="leadingMargin" constant="-15" id="ANV-yV-0dq"/>
+                                        <constraint firstItem="gwW-pA-Fxg" firstAttribute="leading" secondItem="hBI-ZO-NUd" secondAttribute="leadingMargin" constant="-11" id="ANV-yV-0dq"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="tFA-eJ-1ha" secondAttribute="trailing" constant="0.33333333333331439" id="Vid-m1-ggG"/>
                                         <constraint firstItem="gwW-pA-Fxg" firstAttribute="centerY" secondItem="tFA-eJ-1ha" secondAttribute="centerY" id="pW3-TH-Igz"/>
                                         <constraint firstItem="gwW-pA-Fxg" firstAttribute="top" secondItem="hBI-ZO-NUd" secondAttribute="topMargin" constant="-6" id="qSc-SO-5eL"/>
@@ -89,14 +89,19 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="48s-fV-6Xp">
                                             <rect key="frame" x="55" y="6" width="280" height="168"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="168" id="4nA-U1-q7K"/>
+                                                <constraint firstAttribute="width" secondItem="48s-fV-6Xp" secondAttribute="height" multiplier="5:3" id="igH-fO-ari"/>
+                                            </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerY" secondItem="JAo-Hx-gBd" secondAttribute="centerY" id="0Lo-OV-KsJ"/>
-                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="height" secondItem="JAo-Hx-gBd" secondAttribute="height" multiplier="0.933333" id="MQU-0v-vaw"/>
-                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="width" secondItem="JAo-Hx-gBd" secondAttribute="height" multiplier="14:9" id="Rjl-6D-vYg"/>
-                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerX" secondItem="JAo-Hx-gBd" secondAttribute="centerX" id="XkL-hT-GkW"/>
-                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="width" secondItem="JAo-Hx-gBd" secondAttribute="width" multiplier="0.717949" id="hcF-r8-yfL"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JAo-Hx-gBd" secondAttribute="leading" constant="55" id="ab6-mM-CBj"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JAo-Hx-gBd" secondAttribute="top" constant="6" id="bTl-2N-gw8"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="48s-fV-6Xp" secondAttribute="trailing" constant="55" id="dor-Mo-qhy"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="48s-fV-6Xp" secondAttribute="bottom" constant="6" id="fh7-xw-niD"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerY" secondItem="JAo-Hx-gBd" secondAttribute="centerY" id="mrj-VO-6Hx"/>
+                                        <constraint firstItem="48s-fV-6Xp" firstAttribute="centerX" secondItem="JAo-Hx-gBd" secondAttribute="centerX" id="wiu-wN-ral"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
