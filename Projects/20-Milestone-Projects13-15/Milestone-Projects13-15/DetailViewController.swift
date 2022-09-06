@@ -72,7 +72,8 @@ class DetailViewController: UITableViewController {
             case 4:
                 cell.textLabel?.text = "Population: \(formatter.string(for: country.population) ?? "N/A")"
             case 5:
-                cell.textLabel?.text = "Area: \(formatter.string(for: country.area) ?? "N/A") km²"
+                cell.textLabel?.text = "Area: \(buildArea())"
+                
             default:
                 return cell
             }
@@ -110,7 +111,7 @@ class DetailViewController: UITableViewController {
             Region: \(country.region)
             Subregion: \(country.subregion)
             Population: \(formatter.string(for: country.population) ?? "N/A")
-            Area: \(formatter.string(for: country.area) ?? "N/A") km²
+            Area: \(buildArea())
         CURRENCIES
         """
         
@@ -130,5 +131,12 @@ class DetailViewController: UITableViewController {
         
         let vc = UIActivityViewController(activityItems: [image, text], applicationActivities: [])
         present(vc, animated: true)
+    }
+    
+    func buildArea() -> String {
+        if country.area != nil {
+            return "\(formatter.string(for: country.area) ?? "N/A") km²"
+        }
+        return "N/A"
     }
 }

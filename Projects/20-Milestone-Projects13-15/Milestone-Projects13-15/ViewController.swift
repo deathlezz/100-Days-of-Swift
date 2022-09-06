@@ -15,9 +15,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        tableView.rowHeight = 70
-        
+                
         title = "Countries"
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -27,6 +25,8 @@ class ViewController: UITableViewController {
     }
     
     @objc func filterTapped() {
+        if countries.isEmpty { return }
+        
         let ac = UIAlertController(title: "Filter", message: "Enter a word to filter, leave field empty to reset.", preferredStyle: .alert)
         ac.addTextField()
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak ac, weak self] _ in
