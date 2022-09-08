@@ -41,6 +41,40 @@
             </objects>
             <point key="canvasLocation" x="963.07692307692309" y="79.620853080568722"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="riu-dc-wuE">
+            <objects>
+                <viewController storyboardIdentifier="WebView" id="fdi-22-gjh" customClass="WebViewController" customModule="Project16_Capital_Cities" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NGi-GT-FtJ">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEH-ef-Nld">
+                                <rect key="frame" x="0.0" y="44" width="390" height="800"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kmL-9A-LFd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="SEH-ef-Nld" secondAttribute="bottom" constant="-34" id="857-s9-n4j"/>
+                            <constraint firstItem="SEH-ef-Nld" firstAttribute="top" secondItem="kmL-9A-LFd" secondAttribute="top" id="Khc-ln-K6T"/>
+                            <constraint firstItem="SEH-ef-Nld" firstAttribute="centerX" secondItem="NGi-GT-FtJ" secondAttribute="centerX" id="O0D-D4-nXW"/>
+                            <constraint firstItem="SEH-ef-Nld" firstAttribute="leading" secondItem="kmL-9A-LFd" secondAttribute="leading" id="WpM-kw-KOn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="SEH-ef-Nld" id="d72-ad-gCv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dtF-pO-jBU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1836.9230769230769" y="79.620853080568722"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="gxi-Rc-GfB">
             <objects>
