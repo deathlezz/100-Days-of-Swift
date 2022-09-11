@@ -15,8 +15,13 @@ class ViewController: UIViewController {
         
         print(1, 2, 3, 4, 5, separator: "-", terminator: "")
         print("some message")
+        
+        assert(myReallySlowMethod() == true, "The slow method returned false, which is a bad thing.")
     }
 
+    func myReallySlowMethod() -> Bool {
+        return false
+    }
 
 }
 
