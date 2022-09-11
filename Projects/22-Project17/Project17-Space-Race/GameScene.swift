@@ -44,6 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.position = CGPoint(x: 16, y: 40)
         scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.zPosition = 1
         addChild(scoreLabel)
 
         physicsWorld.gravity = .zero
