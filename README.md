@@ -23,3 +23,4 @@
 - [Project 15: Animation](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/19-Project15) - [Course](https://www.hackingwithswift.com/100/57)
 - [Milestone: Projects 13-15](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/20-Milestone-Projects13-15) - [Course](https://www.hackingwithswift.com/100/59)
 - [Project 16: Capital Cities](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/21-Project16) - [Course](https://www.hackingwithswift.com/100/60)
+- [Project 17: Space Race](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/22-Project17) - [Course](https://www.hackingwithswift.com/100/62)
