@@ -15,9 +15,12 @@ class GameScene: SKScene {
     var grass2: SKSpriteNode!
     var grass3: SKSpriteNode!
     
-    var duckRight: SKSpriteNode!
-    var enemyRight: SKSpriteNode!
-    var enemyLeft: SKSpriteNode!
+    var enemies = ["enemyRight", "enemyLeft"]
+    var friends = ["duckRight", "duckLeft"]
+    
+//    var duckRight: SKSpriteNode!
+//    var enemyRight: SKSpriteNode!
+//    var enemyLeft: SKSpriteNode!
     
     var scoreLabel: SKLabelNode!
     var bulletsLabel: SKLabelNode!
@@ -93,23 +96,15 @@ class GameScene: SKScene {
     
     @objc func createDuck() {
         if !isGameOver {
-            let heights = [200, 410]
-            let sprite = SKSpriteNode(imageNamed: "enemyRight")
-            sprite.position = CGPoint(x: -50, y: heights.randomElement()!)
-            sprite.name = "Enemy"
             
-            if sprite.position.y == 200 {
-                sprite.zPosition = 4
+            if Int.random(in: 0...2) == 0 {
+                createFriend()
             } else {
-                sprite.zPosition = 0
+                createEnemy()
             }
             
-            addChild(sprite)
-            
-            sprite.run(SKAction.moveBy(x: 1150, y: 0, duration: 4))
-            
             gameTimer?.invalidate()
-            gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
+            gameTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.75...3), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
         }
     }
         
@@ -117,12 +112,74 @@ class GameScene: SKScene {
         // Called before each frame is rendered
         
         for node in children {
-            if node.position.x > 1100 {
+            if node.position.x > 1150 && node.position.x < -100 {
                 node.removeFromParent()
             }
         }
     }
     
+    func createEnemy() {
+        let heights = [200, 305, 410]
+//            let widths = [-50, 1100]
+        let enemy = SKSpriteNode(imageNamed: "duckLeft")
+        enemy.position = CGPoint(x: -50, y: heights.randomElement()!)
+        
+        enemy.name = "Enemy"
+        
+        if enemy.position.y == 200 {
+            enemy.texture = SKTexture(imageNamed: "enemyRight")
+            enemy.zPosition = 4
+            enemy.position.x = -50
+        } else if enemy.position.y == 305 {
+            enemy.texture = SKTexture(imageNamed: "enemyLeft")
+            enemy.zPosition = 2
+            enemy.position.x = 1100
+        } else {
+            enemy.texture = SKTexture(imageNamed: "enemyRight")
+            enemy.zPosition = 0
+            enemy.position.x = -50
+        }
+        
+        addChild(enemy)
+        
+        if enemy.zPosition == 4 || enemy.zPosition == 0 && enemy.position.x == -50 {
+            enemy.run(SKAction.moveBy(x: 1200, y: 0, duration: 4))
+        } else if enemy.zPosition == 2 && enemy.position.x == 1100 {
+            enemy.run(SKAction.moveBy(x: -1300, y: 0, duration: 4))
+        }
+    }
+    
+    func createFriend() {
+        let heights = [200, 305, 410]
+//            let widths = [-50, 1100]
+        let friend = SKSpriteNode(imageNamed: "duckLeft")
+        friend.position = CGPoint(x: -50, y: heights.randomElement()!)
+        
+        friend.name = "Friend"
+        
+        if friend.position.y == 200 {
+            friend.texture = SKTexture(imageNamed: "duckRight")
+            friend.zPosition = 4
+            friend.position.x = -50
+        } else if friend.position.y == 305 {
+            friend.texture = SKTexture(imageNamed: "duckLeft")
+            friend.zPosition = 2
+            friend.position.x = 1100
+        } else {
+            friend.texture = SKTexture(imageNamed: "duckRight")
+            friend.zPosition = 0
+            friend.position.x = -50
+        }
+        
+        addChild(friend)
+        
+        if friend.zPosition == 4 || friend.zPosition == 0 && friend.position.x == -50 {
+            friend.run(SKAction.moveBy(x: 1200, y: 0, duration: 4))
+        } else if friend.zPosition == 2 && friend.position.x == 1100 {
+            friend.run(SKAction.moveBy(x: -1300, y: 0, duration: 4))
+        }
+    }
+
     func newGame() {
         score = 0
         bullets = 6
