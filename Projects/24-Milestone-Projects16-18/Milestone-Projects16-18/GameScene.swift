@@ -9,23 +9,21 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    var charNode: SKSpriteNode!
+    
     var background: SKSpriteNode!
     
     var grass1: SKSpriteNode!
     var grass2: SKSpriteNode!
     var grass3: SKSpriteNode!
     
-    var enemies = ["enemyRight", "enemyLeft"]
-    var friends = ["duckRight", "duckLeft"]
-    
-//    var duckRight: SKSpriteNode!
-//    var enemyRight: SKSpriteNode!
-//    var enemyLeft: SKSpriteNode!
-    
     var scoreLabel: SKLabelNode!
     var bulletsLabel: SKLabelNode!
+    var timeLeftLabel: SKLabelNode!
+    var duckTimer: Timer?
     var gameTimer: Timer?
-    var isGameOver = false
+    
+    var gameOverLabel: SKSpriteNode!
     
     var score = 0 {
         didSet {
@@ -36,6 +34,12 @@ class GameScene: SKScene {
     var bullets = 6 {
         didSet {
             bulletsLabel.text = "Bullets: \(bullets)"
+        }
+    }
+    
+    var timeLeft = 59 {
+        didSet {
+            timeLeftLabel.text = ":\(timeLeft)"
         }
     }
     
@@ -62,21 +66,6 @@ class GameScene: SKScene {
         grass3.zPosition = 1
         addChild(grass3)
         
-//        duckRight = SKSpriteNode(imageNamed: "duckRight")
-//        duckRight.position = CGPoint(x: 250, y: 200)
-//        duckRight.zPosition = 4
-//        addChild(duckRight)
-//
-//        enemyLeft = SKSpriteNode(imageNamed: "enemyLeft")
-//        enemyLeft.position = CGPoint(x: 900, y: 305)
-//        enemyLeft.zPosition = 2
-//        addChild(enemyLeft)
-//
-//        enemyRight = SKSpriteNode(imageNamed: "enemyRight")
-//        enemyRight.position = CGPoint(x: 250, y: 410)
-//        enemyRight.zPosition = 0
-//        addChild(enemyRight)
-        
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.fontSize = 42
         scoreLabel.position = CGPoint(x: 10, y: 40)
@@ -89,22 +78,37 @@ class GameScene: SKScene {
         bulletsLabel.position = CGPoint(x: 1014, y: 40)
         bulletsLabel.horizontalAlignmentMode = .right
         bulletsLabel.zPosition = 6
+        bulletsLabel.name = "BulletsLabel"
         addChild(bulletsLabel)
+        
+        timeLeftLabel = SKLabelNode(fontNamed: "Chalkduster")
+        timeLeftLabel.fontSize = 60
+        timeLeftLabel.position = CGPoint(x: 512, y: 50)
+        timeLeftLabel.horizontalAlignmentMode = .center
+        timeLeftLabel.zPosition = 6
+        addChild(timeLeftLabel)
+        
+        gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        gameOverLabel.zPosition = 6
+        gameOverLabel.name = "gameOverLabel"
         
         newGame()
     }
     
     @objc func createDuck() {
-        if !isGameOver {
+        if timeLeft > 0 {
             
             if Int.random(in: 0...2) == 0 {
-                createFriend()
+                createCharacter(type: "duck", duration: Double.random(in: 2...4))
             } else {
-                createEnemy()
+                createCharacter(type: "enemy", duration: Double.random(in: 2...4))
             }
             
-            gameTimer?.invalidate()
-            gameTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.75...3), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
+            duckTimer?.invalidate()
+            duckTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.35...2), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
+        } else {
+            gameOver()
         }
     }
         
@@ -118,73 +122,101 @@ class GameScene: SKScene {
         }
     }
     
-    func createEnemy() {
-        let heights = [200, 305, 410]
-//            let widths = [-50, 1100]
-        let enemy = SKSpriteNode(imageNamed: "duckLeft")
-        enemy.position = CGPoint(x: -50, y: heights.randomElement()!)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let tappedNodes = nodes(at: location)
         
-        enemy.name = "Enemy"
-        
-        if enemy.position.y == 200 {
-            enemy.texture = SKTexture(imageNamed: "enemyRight")
-            enemy.zPosition = 4
-            enemy.position.x = -50
-        } else if enemy.position.y == 305 {
-            enemy.texture = SKTexture(imageNamed: "enemyLeft")
-            enemy.zPosition = 2
-            enemy.position.x = 1100
-        } else {
-            enemy.texture = SKTexture(imageNamed: "enemyRight")
-            enemy.zPosition = 0
-            enemy.position.x = -50
+        for node in tappedNodes {
+            if timeLeft > 0 {
+                if node.name == "slowDuck" && bullets > 0 {
+                    node.removeFromParent()
+                    score -= 2
+                    bullets -= 1
+                } else if node.name == "slowEnemy" && bullets > 0 {
+                    node.removeFromParent()
+                    score += 1
+                    bullets -= 1
+                } else if node.name == "fastDuck" && bullets > 0 {
+                    node.removeFromParent()
+                    score -= 3
+                    bullets -= 1
+                } else if node.name == "fastEnemy" && bullets > 0 {
+                    node.removeFromParent()
+                    score += 2
+                    bullets -= 1
+                } else if node.name == "BulletsLabel" && bullets < 6 {
+                    bullets = 6
+                    bulletsLabel.text = "Bullets: \(bullets)"
+                }
+            }
         }
         
-        addChild(enemy)
-        
-        if enemy.zPosition == 4 || enemy.zPosition == 0 && enemy.position.x == -50 {
-            enemy.run(SKAction.moveBy(x: 1200, y: 0, duration: 4))
-        } else if enemy.zPosition == 2 && enemy.position.x == 1100 {
-            enemy.run(SKAction.moveBy(x: -1300, y: 0, duration: 4))
+        if bullets == 0 {
+            bulletsLabel.text = "RELOAD"
         }
     }
     
-    func createFriend() {
+    func createCharacter(type: String, duration: Double) {
         let heights = [200, 305, 410]
-//            let widths = [-50, 1100]
-        let friend = SKSpriteNode(imageNamed: "duckLeft")
-        friend.position = CGPoint(x: -50, y: heights.randomElement()!)
         
-        friend.name = "Friend"
+        charNode = SKSpriteNode(imageNamed: "duckLeft")
+        charNode.position = CGPoint(x: -50, y: heights.randomElement()!)
         
-        if friend.position.y == 200 {
-            friend.texture = SKTexture(imageNamed: "duckRight")
-            friend.zPosition = 4
-            friend.position.x = -50
-        } else if friend.position.y == 305 {
-            friend.texture = SKTexture(imageNamed: "duckLeft")
-            friend.zPosition = 2
-            friend.position.x = 1100
+        if duration > 2.5 {
+            charNode.name = "slow\(type.capitalized)"
         } else {
-            friend.texture = SKTexture(imageNamed: "duckRight")
-            friend.zPosition = 0
-            friend.position.x = -50
+            charNode.name = "fast\(type.capitalized)"
+            charNode.xScale = 0.8
+            charNode.yScale = 0.8
+        }
+
+        if charNode.position.y == 200 {
+            charNode.texture = SKTexture(imageNamed: "\(type)Right")
+            charNode.position.x = -70
+            charNode.zPosition = 4
+        } else if charNode.position.y == 305 {
+            charNode.texture = SKTexture(imageNamed: "\(type)Left")
+            charNode.position.x = 1100
+            charNode.zPosition = 2
+        } else if charNode.position.y == 410 {
+            charNode.texture = SKTexture(imageNamed: "\(type)Right")
+            charNode.position.x = -70
+            charNode.zPosition = 0
         }
         
-        addChild(friend)
+        addChild(charNode)
         
-        if friend.zPosition == 4 || friend.zPosition == 0 && friend.position.x == -50 {
-            friend.run(SKAction.moveBy(x: 1200, y: 0, duration: 4))
-        } else if friend.zPosition == 2 && friend.position.x == 1100 {
-            friend.run(SKAction.moveBy(x: -1300, y: 0, duration: 4))
+        if charNode.zPosition == 4 || charNode.zPosition == 0 && charNode.position.x == -70 {
+            charNode.run(SKAction.moveBy(x: 1300, y: 0, duration: duration))
+        } else if charNode.zPosition == 2 && charNode.position.x == 1100 {
+            charNode.run(SKAction.moveBy(x: -1300, y: 0, duration: duration))
+        }
+    }
+    
+    func gameOver() {
+        gameTimer?.invalidate()
+        duckTimer?.invalidate()
+        
+        addChild(gameOverLabel)
+        
+        for node in children {
+            if node.name == "slowDuck" || node.name == "fastDuck" || node.name == "slowEnemy" || node.name == "fastEnemy" {
+                node.removeFromParent()
+            }
         }
     }
 
     func newGame() {
         score = 0
         bullets = 6
-        isGameOver = false
+        timeLeft = 59
         
         createDuck()
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc func countdown() {
+        timeLeft -= 1
     }
 }
