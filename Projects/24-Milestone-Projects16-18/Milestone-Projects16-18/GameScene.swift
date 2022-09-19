@@ -238,8 +238,8 @@ class GameScene: SKScene {
     }
     
     func gameOver() {
-        duckTimer?.invalidate()
         gameTimer?.invalidate()
+        duckTimer?.invalidate()
         
         addChild(gameOverLabel)
         addChild(newGameLabel)
@@ -256,10 +256,10 @@ class GameScene: SKScene {
     func newGame() {
         score = 0
         bullets = 6
-        timeLeft = 59
+        timeLeft = 5
         
         for node in children {
-            if node.name == "NewGameLabel" || node.name == "GameOverLabel" || node.name == "BestScoreLabel" {
+            if node.name == "NewGameLabel" || node.name == "GameOverLabel" {
                 node.removeFromParent()
             }
         }
