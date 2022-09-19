@@ -14,6 +14,13 @@
 		5252F89228D1ECF1001076E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5252F89028D1ECF1001076E7 /* Main.storyboard */; };
 		5252F89428D1ECF4001076E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5252F89328D1ECF4001076E7 /* Assets.xcassets */; };
 		5252F89728D1ECF4001076E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5252F89528D1ECF4001076E7 /* LaunchScreen.storyboard */; };
+		52B8901B28D879A200820026 /* smb_coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 52B8901A28D879A200820026 /* smb_coin.wav */; };
+		52B8902628D87E4100820026 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 52B8902428D87E4100820026 /* whack.caf */; };
+		52B8902728D87E4100820026 /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 52B8902528D87E4100820026 /* whackBad.caf */; };
+		52B8902E28D8816000820026 /* dry_fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52B8902C28D8815F00820026 /* dry_fire.mp3 */; };
+		52B8902F28D8816000820026 /* reload.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52B8902D28D8816000820026 /* reload.mp3 */; };
+		52B8903328D8916100820026 /* quack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52B8903228D8916100820026 /* quack.mp3 */; };
+		52B8903728D89E0A00820026 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52B8903628D89E0A00820026 /* spark.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +32,13 @@
 		5252F89128D1ECF1001076E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5252F89328D1ECF4001076E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5252F89628D1ECF4001076E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		5252F89D28D1EEA6001076E7 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
-		5252F89E28D1EEA6001076E7 /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whackBad.caf; sourceTree = "<group>"; };
+		52B8901A28D879A200820026 /* smb_coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = smb_coin.wav; path = "../../18-Project14/Project14-Whack-a-Penguin/smb_coin.wav"; sourceTree = "<group>"; };
+		52B8902428D87E4100820026 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
+		52B8902528D87E4100820026 /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whackBad.caf; sourceTree = "<group>"; };
+		52B8902C28D8815F00820026 /* dry_fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dry_fire.mp3; sourceTree = "<group>"; };
+		52B8902D28D8816000820026 /* reload.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = reload.mp3; sourceTree = "<group>"; };
+		52B8903228D8916100820026 /* quack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = quack.mp3; sourceTree = "<group>"; };
+		52B8903628D89E0A00820026 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +78,13 @@
 				5252F89028D1ECF1001076E7 /* Main.storyboard */,
 				5252F89328D1ECF4001076E7 /* Assets.xcassets */,
 				5252F89528D1ECF4001076E7 /* LaunchScreen.storyboard */,
-				5252F89D28D1EEA6001076E7 /* whack.caf */,
-				5252F89E28D1EEA6001076E7 /* whackBad.caf */,
+				52B8901A28D879A200820026 /* smb_coin.wav */,
+				52B8902428D87E4100820026 /* whack.caf */,
+				52B8902528D87E4100820026 /* whackBad.caf */,
+				52B8902C28D8815F00820026 /* dry_fire.mp3 */,
+				52B8902D28D8816000820026 /* reload.mp3 */,
+				52B8903228D8916100820026 /* quack.mp3 */,
+				52B8903628D89E0A00820026 /* spark.sks */,
 			);
 			path = "Milestone-Projects16-18";
 			sourceTree = "<group>";
@@ -130,10 +147,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52B8902E28D8816000820026 /* dry_fire.mp3 in Resources */,
+				52B8901B28D879A200820026 /* smb_coin.wav in Resources */,
+				52B8902728D87E4100820026 /* whackBad.caf in Resources */,
+				52B8902628D87E4100820026 /* whack.caf in Resources */,
 				5252F89228D1ECF1001076E7 /* Main.storyboard in Resources */,
 				5252F88928D1ECF1001076E7 /* GameScene.sks in Resources */,
+				52B8903728D89E0A00820026 /* spark.sks in Resources */,
+				52B8903328D8916100820026 /* quack.mp3 in Resources */,
 				5252F89428D1ECF4001076E7 /* Assets.xcassets in Resources */,
 				5252F89728D1ECF4001076E7 /* LaunchScreen.storyboard in Resources */,
+				52B8902F28D8816000820026 /* reload.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

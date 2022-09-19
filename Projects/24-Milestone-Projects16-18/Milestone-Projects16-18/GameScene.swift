@@ -18,12 +18,15 @@ class GameScene: SKScene {
     var grass3: SKSpriteNode!
     
     var scoreLabel: SKLabelNode!
+    var bestScoreLabel: SKLabelNode!
     var bulletsLabel: SKLabelNode!
     var timeLeftLabel: SKLabelNode!
+    
     var duckTimer: Timer?
     var gameTimer: Timer?
     
     var gameOverLabel: SKSpriteNode!
+    var newGameLabel: SKLabelNode!
     
     var score = 0 {
         didSet {
@@ -39,7 +42,7 @@ class GameScene: SKScene {
     
     var timeLeft = 59 {
         didSet {
-            timeLeftLabel.text = ":\(timeLeft)"
+            timeLeftLabel.text = String(format: ":%.2d", timeLeft)
         }
     }
     
@@ -91,7 +94,14 @@ class GameScene: SKScene {
         gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
         gameOverLabel.position = CGPoint(x: 512, y: 384)
         gameOverLabel.zPosition = 6
-        gameOverLabel.name = "gameOverLabel"
+        gameOverLabel.name = "GameOverLabel"
+        
+        newGameLabel = SKLabelNode(fontNamed: "Verdana Bold")
+        newGameLabel.position = CGPoint(x: 512, y: 300)
+        newGameLabel.fontSize = 30
+        newGameLabel.text = "> NEW GAME <"
+        newGameLabel.zPosition = 6
+        newGameLabel.name = "NewGameLabel"
         
         newGame()
     }
@@ -106,7 +116,8 @@ class GameScene: SKScene {
             }
             
             duckTimer?.invalidate()
-            duckTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.35...2), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
+            duckTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.35...1.5), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
+            
         } else {
             gameOver()
         }
@@ -130,24 +141,47 @@ class GameScene: SKScene {
         for node in tappedNodes {
             if timeLeft > 0 {
                 if node.name == "slowDuck" && bullets > 0 {
+                    addSpark(at: location, zPos: node.zPosition + 0.1)
                     node.removeFromParent()
                     score -= 2
                     bullets -= 1
+                    run(SKAction.playSoundFileNamed("whackBad", waitForCompletion: false))
+                    break
                 } else if node.name == "slowEnemy" && bullets > 0 {
+                    addSpark(at: location, zPos: node.zPosition + 0.1)
                     node.removeFromParent()
                     score += 1
                     bullets -= 1
+                    run(SKAction.playSoundFileNamed("whack", waitForCompletion: false))
+                    break
                 } else if node.name == "fastDuck" && bullets > 0 {
+                    addSpark(at: location, zPos: node.zPosition + 0.1)
                     node.removeFromParent()
                     score -= 3
                     bullets -= 1
+                    run(SKAction.playSoundFileNamed("whackBad", waitForCompletion: false))
+                    break
                 } else if node.name == "fastEnemy" && bullets > 0 {
+                    addSpark(at: location, zPos: node.zPosition + 0.1)
                     node.removeFromParent()
                     score += 2
                     bullets -= 1
+                    run(SKAction.playSoundFileNamed("whack", waitForCompletion: false))
+                    break
                 } else if node.name == "BulletsLabel" && bullets < 6 {
                     bullets = 6
                     bulletsLabel.text = "Bullets: \(bullets)"
+                    run(SKAction.playSoundFileNamed("reload", waitForCompletion: false))
+                    break
+                } else if bulletsLabel.text == "RELOAD" {
+                    run(SKAction.playSoundFileNamed("dry_fire", waitForCompletion: false))
+                    break
+                }
+                
+            } else {
+                if node.name == "NewGameLabel" {
+                    newGame()
+                    run(SKAction.playSoundFileNamed("smb_coin", waitForCompletion: false))
                 }
             }
         }
@@ -194,17 +228,29 @@ class GameScene: SKScene {
         }
     }
     
+    func addSpark(at position: CGPoint, zPos: Double) {
+        if let spark = SKEmitterNode(fileNamed: "spark") {
+            spark.position = position
+            spark.zPosition = zPos
+            spark.name = "Spark"
+            addChild(spark)
+        }
+    }
+    
     func gameOver() {
-        gameTimer?.invalidate()
         duckTimer?.invalidate()
+        gameTimer?.invalidate()
         
         addChild(gameOverLabel)
+        addChild(newGameLabel)
         
         for node in children {
             if node.name == "slowDuck" || node.name == "fastDuck" || node.name == "slowEnemy" || node.name == "fastEnemy" {
                 node.removeFromParent()
             }
         }
+        
+        run(SKAction.playSoundFileNamed("quack", waitForCompletion: false))
     }
 
     func newGame() {
@@ -212,8 +258,14 @@ class GameScene: SKScene {
         bullets = 6
         timeLeft = 59
         
-        createDuck()
+        for node in children {
+            if node.name == "NewGameLabel" || node.name == "GameOverLabel" || node.name == "BestScoreLabel" {
+                node.removeFromParent()
+            }
+        }
+        
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
+        createDuck()
     }
     
     @objc func countdown() {
