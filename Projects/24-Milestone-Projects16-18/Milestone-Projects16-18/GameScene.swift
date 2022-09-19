@@ -107,7 +107,9 @@ class GameScene: SKScene {
     }
     
     @objc func createDuck() {
-        if timeLeft > 0 {
+        if timeLeft <= 0 {
+            gameOver()
+        } else {
             
             if Int.random(in: 0...2) == 0 {
                 createCharacter(type: "duck", duration: Double.random(in: 2...4))
@@ -117,9 +119,6 @@ class GameScene: SKScene {
             
             duckTimer?.invalidate()
             duckTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 0.35...1.5), target: self, selector: #selector(createDuck), userInfo: nil, repeats: true)
-            
-        } else {
-            gameOver()
         }
     }
         
@@ -256,7 +255,7 @@ class GameScene: SKScene {
     func newGame() {
         score = 0
         bullets = 6
-        timeLeft = 5
+        timeLeft = 59
         
         for node in children {
             if node.name == "NewGameLabel" || node.name == "GameOverLabel" {
