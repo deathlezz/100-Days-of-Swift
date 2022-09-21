@@ -2,7 +2,7 @@
 //  ActionViewController.swift
 //  Extension
 //
-//  Created by test on 20/09/2022.
+//  Created by deathlezz on 20/09/2022.
 //
 
 import UIKit
@@ -18,8 +18,11 @@ class ActionViewController: UIViewController {
         
         if let inputItem = extensionContext?.inputItems.first as? NSExtensionItem {
             if let itemProvider = inputItem.attachments?.first {
-                itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String) { [weak self] (dict, error) in
+                itemProvider.loadItem(forTypeIdentifier: UTType.propertyList.description as String) { [weak self] (dict, error) in
                     // do stuff
+                    guard let itemDictionary = dict as? NSDictionary else { return }
+                    guard let javaScriptValues = itemDictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary else { return }
+                    print(javaScriptValues)
                 }
             }
         }
