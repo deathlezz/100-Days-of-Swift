@@ -16,10 +16,13 @@ class ActionViewController: UIViewController {
     var pageTitle = ""
     var pageURL = ""
     
+    var scripts = ["Page title": "alert(document.title);", "Page URL": "alert(document.URL);"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(showAlert))
         
         let notificationCenter = NotificationCenter.default
         
@@ -48,7 +51,7 @@ class ActionViewController: UIViewController {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
         let item = NSExtensionItem()
-        let argument: NSDictionary = ["customJavaScript": script.text]
+        let argument: NSDictionary = ["customJavaScript": script.text as Any]
         let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.description as String)
         item.attachments = [customJavaScript]
@@ -70,5 +73,19 @@ class ActionViewController: UIViewController {
         script.scrollIndicatorInsets = script.contentInset
         let selectedRange = script.selectedRange
         script.scrollRangeToVisible(selectedRange)
+    }
+    
+    // challenge 1
+    @objc func showAlert() {
+        let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
+        
+        for (key, value) in scripts.sorted(by: >) {
+            ac.addAction(UIAlertAction(title: key, style: .default) { [weak self] _ in
+                self?.script.text = value
+            })
+        }
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
 }
