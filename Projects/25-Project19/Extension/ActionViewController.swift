@@ -18,9 +18,13 @@ class ActionViewController: UIViewController {
     
     var scripts = ["Page title": "alert(document.title);", "Page URL": "alert(document.URL);"]
     
+    var savedScripts = [String: [String]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        load()
+                
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(showAlert))
         
@@ -45,6 +49,7 @@ class ActionViewController: UIViewController {
                 }
             }
         }
+        print(savedScripts)
     }
 
     @IBAction func done() {
@@ -56,6 +61,7 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.description as String)
         item.attachments = [customJavaScript]
         extensionContext?.completeRequest(returningItems: [item])
+        save()
     }
 
     @objc func adjustForKeyboard(notification: Notification) {
@@ -87,5 +93,29 @@ class ActionViewController: UIViewController {
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    // challenge 2
+    func save() {
+        if let url = URL(string: pageURL) {
+            if let host = url.host {
+                
+                if savedScripts[host] != nil {
+                    if !savedScripts[host]!.contains(script.text) {
+                        savedScripts[host]!.append(script.text)
+                    }
+                } else {
+                    savedScripts[host] = [script.text]
+                }
+                
+                let defaults = UserDefaults.standard
+                defaults.set(savedScripts, forKey: "SavedScripts")
+            }
+        }
+    }
+    
+    func load() {
+        let defaults = UserDefaults.standard
+        savedScripts = defaults.object(forKey: "SavedScripts") as? [String: [String]] ?? [String: [String]]()
     }
 }
