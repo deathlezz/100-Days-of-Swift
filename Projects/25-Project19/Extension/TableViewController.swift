@@ -21,7 +21,7 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = Array(userScripts.keys.sorted(by: >))[indexPath.row]
+        cell.textLabel?.text = Array(userScripts.keys)[indexPath.row]
         return cell
     }
     

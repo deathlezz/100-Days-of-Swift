@@ -61,6 +61,10 @@ class ActionViewController: UIViewController {
     @IBAction func done() {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
+        if scriptText.isEmpty {
+            scriptText = script.text
+        }
+        
         let item = NSExtensionItem()
         let argument: NSDictionary = ["customJavaScript": scriptText as Any]
         let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
