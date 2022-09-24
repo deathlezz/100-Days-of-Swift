@@ -16,9 +16,8 @@ class ActionViewController: UIViewController {
     var pageTitle = ""
     var pageURL = ""
     
-    var scripts = ["Page title": "alert(document.title);", "Page URL": "alert(document.URL);"]
-    
-    var savedScripts = [String: [String]]()
+    var savedScripts = [String: String]()
+    var scriptsHistory = [String: [String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,12 @@ class ActionViewController: UIViewController {
         load()
                 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(showAlert))
+        
+        let scriptsButton = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(showAlert))
+        
+        let tableViewScripts = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tableViewScripts))
+        
+        navigationItem.leftBarButtonItems = [scriptsButton, tableViewScripts]
         
         let notificationCenter = NotificationCenter.default
         
@@ -49,7 +53,7 @@ class ActionViewController: UIViewController {
                 }
             }
         }
-        print(savedScripts)
+        print(scriptsHistory)
     }
 
     @IBAction func done() {
@@ -85,7 +89,7 @@ class ActionViewController: UIViewController {
     @objc func showAlert() {
         let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
         
-        for (key, value) in scripts.sorted(by: >) {
+        for (key, value) in userScripts.sorted(by: >) {
             ac.addAction(UIAlertAction(title: key, style: .default) { [weak self] _ in
                 self?.script.text = value
             })
@@ -100,22 +104,29 @@ class ActionViewController: UIViewController {
         if let url = URL(string: pageURL) {
             if let host = url.host {
                 
-                if savedScripts[host] != nil {
-                    if !savedScripts[host]!.contains(script.text) {
-                        savedScripts[host]!.append(script.text)
+                if scriptsHistory[host] != nil {
+                    if !scriptsHistory[host]!.contains(script.text) {
+                        scriptsHistory[host]!.append(script.text)
                     }
                 } else {
-                    savedScripts[host] = [script.text]
+                    scriptsHistory[host] = [script.text]
                 }
                 
                 let defaults = UserDefaults.standard
-                defaults.set(savedScripts, forKey: "SavedScripts")
+                defaults.set(scriptsHistory, forKey: "SavedScripts")
             }
         }
     }
     
     func load() {
         let defaults = UserDefaults.standard
-        savedScripts = defaults.object(forKey: "SavedScripts") as? [String: [String]] ?? [String: [String]]()
+        scriptsHistory = defaults.object(forKey: "SavedScripts") as? [String: [String]] ?? [String: [String]]()
+    }
+    
+    // challenge 3
+    @objc func tableViewScripts() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
