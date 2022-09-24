@@ -13,6 +13,8 @@ class ActionViewController: UIViewController {
 
     @IBOutlet var script: UITextView!
     
+    var scriptText = ""
+    
     var pageTitle = ""
     var pageURL = ""
     
@@ -60,7 +62,7 @@ class ActionViewController: UIViewController {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
         let item = NSExtensionItem()
-        let argument: NSDictionary = ["customJavaScript": script.text as Any]
+        let argument: NSDictionary = ["customJavaScript": scriptText as Any]
         let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.description as String)
         item.attachments = [customJavaScript]

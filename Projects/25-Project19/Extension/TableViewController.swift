@@ -21,14 +21,18 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = Array(userScripts.keys)[indexPath.row]
+        cell.textLabel?.text = Array(userScripts.keys.sorted(by: >))[indexPath.row]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ac = UIAlertController(title: "Action", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Open", style: .default) { [weak self] _ in
-
+            if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ScriptView") as? ActionViewController {
+                vc.scriptText = Array(userScripts.values)[indexPath.row]
+                self?.navigationController?.pushViewController(vc, animated: true)
+                vc.done()
+            }
         })
         ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in
             let alert = UIAlertController(title: "Enter new name", message: nil, preferredStyle: .alert)
@@ -40,7 +44,7 @@ class TableViewController: UITableViewController {
                 
                 userScripts.removeValue(forKey: oldKey)
                 userScripts[newName] = oldValue
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self?.tableView.reloadData()
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self?.present(alert, animated: true)
