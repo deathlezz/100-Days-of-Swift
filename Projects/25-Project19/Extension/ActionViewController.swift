@@ -18,13 +18,11 @@ class ActionViewController: UIViewController {
     var pageTitle = ""
     var pageURL = ""
     
-    var savedScripts = [String: String]()
-    var scriptsHistory = [String: [String]]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        load()
+        loadHistory()
+        loadScripts()
                 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
@@ -59,8 +57,6 @@ class ActionViewController: UIViewController {
     }
 
     @IBAction func done() {
-        // Return any edited content to the host app.
-        // This template doesn't do anything, so we just echo the passed in items.
         if scriptText.isEmpty {
             scriptText = script.text
         }
@@ -71,7 +67,7 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.description as String)
         item.attachments = [customJavaScript]
         extensionContext?.completeRequest(returningItems: [item])
-        save()
+        saveHistory()
     }
 
     @objc func adjustForKeyboard(notification: Notification) {
@@ -106,7 +102,7 @@ class ActionViewController: UIViewController {
     }
     
     // challenge 2
-    func save() {
+    func saveHistory() {
         if let url = URL(string: pageURL) {
             if let host = url.host {
                 
@@ -119,19 +115,37 @@ class ActionViewController: UIViewController {
                 }
                 
                 let defaults = UserDefaults.standard
-                defaults.set(scriptsHistory, forKey: "SavedScripts")
+                defaults.set(scriptsHistory, forKey: "ScriptsHistory")
             }
         }
     }
     
-    func load() {
+    func loadHistory() {
         let defaults = UserDefaults.standard
-        scriptsHistory = defaults.object(forKey: "SavedScripts") as? [String: [String]] ?? [String: [String]]()
+        scriptsHistory = defaults.object(forKey: "ScriptsHistory") as? [String: [String]] ?? [String: [String]]()
     }
     
     // challenge 3
+    func loadScripts() {
+        let defaults = UserDefaults.standard
+        let savedScripts = defaults.object(forKey: "UserScripts") as? [String: String] ?? [String: String]()
+        
+        if savedScripts.isEmpty {
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+                vc.saveScripts()
+            }
+        } else {
+            userScripts = savedScripts
+        }
+    }
+    
     @objc func tableViewScripts() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+            if let url = URL(string: pageURL) {
+                if let host = url.host {
+                    vc.pageURL = host
+                }
+            }
             navigationController?.pushViewController(vc, animated: true)
         }
     }

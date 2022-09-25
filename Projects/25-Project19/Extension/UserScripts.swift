@@ -8,3 +8,5 @@
 import Foundation
 
 var userScripts = ["Page title": "alert(document.title);", "Page URL": "alert(document.URL);"]
+
+var scriptsHistory = [String: [String]]()

@@ -9,6 +9,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
+    var pageURL = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +34,7 @@ class TableViewController: UITableViewController {
                 vc.scriptText = Array(userScripts.values)[indexPath.row]
                 self?.navigationController?.pushViewController(vc, animated: true)
                 vc.done()
+                self?.saveHistory(indexPath: indexPath)
             }
         })
         ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in
@@ -45,6 +48,7 @@ class TableViewController: UITableViewController {
                 userScripts.removeValue(forKey: oldKey)
                 userScripts[newName] = oldValue
                 self?.tableView.reloadData()
+                self?.saveScripts()
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self?.present(alert, animated: true)
@@ -64,6 +68,7 @@ class TableViewController: UITableViewController {
                 guard let script = alert.textFields?[0].text else { return }
                 userScripts[name] = script
                 self?.tableView.reloadData()
+                self?.saveScripts()
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self?.present(alert, animated: true)
@@ -72,4 +77,37 @@ class TableViewController: UITableViewController {
         present(ac, animated: true)
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if Array(userScripts.values)[indexPath.row] != "alert(document.title);" && Array(userScripts.values)[indexPath.row] != "alert(document.URL);" {
+                userScripts.removeValue(forKey: Array(userScripts.keys)[indexPath.row])
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                saveScripts()
+            } else {
+                let ac = UIAlertController(title: "Access denied", message: "You can't delete this script.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
+        }
+    }
+    
+    func saveScripts() {
+        let defaults = UserDefaults.standard
+        defaults.set(userScripts, forKey: "UserScripts")
+    }
+    
+    func saveHistory(indexPath: IndexPath) {
+        let value = Array(userScripts.values)[indexPath.row]
+        
+        if scriptsHistory[pageURL] != nil {
+            if !scriptsHistory[pageURL]!.contains(value) {
+                scriptsHistory[pageURL]!.append(value)
+            }
+        } else {
+            scriptsHistory[pageURL] = [value]
+        }
+        
+        let defaults = UserDefaults.standard
+        defaults.set(scriptsHistory, forKey: "ScriptsHistory")
+    }
 }
