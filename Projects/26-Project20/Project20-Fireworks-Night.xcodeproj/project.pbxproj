@@ -15,7 +15,7 @@
 		52EFADFE28E1BA090022847C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52EFADFC28E1BA090022847C /* LaunchScreen.storyboard */; };
 		52EFAE0628E1BA930022847C /* fuse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52EFAE0428E1BA920022847C /* fuse.sks */; };
 		52EFAE0728E1BA930022847C /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52EFAE0528E1BA930022847C /* explode.sks */; };
-		52EFAE0928E1BB5D0022847C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52EFAE0828E1BB5D0022847C /* GameScene.sks */; };
+		52EFAE0B28E1BD2A0022847C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52EFAE0A28E1BD2A0022847C /* GameScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		52EFADFD28E1BA090022847C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52EFAE0428E1BA920022847C /* fuse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fuse.sks; sourceTree = "<group>"; };
 		52EFAE0528E1BA930022847C /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
-		52EFAE0828E1BB5D0022847C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "../../../../HackingWithSwift-main/Classic/project20/Project20/GameScene.sks"; sourceTree = "<group>"; };
+		52EFAE0A28E1BD2A0022847C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				52EFADED28E1B9F80022847C /* AppDelegate.swift */,
-				52EFAE0828E1BB5D0022847C /* GameScene.sks */,
+				52EFAE0A28E1BD2A0022847C /* GameScene.sks */,
 				52EFADF328E1B9F80022847C /* GameScene.swift */,
 				52EFADF528E1B9F80022847C /* GameViewController.swift */,
 				52EFADF728E1B9F80022847C /* Main.storyboard */,
@@ -135,8 +135,8 @@
 				52EFADF928E1B9F80022847C /* Main.storyboard in Resources */,
 				52EFAE0728E1BA930022847C /* explode.sks in Resources */,
 				52EFAE0628E1BA930022847C /* fuse.sks in Resources */,
-				52EFAE0928E1BB5D0022847C /* GameScene.sks in Resources */,
 				52EFADFB28E1BA090022847C /* Assets.xcassets in Resources */,
+				52EFAE0B28E1BD2A0022847C /* GameScene.sks in Resources */,
 				52EFADFE28E1BA090022847C /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
