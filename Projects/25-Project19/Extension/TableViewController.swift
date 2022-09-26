@@ -34,7 +34,10 @@ class TableViewController: UITableViewController {
                 vc.scriptText = Array(userScripts.values)[indexPath.row]
                 self?.navigationController?.pushViewController(vc, animated: true)
                 vc.done()
-                self?.saveHistory(indexPath: indexPath)
+                
+                DispatchQueue.global().async {
+                    self?.saveHistory(indexPath: indexPath)
+                }
             }
         })
         ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in
@@ -47,8 +50,12 @@ class TableViewController: UITableViewController {
                 
                 userScripts.removeValue(forKey: oldKey)
                 userScripts[newName] = oldValue
-                self?.tableView.reloadData()
-                self?.saveScripts()
+
+                self?.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+                
+                DispatchQueue.global().async {
+                    self?.saveScripts()
+                }
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self?.present(alert, animated: true)
@@ -67,8 +74,12 @@ class TableViewController: UITableViewController {
             alert.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self] _ in
                 guard let script = alert.textFields?[0].text else { return }
                 userScripts[name] = script
-                self?.tableView.reloadData()
-                self?.saveScripts()
+                
+                self?.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+                
+                DispatchQueue.global().async {
+                    self?.saveScripts()
+                }
             })
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self?.present(alert, animated: true)
@@ -82,7 +93,10 @@ class TableViewController: UITableViewController {
             if Array(userScripts.values)[indexPath.row] != "alert(document.title);" && Array(userScripts.values)[indexPath.row] != "alert(document.URL);" {
                 userScripts.removeValue(forKey: Array(userScripts.keys)[indexPath.row])
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                saveScripts()
+                
+                DispatchQueue.global().async { [weak self] in
+                    self?.saveScripts()
+                }
             } else {
                 let ac = UIAlertController(title: "Access denied", message: "You can't delete this script.", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))

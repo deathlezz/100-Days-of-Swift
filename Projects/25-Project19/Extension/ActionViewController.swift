@@ -22,8 +22,7 @@ class ActionViewController: UIViewController {
         super.viewDidLoad()
         
         loadHistory()
-        loadScripts()
-                
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
         let scriptsButton = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(showAlert))
@@ -47,6 +46,8 @@ class ActionViewController: UIViewController {
                     self?.pageTitle = javaScriptValues["title"] as? String ?? ""
                     self?.pageURL = javaScriptValues["URL"] as? String ?? ""
                     
+                    self?.loadScripts()
+                    
                     DispatchQueue.main.async {
                         self?.title = self?.pageTitle
                     }
@@ -67,7 +68,10 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.description as String)
         item.attachments = [customJavaScript]
         extensionContext?.completeRequest(returningItems: [item])
-        saveHistory()
+        
+        DispatchQueue.global().async { [weak self] in
+            self?.saveHistory()
+        }
     }
 
     @objc func adjustForKeyboard(notification: Notification) {
@@ -107,11 +111,13 @@ class ActionViewController: UIViewController {
             if let host = url.host {
                 
                 if scriptsHistory[host] != nil {
-                    if !scriptsHistory[host]!.contains(script.text) {
-                        scriptsHistory[host]!.append(script.text)
+                    if !scriptsHistory[host]!.contains(scriptText) && !scriptText.isEmpty {
+                        scriptsHistory[host]!.append(scriptText)
                     }
                 } else {
-                    scriptsHistory[host] = [script.text]
+                    if !scriptText.isEmpty {
+                        scriptsHistory[host] = [scriptText]
+                    }
                 }
                 
                 let defaults = UserDefaults.standard
