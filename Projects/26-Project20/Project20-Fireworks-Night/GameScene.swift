@@ -12,10 +12,16 @@ class GameScene: SKScene {
     var gameTimer: Timer?
     var fireworks = [SKNode]()
     var scoreLabel: SKLabelNode!
+    var gameOverLabel: SKSpriteNode!
+    var newGameLabel: SKLabelNode!
+    
+    var isGameOver = false
     
     let leftEdge = -22
     let bottomEdge = -22
     let rightEdge = 1024 + 22
+    
+    var launches = 0
     
     var score = 0 {
         didSet {
@@ -32,14 +38,27 @@ class GameScene: SKScene {
         
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.position = CGPoint(x: 10, y: 30)
+        scoreLabel.text = "Score: 0"
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.zPosition = 1
         scoreLabel.fontSize = 32
         addChild(scoreLabel)
         
-        score = 0
+        gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        gameOverLabel.zPosition = 1
+        gameOverLabel.name = "GameOverLabel"
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        newGameLabel.position = CGPoint(x: 512, y: 304)
+        newGameLabel.text = "> NEW GAME <"
+        newGameLabel.fontSize = 32
+        newGameLabel.zPosition = 1
+        newGameLabel.horizontalAlignmentMode = .center
+        newGameLabel.name = "NewGameLabel"
+        
+//        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+        newGame()
     }
     
     func createFirework(xMovement: CGFloat, x: Int, y: Int) {
@@ -77,39 +96,46 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
-        let movementAmount: CGFloat = 1800
-        
-        switch Int.random(in: 0...3) {
-        case 0:
-            // fire five, straight up
-            createFirework(xMovement: 0, x: 512, y: bottomEdge)
-            createFirework(xMovement: 0, x: 512 - 200, y: bottomEdge)
-            createFirework(xMovement: 0, x: 512 - 100, y: bottomEdge)
-            createFirework(xMovement: 0, x: 512 + 100, y: bottomEdge)
-            createFirework(xMovement: 0, x: 512 + 200, y: bottomEdge)
-        case 1:
-            // fire five, in a fan
-            createFirework(xMovement: 0, x: 512, y: bottomEdge)
-            createFirework(xMovement: -200, x: 512 - 200, y: bottomEdge)
-            createFirework(xMovement: -100, x: 512 - 100, y: bottomEdge)
-            createFirework(xMovement: 100, x: 512 + 100, y: bottomEdge)
-            createFirework(xMovement: 200, x: 512 + 200, y: bottomEdge)
-        case 2:
-            // fire five, from the to left to the right
-            createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 400)
-            createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 300)
-            createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 200)
-            createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 100)
-            createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge)
-        case 3:
-            // fire five, from the right to the left
-            createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 400)
-            createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 300)
-            createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 200)
-            createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 100)
-            createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge)
-        default:
-            break
+        if launches < 2 {
+            let movementAmount: CGFloat = 1800
+            
+            switch Int.random(in: 0...3) {
+            case 0:
+                // fire five, straight up
+                createFirework(xMovement: 0, x: 512, y: bottomEdge)
+                createFirework(xMovement: 0, x: 512 - 200, y: bottomEdge)
+                createFirework(xMovement: 0, x: 512 - 100, y: bottomEdge)
+                createFirework(xMovement: 0, x: 512 + 100, y: bottomEdge)
+                createFirework(xMovement: 0, x: 512 + 200, y: bottomEdge)
+            case 1:
+                // fire five, in a fan
+                createFirework(xMovement: 0, x: 512, y: bottomEdge)
+                createFirework(xMovement: -200, x: 512 - 200, y: bottomEdge)
+                createFirework(xMovement: -100, x: 512 - 100, y: bottomEdge)
+                createFirework(xMovement: 100, x: 512 + 100, y: bottomEdge)
+                createFirework(xMovement: 200, x: 512 + 200, y: bottomEdge)
+            case 2:
+                // fire five, from the to left to the right
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 400)
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 300)
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 200)
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + 100)
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge)
+            case 3:
+                // fire five, from the right to the left
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 400)
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 300)
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 200)
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + 100)
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge)
+            default:
+                break
+            }
+            
+            launches += 1
+            
+        } else {
+            gameOver()
         }
     }
 
@@ -118,20 +144,30 @@ class GameScene: SKScene {
         let location = touch.location(in: self)
         let nodesAtPoint = nodes(at: location)
         
-        for case let node as SKSpriteNode in nodesAtPoint {
-            guard node.name == "firework" else { continue }
-            
-            for parent in fireworks {
-                guard let firework = parent.children.first as? SKSpriteNode else { continue }
+        if !isGameOver {
+            for case let node as SKSpriteNode in nodesAtPoint {
+                guard node.name == "firework" else { continue }
                 
-                if firework.name == "selected" && firework.color != node.color {
-                    firework.name = "firework"
-                    firework.colorBlendFactor = 1
+                for parent in fireworks {
+                    guard let firework = parent.children.first as? SKSpriteNode else { continue }
+                    
+                    if firework.name == "selected" && firework.color != node.color {
+                        firework.name = "firework"
+                        firework.colorBlendFactor = 1
+                    }
                 }
+                
+                node.name = "selected"
+                node.colorBlendFactor = 0
             }
             
-            node.name = "selected"
-            node.colorBlendFactor = 0
+        } else {
+            for node in nodesAtPoint {
+                if node.name == "NewGameLabel" {
+                    newGame()
+                    return
+                }
+            }
         }
     }
     
@@ -190,5 +226,30 @@ class GameScene: SKScene {
         default:
             score += 4000
         }
+    }
+    
+    func gameOver() {
+        isGameOver = true
+        gameTimer?.invalidate()
+        addChild(gameOverLabel)
+        addChild(newGameLabel)
+        
+        for firework in fireworks {
+            firework.removeFromParent()
+        }
+    }
+    
+    func newGame() {
+        isGameOver = false
+        score = 0
+        launches = 0
+        
+        for node in children {
+            if node.name == "GameOverLabel" || node.name == "NewGameLabel" {
+                node.removeFromParent()
+            }
+        }
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
     }
 }
