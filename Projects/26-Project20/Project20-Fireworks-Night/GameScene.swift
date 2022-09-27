@@ -165,7 +165,6 @@ class GameScene: SKScene {
             for node in nodesAtPoint {
                 if node.name == "NewGameLabel" {
                     newGame()
-                    return
                 }
             }
         }
