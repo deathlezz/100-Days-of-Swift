@@ -27,3 +27,4 @@
 - [Project 18: Debugging](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/23-Project18) - [Course](https://www.hackingwithswift.com/100/64)
 - [Milestone: Projects 16-18](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/24-Milestone-Projects16-18) - [Course](https://www.hackingwithswift.com/100/66)
 - [Project 19: JavaScript Injection](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/25-Project19) - [Course](https://www.hackingwithswift.com/100/67)
+- [Project 20: Fireworks Night](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/26-Project20) - [Course](https://www.hackingwithswift.com/100/70)
