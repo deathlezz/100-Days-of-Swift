@@ -57,7 +57,6 @@ class GameScene: SKScene {
         newGameLabel.horizontalAlignmentMode = .center
         newGameLabel.name = "NewGameLabel"
         
-//        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
         newGame()
     }
     
@@ -96,7 +95,7 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
-        if launches < 2 {
+        if launches < 10 {
             let movementAmount: CGFloat = 1800
             
             switch Int.random(in: 0...3) {
@@ -136,6 +135,7 @@ class GameScene: SKScene {
             
         } else {
             gameOver()
+            return
         }
     }
 
@@ -165,6 +165,7 @@ class GameScene: SKScene {
             for node in nodesAtPoint {
                 if node.name == "NewGameLabel" {
                     newGame()
+                    return
                 }
             }
         }
@@ -193,6 +194,12 @@ class GameScene: SKScene {
         if let emitter = SKEmitterNode(fileNamed: "explode") {
             emitter.position = firework.position
             addChild(emitter)
+            
+            // challenge 3
+            let delay = SKAction.wait(forDuration: 2)
+            let remove = SKAction.run(emitter.removeFromParent)
+            let sequence = SKAction.sequence([delay, remove])
+            emitter.run(sequence)
         }
         
         firework.removeFromParent()
