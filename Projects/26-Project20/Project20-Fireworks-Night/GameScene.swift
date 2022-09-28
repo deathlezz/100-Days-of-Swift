@@ -37,7 +37,7 @@ class GameScene: SKScene {
         addChild(background)
         
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.position = CGPoint(x: 10, y: 30)
+        scoreLabel.position = CGPoint(x: 10, y: 40)
         scoreLabel.text = "Score: 0"
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.zPosition = 1
