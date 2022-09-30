@@ -22,8 +22,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        registerLocal()
-        
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
         button1.layer.borderWidth = 1
@@ -36,8 +34,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .plain, target: self, action: #selector(scoreTapped))
         
+        registerLocal()
         askQuestion()
-        scheduleLocal()
     }
 
     func askQuestion(action: UIAlertAction! = nil) {
@@ -87,9 +85,10 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     // Challenge 3
     func registerLocal() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, error in
             if granted {
                 print("Yay!")
+                self?.scheduleLocal()
             } else {
                 print("Nope.")
             }
@@ -100,17 +99,20 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         registerCategories()
         
         let center = UNUserNotificationCenter.current()
-        let content = UNMutableNotificationContent()
+        center.removeAllPendingNotificationRequests()
         
+        let content = UNMutableNotificationContent()
         content.title = "Psss, wake up!"
         content.body = "It's time to play!"
         content.categoryIdentifier = "alarm"
         content.userInfo = ["customData": "fizzBuzz"]
         content.sound = .default
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        center.add(request)
+        for day in 1...7 {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400 * Double(day), repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request)
+        }
     }
     
     func registerCategories() {
