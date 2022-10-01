@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525FED5F28E8866E00E55A3A /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FED5E28E8866E00E55A3A /* Notes.swift */; };
 		526C1DC228E7BD8D00142872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C1DC128E7BD8D00142872 /* AppDelegate.swift */; };
 		526C1DC428E7BD8D00142872 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C1DC328E7BD8D00142872 /* SceneDelegate.swift */; };
 		526C1DC628E7BD8D00142872 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C1DC528E7BD8D00142872 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		525FED5E28E8866E00E55A3A /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		526C1DBE28E7BD8D00142872 /* Milestone-Projects19-21.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Milestone-Projects19-21.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		526C1DC128E7BD8D00142872 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		526C1DC328E7BD8D00142872 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			children = (
 				526C1DC128E7BD8D00142872 /* AppDelegate.swift */,
 				526C1DC328E7BD8D00142872 /* SceneDelegate.swift */,
+				525FED5E28E8866E00E55A3A /* Notes.swift */,
 				526C1DC528E7BD8D00142872 /* ViewController.swift */,
 				526C1DD528E7BE2900142872 /* DetailViewController.swift */,
 				526C1DC728E7BD8D00142872 /* Main.storyboard */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				526C1DC628E7BD8D00142872 /* ViewController.swift in Sources */,
+				525FED5F28E8866E00E55A3A /* Notes.swift in Sources */,
 				526C1DC228E7BD8D00142872 /* AppDelegate.swift in Sources */,
 				526C1DC428E7BD8D00142872 /* SceneDelegate.swift in Sources */,
 				526C1DD628E7BE2900142872 /* DetailViewController.swift in Sources */,

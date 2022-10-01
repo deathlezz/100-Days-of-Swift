@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="XGG-XN-5Cg">
             <objects>
-                <tableViewController id="FGn-9F-N2S" customClass="ViewController" customModule="Milestone_Projects19_21" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableView" id="FGn-9F-N2S" customClass="ViewController" customModule="Milestone_Projects19_21" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="pxQ-x1-WMn">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,17 +54,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Ze-ke-uqR">
-                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Ze-ke-uqR">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BOp-JQ-68P"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0Ze-ke-uqR" firstAttribute="leading" secondItem="BOp-JQ-68P" secondAttribute="leading" id="Baa-eW-fBF"/>
+                            <constraint firstItem="0Ze-ke-uqR" firstAttribute="top" secondItem="nyE-mQ-b2C" secondAttribute="topMargin" constant="-44" id="avr-dR-QkC"/>
+                            <constraint firstItem="0Ze-ke-uqR" firstAttribute="centerX" secondItem="nyE-mQ-b2C" secondAttribute="centerX" id="kmr-zN-ulI"/>
+                            <constraint firstItem="0Ze-ke-uqR" firstAttribute="centerY" secondItem="nyE-mQ-b2C" secondAttribute="centerY" id="w7s-Sq-2dd"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="textView" destination="0Ze-ke-uqR" id="KsA-Bc-yZz"/>
