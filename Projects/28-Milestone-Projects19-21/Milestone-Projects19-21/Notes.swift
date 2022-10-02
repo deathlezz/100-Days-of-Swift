@@ -8,3 +8,4 @@
 import Foundation
 
 var notes = [String]()
+var filteredNotes = [String]()

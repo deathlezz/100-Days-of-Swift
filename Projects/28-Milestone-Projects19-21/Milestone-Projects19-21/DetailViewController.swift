@@ -24,9 +24,10 @@ class DetailViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [save, share]
         
-//        let delete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteNote))
-//        toolbarItems = [delete]
-//        navigationController?.isToolbarHidden = false
+        let delete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteNote))
+        toolbarItems = [delete]
+        UIToolbar.appearance().tintColor = .systemOrange
+        navigationController?.isToolbarHidden = false
         
         let notifiactionCenter = NotificationCenter.default
         notifiactionCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -38,17 +39,35 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveNote() {
-        if !textView.text.isEmpty {
+        if !textView.text.isEmpty && indexPathRow == nil {
             notes.insert(textView.text, at: 0)
+        } else if !textView.text.isEmpty && indexPathRow != nil {
+            notes[indexPathRow] = textView.text
         }
+        
+        filteredNotes = notes
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func deleteNote() {
+        guard indexPathRow != nil else { return }
         
+        let ac = UIAlertController(title: "Delete", message: "Are you sure, you want to delete this note?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Delete", style: .default) { [weak self] _ in
+            notes.remove(at: self!.indexPathRow)
+            filteredNotes = notes
+            self?.navigationController?.popToRootViewController(animated: true)
+        })
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     @objc func shareNote() {
+        guard indexPathRow != nil else { return }
         
+        let vc = UIActivityViewController(activityItems: [filteredNotes[indexPathRow]], applicationActivities: [])
+        present(vc, animated: true)
     }
     
     @objc func adjustForKeyboard(notification: Notification) {
@@ -67,5 +86,4 @@ class DetailViewController: UIViewController {
         let selectedRange = textView.selectedRange
         textView.scrollRangeToVisible(selectedRange)
     }
-
 }
