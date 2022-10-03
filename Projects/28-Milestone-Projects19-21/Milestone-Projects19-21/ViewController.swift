@@ -18,6 +18,8 @@ class ViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterTapped))
+        
+        performSelector(inBackground: #selector(load), with: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,13 +41,25 @@ class ViewController: UITableViewController {
     }
     
     @objc func addNote() {
+        guard navigationItem.leftBarButtonItem?.title == "Filter" else { return }
+        
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            notes.insert("", at: 0)
+            filteredNotes = notes
+            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            vc.indexPathRow = 0
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        
+        if notes.contains("") {
+            notes.remove(at: 0)
+            filteredNotes = notes
+            tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -56,6 +70,7 @@ class ViewController: UITableViewController {
                 filteredNotes.remove(at: indexPath.row)
                 notes.remove(at: index!)
                 self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.performSelector(inBackground: #selector(self?.save), with: nil)
                 
                 if notes.isEmpty {
                     self?.submit("")
@@ -74,7 +89,7 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] _ in
             guard let word = ac?.textFields?[0].text else { return }
             self?.submit(word)
-            self?.tableView.reloadData()
+            self?.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
@@ -84,17 +99,26 @@ class ViewController: UITableViewController {
         if word.isEmpty {
             filteredNotes = notes
             navigationItem.leftBarButtonItem?.title = "Filter"
-            navigationItem.rightBarButtonItem?.isEnabled = true
             return
         }
         filteredNotes.removeAll()
         
         for note in notes {
-            if note.contains(word.lowercased()) {
+            if note.lowercased().contains(word.lowercased()) {
                 filteredNotes.append(note)
             }
         }
         navigationItem.leftBarButtonItem?.title = "Filter: \(word)"
-        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    @objc func save() {
+        let defaults = UserDefaults.standard
+        defaults.set(notes, forKey: "Notes")
+    }
+    
+    @objc func load() {
+        let defaults = UserDefaults.standard
+        notes = defaults.object(forKey: "Notes") as? [String] ?? [String]()
+        filteredNotes = notes
     }
 }

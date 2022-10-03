@@ -39,23 +39,19 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveNote() {
-        if !textView.text.isEmpty && indexPathRow == nil {
-            notes.insert(textView.text, at: 0)
-        } else if !textView.text.isEmpty && indexPathRow != nil {
-            notes[indexPathRow] = textView.text
-        }
-        
-        filteredNotes = notes
-        navigationController?.popToRootViewController(animated: true)
+        let index = notes.firstIndex(of: filteredNotes[indexPathRow])
+        filteredNotes[indexPathRow] = textView.text
+        notes[index!] = textView.text
+        performSelector(inBackground: #selector(save), with: nil)
     }
     
     @objc func deleteNote() {
-        guard indexPathRow != nil else { return }
-        
         let ac = UIAlertController(title: "Delete", message: "Are you sure, you want to delete this note?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Delete", style: .default) { [weak self] _ in
-            notes.remove(at: self!.indexPathRow)
-            filteredNotes = notes
+            let index = notes.firstIndex(of: filteredNotes[self!.indexPathRow])
+            filteredNotes.remove(at: self!.indexPathRow)
+            notes.remove(at: index!)
+            self?.performSelector(inBackground: #selector(self?.save), with: nil)
             self?.navigationController?.popToRootViewController(animated: true)
         })
         
@@ -64,9 +60,9 @@ class DetailViewController: UIViewController {
     }
     
     @objc func shareNote() {
-        guard indexPathRow != nil else { return }
+        guard !textView.text.isEmpty else { return }
         
-        let vc = UIActivityViewController(activityItems: [filteredNotes[indexPathRow]], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [textView.text!], applicationActivities: [])
         present(vc, animated: true)
     }
     
@@ -85,5 +81,10 @@ class DetailViewController: UIViewController {
         textView.scrollIndicatorInsets = textView.contentInset
         let selectedRange = textView.selectedRange
         textView.scrollRangeToVisible(selectedRange)
+    }
+    
+    @objc func save() {
+        let defaults = UserDefaults.standard
+        defaults.set(notes, forKey: "Notes")
     }
 }
