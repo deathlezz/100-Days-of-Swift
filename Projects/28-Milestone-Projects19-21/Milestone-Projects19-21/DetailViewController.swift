@@ -43,6 +43,7 @@ class DetailViewController: UIViewController {
         filteredNotes[indexPathRow] = textView.text
         notes[index!] = textView.text
         performSelector(inBackground: #selector(save), with: nil)
+        textView.endEditing(true)
     }
     
     @objc func deleteNote() {

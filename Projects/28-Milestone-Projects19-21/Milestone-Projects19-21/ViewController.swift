@@ -60,6 +60,10 @@ class ViewController: UITableViewController {
             filteredNotes = notes
             tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         }
+        
+        if notes.isEmpty {
+            navigationItem.leftBarButtonItem?.title = "Filter"
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -73,7 +77,7 @@ class ViewController: UITableViewController {
                 self?.performSelector(inBackground: #selector(self?.save), with: nil)
                 
                 if notes.isEmpty {
-                    self?.submit("")
+                    self?.navigationItem.leftBarButtonItem?.title = "Filter"
                 }
             })
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
