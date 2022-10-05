@@ -24,7 +24,6 @@
 		52FAFC7628EDA43800059B55 /* sliceBombFuse.caf in Resources */ = {isa = PBXBuildFile; fileRef = 52FAFC6B28EDA43700059B55 /* sliceBombFuse.caf */; };
 		52FAFC7728EDA43800059B55 /* swoosh3.caf in Resources */ = {isa = PBXBuildFile; fileRef = 52FAFC6C28EDA43700059B55 /* swoosh3.caf */; };
 		52FAFC7828EDA43800059B55 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 52FAFC6D28EDA43800059B55 /* whack.caf */; };
-		52FAFC7A28EDA57000059B55 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 52FAFC7928EDA57000059B55 /* GameScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +45,7 @@
 		52FAFC6B28EDA43700059B55 /* sliceBombFuse.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sliceBombFuse.caf; sourceTree = "<group>"; };
 		52FAFC6C28EDA43700059B55 /* swoosh3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh3.caf; sourceTree = "<group>"; };
 		52FAFC6D28EDA43800059B55 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
-		52FAFC7928EDA57000059B55 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "../../Projects/22-Project17/Project17-Space-Race/GameScene.sks"; sourceTree = "<group>"; };
+		52FAFC7B28EDA88E00059B55 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +80,8 @@
 			children = (
 				52FAFC4C28EDA2DD00059B55 /* AppDelegate.swift */,
 				52FAFC5228EDA2DD00059B55 /* GameScene.swift */,
-				52FAFC7928EDA57000059B55 /* GameScene.sks */,
 				52FAFC5428EDA2DD00059B55 /* GameViewController.swift */,
+				52FAFC7B28EDA88E00059B55 /* GameScene.sks */,
 				52FAFC5628EDA2DD00059B55 /* Main.storyboard */,
 				52FAFC5928EDA2E100059B55 /* Assets.xcassets */,
 				52FAFC5B28EDA2E200059B55 /* LaunchScreen.storyboard */,
@@ -160,7 +159,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52FAFC7028EDA43800059B55 /* swoosh1.caf in Resources */,
-				52FAFC7A28EDA57000059B55 /* GameScene.sks in Resources */,
 				52FAFC7428EDA43800059B55 /* launch.caf in Resources */,
 				52FAFC5828EDA2DD00059B55 /* Main.storyboard in Resources */,
 				52FAFC7528EDA43800059B55 /* sliceHitEnemy.sks in Resources */,
