@@ -30,3 +30,4 @@
 - [Project 20: Fireworks Night](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/26-Project20) - [Course](https://www.hackingwithswift.com/100/70)
 - [Project 21: Local Notifications](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/27-Project21) - [Course](https://www.hackingwithswift.com/100/72)
 - [Milestone: Projects 19-21](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/28-Milestone-Projects19-21) - [Course](https://www.hackingwithswift.com/100/74)
+- [Project 22: Detect-a-Beacon](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/29-Project22) - [Course](https://www.hackingwithswift.com/100/75) 
