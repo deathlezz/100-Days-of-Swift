@@ -45,12 +45,19 @@ class GameScene: SKScene {
     
     var isGameEnded = false
     
+    var gameOverLabel: SKSpriteNode!
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "sliceBackground")
         background.position = CGPoint(x: 512, y: 384)
         background.blendMode = .replace
         background.zPosition = -1
         addChild(background)
+        
+        // Challenge 3
+        gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        gameOverLabel.zPosition = 1
 
         physicsWorld.gravity = CGVector(dx: 0, dy: -6)
         physicsWorld.speed = 0.85
@@ -192,6 +199,8 @@ class GameScene: SKScene {
             livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
             livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
         }
+        
+        addChild(gameOverLabel)
     }
     
     func playSwooshSound() {
