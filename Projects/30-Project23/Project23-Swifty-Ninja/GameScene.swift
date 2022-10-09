@@ -46,6 +46,7 @@ class GameScene: SKScene {
     var isGameEnded = false
     
     var gameOverLabel: SKSpriteNode!
+    var newGameLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "sliceBackground")
@@ -57,32 +58,31 @@ class GameScene: SKScene {
         // Challenge 3
         gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
         gameOverLabel.position = CGPoint(x: 512, y: 384)
-        gameOverLabel.zPosition = 1
-
-        physicsWorld.gravity = CGVector(dx: 0, dy: -6)
+        gameOverLabel.zPosition = 4
+        gameOverLabel.name = "gameOverLabel"
+        
+        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        newGameLabel.fontSize = 32
+        newGameLabel.text = "NEW GAME"
+        newGameLabel.zPosition = 4
+        newGameLabel.position = CGPoint(x: 512, y: 300)
+        newGameLabel.name = "newGameLabel"
+        
         physicsWorld.speed = 0.85
-
+        physicsWorld.gravity = CGVector(dx: 0, dy: -6)
+        
         createScore()
         createLives()
         createSlices()
-        
-        sequence = [.oneNoBomb, .oneNoBomb, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
-        
-        for _ in 0...1000 {
-            if let nextSequence = SequenceType.allCases.randomElement() {
-                sequence.append(nextSequence)
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.tossEnemies()
-        }
+
+        newGame()
     }
     
     func createScore() {
         gameScore = SKLabelNode(fontNamed: "Chalkduster")
         gameScore.horizontalAlignmentMode = .left
         gameScore.fontSize = 48
+        gameScore.zPosition = 4
         addChild(gameScore)
         
         gameScore.position = CGPoint(x: 8, y: 40)
@@ -93,6 +93,7 @@ class GameScene: SKScene {
         for i in 0..<3 {
             let spriteNode = SKSpriteNode(imageNamed: "sliceLife")
             spriteNode.position = CGPoint(x: CGFloat(834 + (i * 70)), y: 700)
+            spriteNode.zPosition = 4
             addChild(spriteNode)
             livesImages.append(spriteNode)
         }
@@ -113,6 +114,16 @@ class GameScene: SKScene {
         
         addChild(activeSliceBG)
         addChild(activeSliceFG)
+    }
+    
+    func createSequence() {
+        sequence = [.oneNoBomb, .oneNoBomb, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
+
+        for _ in 0...1000 {
+            if let nextSequence = SequenceType.allCases.randomElement() {
+                sequence.append(nextSequence)
+            }
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -189,7 +200,6 @@ class GameScene: SKScene {
         
         isGameEnded = true
         physicsWorld.speed = 0
-        isUserInteractionEnabled = false
         
         bombSoundEffect?.stop()
         bombSoundEffect = nil
@@ -201,6 +211,35 @@ class GameScene: SKScene {
         }
         
         addChild(gameOverLabel)
+        addChild(newGameLabel)
+    }
+    
+    func newGame() {
+        for node in children {
+            if node.name == "enemy" || node.name == "bombContainer" || node.name == "newGameLabel" || node.name == "gameOverLabel" {
+                node.removeFromParent()
+            }
+        }
+        
+        activeEnemies.removeAll()
+        
+        for i in 0...2 {
+            livesImages[i].texture = SKTexture(imageNamed: "sliceLife")
+        }
+        
+        score = 0
+        lives = 3
+        isGameEnded = false
+        popupTime = 0.9
+        sequencePosition = 0
+        nextSequenceQueued = true
+        physicsWorld.speed = 0.85
+        
+        createSequence()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.tossEnemies()
+        }
     }
     
     func playSwooshSound() {
@@ -226,15 +265,26 @@ class GameScene: SKScene {
         activeSlicePoints.removeAll(keepingCapacity: true)
         
         let location = touch.location(in: self)
-        activeSlicePoints.append(location)
         
-        redrawActiveSlice()
-        
-        activeSliceBG.removeAllActions()
-        activeSliceFG.removeAllActions()
-        
-        activeSliceBG.alpha = 1
-        activeSliceFG.alpha = 1
+        if isGameEnded {
+            let objects = nodes(at: location)
+            
+            for object in objects {
+                if object.name == "newGameLabel" {
+                    newGame()
+                }
+            }
+        } else {
+            activeSlicePoints.append(location)
+            
+            redrawActiveSlice()
+            
+            activeSliceBG.removeAllActions()
+            activeSliceFG.removeAllActions()
+            
+            activeSliceBG.alpha = 1
+            activeSliceFG.alpha = 1
+        }
     }
     
     func redrawActiveSlice() {
