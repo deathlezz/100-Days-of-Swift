@@ -147,11 +147,17 @@ class GameScene: SKScene {
         let nodesAtPoint = nodes(at: location)
         
         for case let node as SKSpriteNode in nodesAtPoint {
-            if node.name == "enemy" {
+            if node.name == "enemy" || node.name == "fastEnemy" {
                 // destroy the penguin
                 if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy") {
                     emitter.position = node.position
                     addChild(emitter)
+                }
+                
+                if node.name == "enemy" {
+                    score += 1
+                } else if node.name == "fastEnemy" {
+                    score += 2
                 }
                 
                 node.name = ""
@@ -164,7 +170,6 @@ class GameScene: SKScene {
                 let seq = SKAction.sequence([group, .removeFromParent()])
                 node.run(seq)
                 
-                score += 1
                 if let index = activeEnemies.firstIndex(of: node) {
                     activeEnemies.remove(at: index)
                 }
@@ -318,7 +323,7 @@ class GameScene: SKScene {
     func createEnemy(forceBomb: ForceBomb = .random) {
         let enemy: SKSpriteNode
         
-        var enemyType = Int.random(in: 0...6)
+        var enemyType = Int.random(in: 0...7)
         
         if forceBomb == .never {
             enemyType = 1
@@ -352,6 +357,12 @@ class GameScene: SKScene {
                 emitter.position = CGPoint(x: 76, y: 64)
                 enemy.addChild(emitter)
             }
+            
+        // Challenge 2
+        } else if enemyType == 7 {
+            enemy = SKSpriteNode(imageNamed: "penguinEvil")
+            run(SKAction.playSoundFileNamed("launch", waitForCompletion: false))
+            enemy.name = "fastEnemy"
                 
         } else {
             enemy = SKSpriteNode(imageNamed: "penguin")
@@ -381,6 +392,10 @@ class GameScene: SKScene {
         enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
         enemy.physicsBody?.angularVelocity = randomAngularVelocity
         enemy.physicsBody?.collisionBitMask = 0
+        
+        if enemy.name == "fastEnemy" {
+            enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 45, dy: randomYVelocity * 45)
+        }
                                                
         addChild(enemy)
         activeEnemies.append(enemy)
@@ -421,7 +436,7 @@ class GameScene: SKScene {
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
                         
-                    } else if node.name == "bombContainer" {
+                    } else if node.name == "bombContainer" || node.name == "fastEnemy" {
                         node.name = ""
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
