@@ -48,6 +48,12 @@ class GameScene: SKScene {
     var gameOverLabel: SKSpriteNode!
     var newGameLabel: SKLabelNode!
     
+    // Challenge 1
+    let enemyPositionRange = 64...960
+    let randomXVelocitySmallRange = 3...5
+    let randomXVelocityBigRange = 8...15
+    let randomYVelocityRange = 24...32
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "sliceBackground")
         background.position = CGPoint(x: 512, y: 384)
@@ -353,23 +359,24 @@ class GameScene: SKScene {
             enemy.name = "enemy"
         }
         
-        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        let randomPosition = CGPoint(x: Int.random(in: enemyPositionRange), y: -128)
         enemy.position = randomPosition
         
         let randomAngularVelocity = CGFloat.random(in: -3...3)
         let randomXVelocity: Int
         
+        // Challenge 1
         if randomPosition.x < 256 {
-            randomXVelocity = Int.random(in: 8...15)
+            randomXVelocity = Int.random(in: randomXVelocityBigRange)
         } else if randomPosition.x < 512 {
-            randomXVelocity = Int.random(in: 3...5)
+            randomXVelocity = Int.random(in: randomXVelocitySmallRange)
         } else if randomPosition.x < 768 {
-            randomXVelocity = -Int.random(in: 3...5)
+            randomXVelocity = -Int.random(in: randomXVelocitySmallRange)
         } else {
-            randomXVelocity = -Int.random(in: 8...15)
+            randomXVelocity = -Int.random(in: randomXVelocityBigRange)
         }
         
-        let randomYVelocity = Int.random(in: 24...32)
+        let randomYVelocity = Int.random(in: randomYVelocityRange)
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
         enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
         enemy.physicsBody?.angularVelocity = randomAngularVelocity
