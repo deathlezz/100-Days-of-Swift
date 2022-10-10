@@ -7,20 +7,76 @@
 
 import Foundation
 
-let name = "Taylor"
+// example 1
 
-for letter in name {
-    print("Give ma a \(letter)!")
-}
+//let name = "Taylor"
+//
+//for letter in name {
+//    print("Give ma a \(letter)!")
+//}
+//
+//let letter = name[name.index(name.startIndex, offsetBy: 3)]
+//print(letter)
+//
+//extension String {
+//    subscript(i: Int) -> String {
+//        return String(self[index(startIndex, offsetBy: i)])
+//    }
+//}
+//
+//let letter2 = name[3]
+//print(letter2)
 
-let letter = name[name.index(name.startIndex, offsetBy: 3)]
-print(letter)
+// example 2
+
+//extension String {
+//    func deletingPrefix(_ prefix: String) -> String {
+//        guard self.hasPrefix(prefix) else { return self }
+//        return String(self.dropFirst(prefix.count))
+//    }
+//
+//    func deletingSuffix(_ suffix: String) -> String {
+//        guard self.hasSuffix(suffix) else { return self }
+//        return String(self.dropLast(suffix.count))
+//    }
+//}
+//
+//let password = "12345"
+//print(password.hasPrefix("123"))
+//print(password.hasSuffix("456"))
+
+
+// example 3
+
+//let weather = "It's going to rain"
+//print(weather.capitalized)
+//
+//extension String {
+//    var capitalizedFirst: String {
+//        guard let firstLetter = self.first else { return "" }
+//        return firstLetter.uppercased() + self.dropFirst()
+//    }
+//}
+
+// example 4
+
+let input = "Swift is like Objective-C without the C"
+print(input.contains("Swift"))
+
+let languages = ["Python", "Ruby", "Swift"]
+print(languages.contains("Swift"))
 
 extension String {
-    subscript(i: Int) -> String {
-        return String(self[index(startIndex, offsetBy: i)])
+    func containsAny(of array: [String]) -> Bool {
+        for item in array {
+            if self.contains(item) {
+                return true
+            }
+        }
+        return false
     }
 }
 
-let letter2 = name[3]
-print(letter2)
+print(input.containsAny(of: languages))
+
+print(languages.contains(where: input.contains))
