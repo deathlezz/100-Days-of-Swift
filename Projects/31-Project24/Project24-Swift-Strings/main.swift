@@ -7,5 +7,20 @@
 
 import Foundation
 
-print("Hello, World!")
+let name = "Taylor"
 
+for letter in name {
+    print("Give ma a \(letter)!")
+}
+
+let letter = name[name.index(name.startIndex, offsetBy: 3)]
+print(letter)
+
+extension String {
+    subscript(i: Int) -> String {
+        return String(self[index(startIndex, offsetBy: i)])
+    }
+}
+
+let letter2 = name[3]
+print(letter2)
