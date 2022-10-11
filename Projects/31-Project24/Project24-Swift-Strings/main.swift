@@ -60,23 +60,54 @@ import Foundation
 
 // example 4
 
-let input = "Swift is like Objective-C without the C"
-print(input.contains("Swift"))
+//let input = "Swift is like Objective-C without the C"
+//print(input.contains("Swift"))
+//
+//let languages = ["Python", "Ruby", "Swift"]
+//print(languages.contains("Swift"))
+//
+//extension String {
+//    func containsAny(of array: [String]) -> Bool {
+//        for item in array {
+//            if self.contains(item) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+//}
+//
+//print(input.containsAny(of: languages))
+//
+//print(languages.contains(where: input.contains))
 
-let languages = ["Python", "Ruby", "Swift"]
-print(languages.contains("Swift"))
-
+// Challenge 1
 extension String {
-    func containsAny(of array: [String]) -> Bool {
-        for item in array {
-            if self.contains(item) {
-                return true
-            }
-        }
-        return false
+    func withPrefix(_ prefix: String) -> String {
+        guard !self.contains(prefix) else { return self }
+        return prefix + self
     }
 }
 
-print(input.containsAny(of: languages))
+assert("ger".withPrefix("bur") == "burger")
+assert("pet".withPrefix("car") == "carpet")
 
-print(languages.contains(where: input.contains))
+// Challenge 2
+extension String {
+    var isNumeric: Bool {
+        return self.rangeOfCharacter(from: .decimalDigits) != nil
+    }
+}
+
+assert("burger".isNumeric == false)
+assert("123".isNumeric == true)
+assert("ab123cv".isNumeric == true)
+
+// Challenge 3
+extension String {
+    var lines: [String] {
+        return self.components(separatedBy: "\n")
+    }
+}
+
+assert("this\nis\na\ntest".lines == ["this", "is", "a", "test"])
