@@ -33,3 +33,4 @@
 - [Project 22: Detect-a-Beacon](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/29-Project22) - [Course](https://www.hackingwithswift.com/100/75)
 - [Project 23: Swifty Ninja](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/30-Project23) - [Course](https://www.hackingwithswift.com/100/77)
 - [Project 24: Swift Strings](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/31-Project24) - [Course](https://www.hackingwithswift.com/100/80)
+- [Milestone: Projects 22-24](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/32-Milestone-Projects22-24) - [Course](https://www.hackingwithswift.com/100/82)
