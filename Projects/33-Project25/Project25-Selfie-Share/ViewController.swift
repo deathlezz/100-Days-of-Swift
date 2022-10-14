@@ -115,7 +115,10 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case .notConnected:
-            print("Not Connected: \(peerID.displayName)")
+            // Challenge 1
+            let ac = UIAlertController(title: "\(peerID) has disconnected", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         case .connecting:
             print("Connecting: \(peerID.displayName)")
         case .connected:
