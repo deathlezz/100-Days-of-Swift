@@ -21,8 +21,17 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         // Do any additional setup after loading the view.
         
         title = "Selfie Share"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        
+        // Challenge 3
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        let peers = UIBarButtonItem(title: "Peers", style: .plain, target: self, action: #selector(showPeers))
+        
+        // Challenge 2
+        let picture = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        let message = UIBarButtonItem(title: "Text", style: .plain, target: self, action: #selector(showSendMessage))
+
+        navigationItem.leftBarButtonItems = [add, peers]
+        navigationItem.rightBarButtonItems = [picture, message]
         
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession?.delegate = self
@@ -69,19 +78,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         images.insert(image, at: 0)
         collectionView.reloadData()
         
-        guard let mcSession = mcSession else { return }
-        
-        if mcSession.connectedPeers.count > 0 {
-            if let imageData = image.pngData() {
-                do {
-                    try mcSession.send(imageData, toPeers: mcSession.connectedPeers, with: .reliable)
-                } catch {
-                    let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default))
-                    present(ac, animated: true)
-                }
-            }
-        }
+        sendImage(image)
     }
 
     @objc func showConnectionPrompt() {
@@ -90,6 +87,66 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    // Challenge 2
+    @objc func showSendMessage() {
+        let ac = UIAlertController(title: "Message", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Send", style: .default) { [weak self, weak ac] _ in
+            guard let text = ac?.textFields?[0].text else { return }
+            self?.sendMessage(text)
+        })
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    func sendMessage(_ text: String) {
+        let data = Data(text.utf8)
+        sendData(data)
+    }
+    
+    func sendImage(_ image: UIImage) {
+        if let imageData = image.pngData() {
+            sendData(imageData)
+        }
+    }
+    
+    func sendData(_ data: Data) {
+        guard let mcSession = mcSession else { return }
+        
+        if mcSession.connectedPeers.count > 0 {
+            do {
+                try mcSession.send(data, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch {
+                let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
+        }
+    }
+    
+    // Challenge 3
+    @objc func showPeers() {
+        guard let mcSession = mcSession else { return }
+        
+        if mcSession.connectedPeers.count > 0 {
+            let ac = UIAlertController(title: "Connected Peers", message: nil, preferredStyle: .actionSheet)
+            
+            for peer in mcSession.connectedPeers {
+                ac.addAction(UIAlertAction(title: "\(peer.displayName)", style: .default))
+            }
+            ac.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItems?[1]
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(ac, animated: true)
+            
+        } else {
+            let ac = UIAlertController(title: "No peers connected", message: nil, preferredStyle: .alert)
+            ac.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItems?[1]
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(ac, animated: true)
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -133,6 +190,13 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+                
+            } else {
+                // Challenge 2
+                let text = String(decoding: data, as: UTF8.self)
+                let ac = UIAlertController(title: "New message", message: text, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+                self?.present(ac, animated: true)
             }
         }
     }
