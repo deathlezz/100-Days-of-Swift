@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCBF9C0028FEC3B9009EA8E4 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCBF9BFF28FEC3B9009EA8E4 /* level2.txt */; };
+		BCBF9C0428FEC87B009EA8E4 /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCBF9C0328FEC87B009EA8E4 /* level3.txt */; };
 		BCE1853128FC0D5200E00CB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE1853028FC0D5200E00CB4 /* AppDelegate.swift */; };
 		BCE1853328FC0D5200E00CB4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCE1853228FC0D5200E00CB4 /* GameScene.sks */; };
 		BCE1853728FC0D5200E00CB4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE1853628FC0D5200E00CB4 /* GameScene.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BCBF9BFF28FEC3B9009EA8E4 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
+		BCBF9C0328FEC87B009EA8E4 /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
 		BCE1852D28FC0D5200E00CB4 /* Project26-Marble-Maze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project26-Marble-Maze.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE1853028FC0D5200E00CB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE1853228FC0D5200E00CB4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 				BCE1853D28FC0D5900E00CB4 /* Assets.xcassets */,
 				BCE1853F28FC0D5900E00CB4 /* LaunchScreen.storyboard */,
 				BCE1854728FC1EDC00E00CB4 /* level1.txt */,
+				BCBF9BFF28FEC3B9009EA8E4 /* level2.txt */,
+				BCBF9C0328FEC87B009EA8E4 /* level3.txt */,
 			);
 			path = "Project26-Marble-Maze";
 			sourceTree = "<group>";
@@ -129,8 +135,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCBF9C0428FEC87B009EA8E4 /* level3.txt in Resources */,
 				BCE1854828FC1EDC00E00CB4 /* level1.txt in Resources */,
 				BCE1853C28FC0D5200E00CB4 /* Main.storyboard in Resources */,
+				BCBF9C0028FEC3B9009EA8E4 /* level2.txt in Resources */,
 				BCE1853328FC0D5200E00CB4 /* GameScene.sks in Resources */,
 				BCE1853E28FC0D5900E00CB4 /* Assets.xcassets in Resources */,
 				BCE1854128FC0D5900E00CB4 /* LaunchScreen.storyboard in Resources */,
