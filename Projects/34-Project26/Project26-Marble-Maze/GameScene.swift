@@ -33,7 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var newGameLabel: SKLabelNode!
     
     var levelLabel: SKLabelNode!
-    var level = 3 {
+    var level = 1 {
         didSet {
             levelLabel.text = "Level \(level)"
             levelCompletedLabel.text = "Level \(level) completed"
