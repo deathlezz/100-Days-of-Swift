@@ -24,6 +24,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var motionManager: CMMotionManager?
     var isGameOver = false
+    var isPortalActive = true
+    var portalsPositions = [CGPoint]()
     
     var levelCompletedLabel: SKLabelNode!
     var levelUpLabel: SKLabelNode!
@@ -31,9 +33,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var newGameLabel: SKLabelNode!
     
     var levelLabel: SKLabelNode!
-    var level = 1 {
+    var level = 3 {
         didSet {
             levelLabel.text = "Level \(level)"
+            levelCompletedLabel.text = "Level \(level) completed"
         }
     }
     
@@ -67,7 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Challenge 2
         levelCompletedLabel = SKLabelNode(fontNamed: "Chalkduster")
-        levelCompletedLabel.text = "LEVEL COMPLETED"
+        levelCompletedLabel.text = "LEVEL 1 COMPLETED"
         levelCompletedLabel.horizontalAlignmentMode = .center
         levelCompletedLabel.fontSize = 48
         levelCompletedLabel.zPosition = 2
@@ -75,12 +78,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelCompletedLabel.name = "levelCompleted"
         
         levelUpLabel = SKLabelNode(fontNamed: "Chalkduster")
-        levelUpLabel.text = "LEVEL UP"
+        levelUpLabel.text = "> LEVEL UP <"
         levelUpLabel.horizontalAlignmentMode = .center
         levelUpLabel.fontSize = 38
         levelUpLabel.zPosition = 2
         levelUpLabel.position = CGPoint(x: 512, y: 304)
         levelUpLabel.name = "levelUp"
+        
+        gameOverLabel = SKSpriteNode(imageNamed: "gameOver")
+        gameOverLabel.name = "gameOver"
+        gameOverLabel.zPosition = 2
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        
+        newGameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        newGameLabel.text = "NEW GAME"
+        newGameLabel.position = CGPoint(x: 512, y: 304)
+        newGameLabel.horizontalAlignmentMode = .center
+        newGameLabel.fontSize = 38
+        newGameLabel.zPosition = 2
+        newGameLabel.name = "newGame"
         
         loadLevel()
         createPlayer()
@@ -99,6 +115,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let levelString = try? String(contentsOf: levelURL) else {
             fatalError("Could not load level\(level).txt in the app bundle.")
         }
+        
+        isPortalActive = true
         
         let lines = levelString.components(separatedBy: "\n")
         
@@ -132,6 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Challenge 1
     func loadWall(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "block")
+        node.name = "block"
         node.position = position
         node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
         node.physicsBody?.categoryBitMask = CollisionTypes.wall.rawValue
@@ -139,6 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
+    // Challenge 3
     func loadPortal(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "portal")
         node.position = position
@@ -149,6 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.physicsBody?.categoryBitMask = CollisionTypes.portal.rawValue
         node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
         node.physicsBody?.collisionBitMask = 0
+        portalsPositions.append(position)
         addChild(node)
     }
     
@@ -217,6 +238,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for object in objects {
                 if object.name == "levelUp" {
                     levelUp()
+                } else if object.name == "newGame" {
+                    // new game
+                    newGame()
                 }
             }
         }
@@ -258,8 +282,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func newGame() {
+        score = 0
+        level = 1
+        isGameOver = false
+        
+        for node in children {
+            if node.name == "gameOver" || node.name == "newGame" || node.name == "block" || node.name == "vortex" || node.name == "star" || node.name == "finish" || node.name == "portal" {
+                node.removeFromParent()
+            }
+        }
+        
+        loadLevel()
+        createPlayer()
+    }
+    
     func playerCollided(with node: SKNode) {
         if node.name == "vortex" {
+            // game over
             player.physicsBody?.isDynamic = false
             isGameOver = true
             score -= 1
@@ -268,10 +308,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let scale = SKAction.scale(to: 0.0001, duration: 0.25)
             let remove = SKAction.removeFromParent()
             let sequence = SKAction.sequence([move, scale, remove])
-            
+                        
             player.run(sequence) { [weak self] in
-                self?.createPlayer()
-                self?.isGameOver = false
+                self?.gameOver()
             }
         } else if node.name == "star" {
             node.removeFromParent()
@@ -284,7 +323,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score += 1
             addChild(levelCompletedLabel)
             addChild(levelUpLabel)
+        } else if node.name == "portal" {
+            // move player to another portal
+            guard isPortalActive == true else { return }
+            
+            player.physicsBody?.isDynamic = false
+            
+            let move = SKAction.move(to: node.position, duration: 0.25)
+            let scaleDown = SKAction.scale(to: 0.0001, duration: 0.25)
+            let teleport = SKAction.move(to: CGPoint(x: portalsPositions[1].x, y: portalsPositions[1].y), duration: 0.25)
+            let scaleUp = SKAction.scale(to: 1, duration: 0.25)
+            let sequence = SKAction.sequence([move, scaleDown, teleport, scaleUp])
+            
+            player.run(sequence) { [weak self] in
+                self?.isPortalActive = false
+                self?.player.physicsBody?.isDynamic = true
+            }
         }
+    }
+    
+    func gameOver() {
+        addChild(gameOverLabel)
+        addChild(newGameLabel)
     }
     
     func levelUp() {
@@ -292,13 +352,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         level += 1
 
         for node in children {
-            if node.name == "levelCompleted" || node.name == "levelUp" || node.name == "block" || node.name == "vortex" || node.name == "star" {
+            if node.name == "levelCompleted" || node.name == "levelUp" || node.name == "block" || node.name == "vortex" || node.name == "star" || node.name == "portal" {
                 node.removeFromParent()
             }
+        }
+        
+        if level == 4 {
+            level = 1
         }
         
         loadLevel()
         createPlayer()
     }
-    
 }
