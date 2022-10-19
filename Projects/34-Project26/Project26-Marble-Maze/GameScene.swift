@@ -163,7 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let node = SKSpriteNode(imageNamed: "portal")
         node.position = position
         node.name = "portal"
-        node.run(SKAction.repeatForever(SKAction.rotate(byAngle: .pi, duration: 1)))
+        node.run(SKAction.repeatForever(SKAction.rotate(byAngle: -.pi, duration: 2)))
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = CollisionTypes.portal.rawValue
