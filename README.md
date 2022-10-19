@@ -35,3 +35,4 @@
 - [Project 24: Swift Strings](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/31-Project24) - [Course](https://www.hackingwithswift.com/100/80)
 - [Milestone: Projects 22-24](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/32-Milestone-Projects22-24) - [Course](https://www.hackingwithswift.com/100/82)
 - [Project 25: Selfie Share](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/33-Project25) - [Course](https://www.hackingwithswift.com/100/83)
+- [Project 26: Marble Maze](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/34-Project26) - [Course](https://www.hackingwithswift.com/100/85)
