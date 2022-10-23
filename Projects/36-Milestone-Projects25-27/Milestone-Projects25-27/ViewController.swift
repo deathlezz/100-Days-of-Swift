@@ -12,6 +12,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     var currentImage: UIImage!
     
+    var topTextImage: UIImage!
+    var bottomTextImage: UIImage!
+    var fullTextImage: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,7 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func shareTapped() {
         guard let image = imageView.image else { return }
         
-        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [image, "MEME"], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(vc, animated: true)
     }
@@ -58,8 +62,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         ac.addTextField()
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self] _ in
+            // leave field empty to reset
             guard let text = ac.textFields?[0].text else { return }
-            self?.submit(text)
+            self?.submit(text, "top")
         })
         present(ac, animated: true)
     }
@@ -71,14 +76,58 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         ac.addTextField()
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self] _ in
+            // leave field empty to reset
             guard let text = ac.textFields?[0].text else { return }
-            self?.submit(text)
+            self?.submit(text, "bottom")
         })
         present(ac, animated: true)
     }
     
-    func submit(_ text: String) {
+    func submit(_ text: String, _ place: String) {
+        let renderer = UIGraphicsImageRenderer(size: currentImage.size)
         
+        let image = renderer.image { ctx in
+            // awesome drawing code
+            
+            currentImage.draw(at: CGPoint(x: 0, y: 0))
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            
+            let attrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white.cgColor,
+                .strokeColor: UIColor.black.cgColor,
+                .strokeWidth: -3,
+                .font: UIFont(name: "Helvetica Bold", size: 90)!,
+                .paragraphStyle: paragraphStyle
+            ]
+            
+            if place == "top" {
+                let attributedString = NSAttributedString(string: text, attributes: attrs)
+                attributedString.draw(with: CGRect(x: 32, y: 32, width: currentImage.size.width - 64, height: currentImage.size.height / 2), options: .usesLineFragmentOrigin, context: nil)
+            } else if place == "bottom" {
+                let attributedString = NSAttributedString(string: text, attributes: attrs)
+                attributedString.draw(with: CGRect(x: 32, y: currentImage.size.height - 128, width: currentImage.size.width - 64, height: currentImage.size.height / 2), options: .usesLineFragmentOrigin, context: nil)
+            }
+        }
+        
+        if place == "top" && text.isEmpty {
+            topTextImage = nil
+        } else if place == "bottom" && text.isEmpty {
+            bottomTextImage = nil
+        } else if place == "top" {
+            topTextImage = image
+        } else if place == "bottom" {
+            bottomTextImage = image
+        }
+        
+        if topTextImage == nil {
+            imageView.image = bottomTextImage
+        } else if bottomTextImage == nil {
+            imageView.image = topTextImage
+        } else {
+            imageView.image = image
+        }
     }
 
 }
