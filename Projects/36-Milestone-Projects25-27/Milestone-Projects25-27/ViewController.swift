@@ -5,6 +5,11 @@
 //  Created by deathlezz on 22/10/2022.
 //
 
+enum Position {
+    case top
+    case bottom
+}
+
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -12,9 +17,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     var currentImage: UIImage!
     
-    var topTextImage: UIImage!
-    var bottomTextImage: UIImage!
-    var fullTextImage: UIImage!
+    var topCaption: String?
+    var bottomCaption: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func shareTapped() {
         guard let image = imageView.image else { return }
         
-        let vc = UIActivityViewController(activityItems: [image, "MEME"], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [image, "meme"], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(vc, animated: true)
     }
@@ -52,6 +56,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let image = info[.editedImage] as? UIImage else { return }
         dismiss(animated: true)
         currentImage = image
+        topCaption = nil
+        bottomCaption = nil
         imageView.image = currentImage
     }
     
@@ -64,7 +70,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self] _ in
             // leave field empty to reset
             guard let text = ac.textFields?[0].text else { return }
-            self?.submit(text, "top")
+            self?.topCaption = text
+            self?.submit()
         })
         present(ac, animated: true)
     }
@@ -78,56 +85,60 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self] _ in
             // leave field empty to reset
             guard let text = ac.textFields?[0].text else { return }
-            self?.submit(text, "bottom")
+            self?.bottomCaption = text
+            self?.submit()
         })
         present(ac, animated: true)
     }
     
-    func submit(_ text: String, _ place: String) {
+    func submit() {
         let renderer = UIGraphicsImageRenderer(size: currentImage.size)
         
         let image = renderer.image { ctx in
-            // awesome drawing code
-            
             currentImage.draw(at: CGPoint(x: 0, y: 0))
             
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
+            if let topCaption = topCaption {
+                addText(text: topCaption, position: .top)
+            }
             
-            let attrs: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.white.cgColor,
-                .strokeColor: UIColor.black.cgColor,
-                .strokeWidth: -3,
-                .font: UIFont(name: "Helvetica Bold", size: 90)!,
-                .paragraphStyle: paragraphStyle
-            ]
-            
-            if place == "top" {
-                let attributedString = NSAttributedString(string: text, attributes: attrs)
-                attributedString.draw(with: CGRect(x: 32, y: 32, width: currentImage.size.width - 64, height: currentImage.size.height / 2), options: .usesLineFragmentOrigin, context: nil)
-            } else if place == "bottom" {
-                let attributedString = NSAttributedString(string: text, attributes: attrs)
-                attributedString.draw(with: CGRect(x: 32, y: currentImage.size.height - 128, width: currentImage.size.width - 64, height: currentImage.size.height / 2), options: .usesLineFragmentOrigin, context: nil)
+            if let bottomCaption = bottomCaption {
+                addText(text: bottomCaption, position: .bottom)
             }
         }
         
-        if place == "top" && text.isEmpty {
-            topTextImage = nil
-        } else if place == "bottom" && text.isEmpty {
-            bottomTextImage = nil
-        } else if place == "top" {
-            topTextImage = image
-        } else if place == "bottom" {
-            bottomTextImage = image
-        }
+        imageView.image = image
+    }
+    
+    func addText(text: String, position: Position) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
         
-        if topTextImage == nil {
-            imageView.image = bottomTextImage
-        } else if bottomTextImage == nil {
-            imageView.image = topTextImage
-        } else {
-            imageView.image = image
+        let attrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white.cgColor,
+            .strokeColor: UIColor.black.cgColor,
+            .strokeWidth: -3,
+            .font: UIFont(name: "Helvetica Bold", size: 90)!,
+            .paragraphStyle: paragraphStyle
+        ]
+        
+        let textHeight = calculateTextHeight(text: text, attributes: attrs)
+        let startY = currentImage.size.height - CGFloat(textHeight + 32)
+        
+        if position == .top {
+            let attributedString = NSAttributedString(string: text, attributes: attrs)
+            attributedString.draw(with: CGRect(x: 32, y: 32, width: currentImage.size.width - 64, height: currentImage.size.height / 2), options: .usesLineFragmentOrigin, context: nil)
+        } else if position == .bottom {
+            let attributedString = NSAttributedString(string: text, attributes: attrs)
+            attributedString.draw(with: CGRect(x: 32, y: startY, width: currentImage.size.width - 64, height: CGFloat(textHeight)), options: .usesLineFragmentOrigin, context: nil)
         }
+    }
+    
+    func calculateTextHeight(text: String, attributes: [NSAttributedString.Key : Any]) -> Int {
+        let nsText = NSString(string: text)
+        let size = CGSize(width: CGFloat(currentImage.size.width), height: .greatestFiniteMagnitude)
+        let textRect = nsText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+
+        return Int(ceil(textRect.size.height))
     }
 
 }
