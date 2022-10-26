@@ -38,3 +38,4 @@
 - [Project 26: Marble Maze](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/34-Project26) - [Course](https://www.hackingwithswift.com/100/85)
 - [Project 27: Core Graphics](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/35-Project27) - [Course](https://www.hackingwithswift.com/100/88)
 - [Milestone: Projects 25-27](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/36-Milestone-Projects25-27) - [Course](https://www.hackingwithswift.com/100/90)
+- [Core Graphics Redux](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/37-CoreGraphics-Redux) - [Course](https://www.hackingwithswift.com/100/91)
