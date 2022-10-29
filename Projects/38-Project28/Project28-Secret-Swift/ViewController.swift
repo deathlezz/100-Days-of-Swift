@@ -18,6 +18,11 @@ class ViewController: UIViewController {
         
         title = "Nothing to see here"
         
+        // Challenge 1
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
+        
+        navigationItem.rightBarButtonItem?.isHidden = true
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -37,9 +42,14 @@ class ViewController: UIViewController {
                     if success {
                         self?.unlockSecretMessage()
                     } else {
-                        // error
-                        let ac = UIAlertController(title: "Authentication failed", message: "You could not be verified; please try again.", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        // Challenge 2
+                        let ac = UIAlertController(title: "Authentication failed", message: "Please enter your password", preferredStyle: .alert)
+                        ac.addTextField()
+                        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                        ac.addAction(UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] _ in
+                            guard let text = ac?.textFields?[0].text else { return }
+                            self?.submit(text)
+                        })
                         self?.present(ac, animated: true)
                     }
                 }
@@ -74,6 +84,7 @@ class ViewController: UIViewController {
     func unlockSecretMessage() {
         secret.isHidden = false
         title = "Secret stuff!"
+        navigationItem.rightBarButtonItem?.isHidden = false
         
         secret.text = KeychainWrapper.standard.string(forKey: "SecretMessage") ?? ""
     }
@@ -83,9 +94,25 @@ class ViewController: UIViewController {
         
         KeychainWrapper.standard.set(secret.text, forKey: "SecretMessage")
         secret.resignFirstResponder()
+        navigationItem.rightBarButtonItem?.isHidden = true
         secret.isHidden = true
         title = "Nothing to see here"
     }
     
+    // Challenge 2
+    func submit(_ text: String) {
+        if KeychainWrapper.standard.string(forKey: "Password") == nil {
+            KeychainWrapper.standard.set(text, forKey: "Password")
+        }
+        
+        if text == KeychainWrapper.standard.string(forKey: "Password") {
+            unlockSecretMessage()
+        } else {
+            let ac = UIAlertController(title: "Authentication failed", message: "Wrong password; please try again", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(ac, animated: true)
+        }
+    }
+
 }
 
