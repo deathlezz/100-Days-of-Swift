@@ -6,16 +6,31 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var people = [Person]()
+    var hiddenPeople = [Person]()
+    
+    var add: UIBarButtonItem!
+    var unlock: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        title = "Nothing to see here"
+        
+        // Challenge 3
+        add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        unlock = UIBarButtonItem(title: "Unlock", style: .plain, target: self, action: #selector(authenticate))
+        navigationItem.rightBarButtonItem = unlock
+        
+        loadPeople()
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(lockContent), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -84,6 +99,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
+        savePeople()
         collectionView.reloadData()
         
         dismiss(animated: true)
@@ -104,6 +120,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
                 guard let newName = ac?.textFields?[0].text else { return }
                 person.name = newName
+                self?.savePeople()
                 self?.collectionView.reloadData()
             })
             
@@ -113,12 +130,83 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
             self?.people.remove(at: indexPath.item)
+            self?.savePeople()
             collectionView.deleteItems(at: [indexPath])
             collectionView.reloadData()
         })
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    func loadPeople() {
+        let defaults = UserDefaults.standard
+        
+        if let savedPeople = defaults.object(forKey: "people") as? Data {
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                hiddenPeople = try jsonDecoder.decode([Person].self, from: savedPeople)
+            } catch {
+                print("Failed to load people")
+            }
+        }
+    }
+    
+    func savePeople() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedPeople = try? jsonEncoder.encode(people) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedPeople, forKey: "people")
+        } else {
+            print("Failed to save people")
+        }
+    }
+    
+    // Challenge 3
+    @objc func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself!"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.unlockContent()
+                    } else {
+                        let ac = UIAlertController(title: "Authentication failed", message: "Please try again later", preferredStyle: .alert)
+                        ac.addTextField()
+                        ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+                        self?.present(ac, animated: true)
+                    }
+                }
+            }
+        } else {
+            // no biometry
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device is not configured for biometric authentication", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    // Challenge 3
+    func unlockContent() {
+        title = "Hello there!"
+        navigationItem.rightBarButtonItem = add
+        loadPeople()
+        people = hiddenPeople
+        collectionView.reloadData()
+    }
+    
+    // Challenge 3
+    @objc func lockContent() {
+        title = "Nothing to see here"
+        navigationItem.rightBarButtonItem = unlock
+        people = [Person]()
+        collectionView.reloadData()
     }
     
 }
