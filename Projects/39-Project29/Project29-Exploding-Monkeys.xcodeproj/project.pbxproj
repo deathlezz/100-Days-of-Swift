@@ -14,6 +14,7 @@
 		BC1B5400290FDDCF005BD8DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1B53FE290FDDCF005BD8DB /* Main.storyboard */; };
 		BC1B5402290FDDD2005BD8DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC1B5401290FDDD2005BD8DB /* Assets.xcassets */; };
 		BC1B5405290FDDD2005BD8DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1B5403290FDDD2005BD8DB /* LaunchScreen.storyboard */; };
+		BC1B540C290FE856005BD8DB /* BuildingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B540B290FE856005BD8DB /* BuildingNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		BC1B53FF290FDDCF005BD8DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC1B5401290FDDD2005BD8DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC1B5404290FDDD2005BD8DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BC1B540B290FE856005BD8DB /* BuildingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				BC1B53F4290FDDCF005BD8DB /* AppDelegate.swift */,
 				BC1B53F6290FDDCF005BD8DB /* GameScene.sks */,
 				BC1B53FA290FDDCF005BD8DB /* GameScene.swift */,
+				BC1B540B290FE856005BD8DB /* BuildingNode.swift */,
 				BC1B53FC290FDDCF005BD8DB /* GameViewController.swift */,
 				BC1B53FE290FDDCF005BD8DB /* Main.storyboard */,
 				BC1B5401290FDDD2005BD8DB /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1B53FB290FDDCF005BD8DB /* GameScene.swift in Sources */,
+				BC1B540C290FE856005BD8DB /* BuildingNode.swift in Sources */,
 				BC1B53FD290FDDCF005BD8DB /* GameViewController.swift in Sources */,
 				BC1B53F5290FDDCF005BD8DB /* AppDelegate.swift in Sources */,
 			);
