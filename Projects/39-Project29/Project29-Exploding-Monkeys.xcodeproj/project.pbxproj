@@ -15,6 +15,8 @@
 		BC1B5402290FDDD2005BD8DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC1B5401290FDDD2005BD8DB /* Assets.xcassets */; };
 		BC1B5405290FDDD2005BD8DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1B5403290FDDD2005BD8DB /* LaunchScreen.storyboard */; };
 		BC1B540C290FE856005BD8DB /* BuildingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B540B290FE856005BD8DB /* BuildingNode.swift */; };
+		BCFECBAD291139F70047E5E4 /* hitBuilding.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCFECBAB291139F70047E5E4 /* hitBuilding.sks */; };
+		BCFECBAE291139F70047E5E4 /* hitPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCFECBAC291139F70047E5E4 /* hitPlayer.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		BC1B5401290FDDD2005BD8DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC1B5404290FDDD2005BD8DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC1B540B290FE856005BD8DB /* BuildingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingNode.swift; sourceTree = "<group>"; };
+		BCFECBAB291139F70047E5E4 /* hitBuilding.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hitBuilding.sks; sourceTree = "<group>"; };
+		BCFECBAC291139F70047E5E4 /* hitPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hitPlayer.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				BC1B53FE290FDDCF005BD8DB /* Main.storyboard */,
 				BC1B5401290FDDD2005BD8DB /* Assets.xcassets */,
 				BC1B5403290FDDD2005BD8DB /* LaunchScreen.storyboard */,
+				BCFECBAB291139F70047E5E4 /* hitBuilding.sks */,
+				BCFECBAC291139F70047E5E4 /* hitPlayer.sks */,
 			);
 			path = "Project29-Exploding-Monkeys";
 			sourceTree = "<group>";
@@ -130,6 +136,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1B5400290FDDCF005BD8DB /* Main.storyboard in Resources */,
+				BCFECBAD291139F70047E5E4 /* hitBuilding.sks in Resources */,
+				BCFECBAE291139F70047E5E4 /* hitPlayer.sks in Resources */,
 				BC1B53F7290FDDCF005BD8DB /* GameScene.sks in Resources */,
 				BC1B5402290FDDD2005BD8DB /* Assets.xcassets in Resources */,
 				BC1B5405290FDDD2005BD8DB /* LaunchScreen.storyboard in Resources */,
