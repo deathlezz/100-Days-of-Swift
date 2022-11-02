@@ -21,8 +21,25 @@ class GameViewController: UIViewController {
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
     
+    @IBOutlet var scoreLabel: UILabel!
+    
+    var player1Score = 0 {
+        didSet {
+            scoreLabel.text = "\(player1Score):\(player2Score)"
+        }
+    }
+    
+    var player2Score = 0 {
+        didSet {
+            scoreLabel.text = "\(player1Score):\(player2Score)"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        player1Score = 0
+        player2Score = 0
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -89,6 +106,30 @@ class GameViewController: UIViewController {
         velocitySlider.isHidden = false
         velocityLabel.isHidden = false
         launchButton.isHidden = false
+    }
+    
+    func playerScored(player: Int) {
+        if player == 1 {
+            player1Score += 1
+        } else {
+            player2Score += 1
+        }
+        
+        if player1Score == 3 {
+            playerNumber.text = "PLAYER 1 WINS"
+            // game over
+        } else if player2Score == 3 {
+            playerNumber.text = "PLAYER 2 WINS"
+            // game over
+        }
+    }
+    
+    func gameOver() {
+        
+    }
+    
+    func newGame() {
+        
     }
     
 }

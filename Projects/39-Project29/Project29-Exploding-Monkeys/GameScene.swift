@@ -20,6 +20,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player1: SKSpriteNode!
     var player2: SKSpriteNode!
     var banana: SKSpriteNode!
+    
+    var gameOverLabel: SKSpriteNode!
+    var newGameLabel: SKLabelNode!
 
     var currentPlayer = 1
     
@@ -143,10 +146,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if firstNode.name == "banana" && secondNode.name == "player1" {
             destroy(player: player1)
+            viewController?.playerScored(player: 2)
         }
         
         if firstNode.name == "banana" && secondNode.name == "player2" {
             destroy(player: player2)
+            viewController?.playerScored(player: 1)
         }
     }
     
