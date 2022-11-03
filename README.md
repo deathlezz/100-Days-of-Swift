@@ -40,3 +40,4 @@
 - [Milestone: Projects 25-27](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/36-Milestone-Projects25-27) - [Course](https://www.hackingwithswift.com/100/90)
 - [Core Graphics Redux](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/37-CoreGraphics-Redux) - [Course](https://www.hackingwithswift.com/100/91)
 - [Project 28: Secret Swift](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/38-Project28) - [Course](https://www.hackingwithswift.com/100/92)
+- [Project 29: Exploding Monkeys](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/39-Project29) - [Course](https://www.hackingwithswift.com/100/94)
