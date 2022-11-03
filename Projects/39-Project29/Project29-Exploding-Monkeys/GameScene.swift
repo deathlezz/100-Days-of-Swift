@@ -196,6 +196,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             currentPlayer = 1
         }
         
+        addWind()
+        
         viewController?.activatePlayer(number: currentPlayer)
     }
     
@@ -220,6 +222,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let transition = SKTransition.doorway(withDuration: 1.5)
         view?.presentScene(newGame, transition: transition)
+    }
+    
+    // Challenge 3
+    func addWind() {
+        let randomDX = Double.random(in: -3...3)
+        physicsWorld.gravity = CGVector(dx: randomDX, dy: -9.8)
+        
+        if randomDX >= -3 && randomDX < -0.5 {
+            viewController?.player1Wind.text = "← Wind ←"
+            viewController?.player2Wind.text = "← Wind ←"
+        } else if randomDX > 0.5 && randomDX <= 3 {
+            viewController?.player1Wind.text = "→ Wind →"
+            viewController?.player2Wind.text = "→ Wind →"
+        } else if randomDX >= -0.5 && randomDX <= 0.5 {
+            viewController?.player1Wind.text = ""
+            viewController?.player2Wind.text = ""
+        }
     }
     
 }

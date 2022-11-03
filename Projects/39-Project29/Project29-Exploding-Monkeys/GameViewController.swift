@@ -21,6 +21,10 @@ class GameViewController: UIViewController {
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
     
+    // Challenge 3
+    @IBOutlet var player1Wind: UILabel!
+    @IBOutlet var player2Wind: UILabel!
+    
     // Challenge 1
     @IBOutlet var scoreLabel: UILabel!
     @IBOutlet var newGameButton: UIButton!
@@ -49,6 +53,11 @@ class GameViewController: UIViewController {
         player1Score = 0
         player2Score = 0
         newGameButton.isHidden = true
+        player1Wind.isHidden = false
+        player2Wind.isHidden = true
+        
+        player1Wind.text = ""
+        player2Wind.text = ""
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -71,6 +80,8 @@ class GameViewController: UIViewController {
         
         angleChanged(self)
         velocityChanged(self)
+        
+        currentGame?.addWind()
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -102,8 +113,12 @@ class GameViewController: UIViewController {
     func activatePlayer(number: Int) {
         if number == 1 {
             playerNumber.text = "<<< PLAYER ONE"
+            player1Wind.isHidden = false
+            player2Wind.isHidden = true
         } else {
             playerNumber.text = "PLAYER TWO >>>"
+            player1Wind.isHidden = true
+            player2Wind.isHidden = false
         }
         
         hud(isHidden: false)
@@ -137,6 +152,8 @@ class GameViewController: UIViewController {
     func gameOver() {
         hud(isHidden: true)
         isGameOver = true
+        player1Wind.isHidden = true
+        player2Wind.isHidden = true
     }
     
     @IBAction func newGame(_ sender: Any) {
