@@ -21,7 +21,15 @@ class GameViewController: UIViewController {
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
     
+    // Challenge 1
     @IBOutlet var scoreLabel: UILabel!
+    @IBOutlet var newGameButton: UIButton!
+    
+    var isGameOver = false {
+        didSet {
+            newGameButton.isHidden = !isGameOver
+        }
+    }
     
     var player1Score = 0 {
         didSet {
@@ -40,6 +48,7 @@ class GameViewController: UIViewController {
         
         player1Score = 0
         player2Score = 0
+        newGameButton.isHidden = true
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -85,11 +94,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func launch(_ sender: Any) {
-        angleSlider.isHidden = true
-        angleLabel.isHidden = true
-        velocitySlider.isHidden = true
-        velocityLabel.isHidden = true
-        launchButton.isHidden = true
+        hud(isHidden: true)
         
         currentGame?.launch(angle: Int(angleSlider.value), velocity: Int(velocitySlider.value))
     }
@@ -101,11 +106,7 @@ class GameViewController: UIViewController {
             playerNumber.text = "PLAYER TWO >>>"
         }
         
-        angleSlider.isHidden = false
-        angleLabel.isHidden = false
-        velocitySlider.isHidden = false
-        velocityLabel.isHidden = false
-        launchButton.isHidden = false
+        hud(isHidden: false)
     }
     
     func playerScored(player: Int) {
@@ -117,19 +118,33 @@ class GameViewController: UIViewController {
         
         if player1Score == 3 {
             playerNumber.text = "PLAYER 1 WINS"
-            // game over
+            gameOver()
         } else if player2Score == 3 {
             playerNumber.text = "PLAYER 2 WINS"
-            // game over
+            gameOver()
         }
     }
     
-    func gameOver() {
-        
+    // Challenge 1
+    func hud(isHidden: Bool) {
+        angleSlider.isHidden = isHidden
+        angleLabel.isHidden = isHidden
+        velocitySlider.isHidden = isHidden
+        velocityLabel.isHidden = isHidden
+        launchButton.isHidden = isHidden
     }
     
-    func newGame() {
-        
+    func gameOver() {
+        hud(isHidden: true)
+        isGameOver = true
+    }
+    
+    @IBAction func newGame(_ sender: Any) {
+        player1Score = 0
+        player2Score = 0
+        hud(isHidden: false)
+        isGameOver = false
+        currentGame?.newGame()
     }
     
 }

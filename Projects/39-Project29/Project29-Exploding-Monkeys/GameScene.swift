@@ -20,9 +20,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player1: SKSpriteNode!
     var player2: SKSpriteNode!
     var banana: SKSpriteNode!
-    
-    var gameOverLabel: SKSpriteNode!
-    var newGameLabel: SKLabelNode!
 
     var currentPlayer = 1
     
@@ -30,7 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = UIColor(hue: 0.669, saturation: 0.99, brightness: 0.67, alpha: 1)
         createBuildings()
         createPlayers()
-        
         physicsWorld.contactDelegate = self
     }
     
@@ -146,12 +142,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if firstNode.name == "banana" && secondNode.name == "player1" {
             destroy(player: player1)
-            viewController?.playerScored(player: 2)
         }
         
         if firstNode.name == "banana" && secondNode.name == "player2" {
             destroy(player: player2)
-            viewController?.playerScored(player: 1)
         }
     }
     
@@ -164,16 +158,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.removeFromParent()
         banana.removeFromParent()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let newGame = GameScene(size: self.size)
-            newGame.viewController = self.viewController
-            self.viewController?.currentGame = newGame
-            
-            self.changePlayer()
-            newGame.currentPlayer = self.currentPlayer
-            
-            let transition = SKTransition.doorway(withDuration: 1.5)
-            self.view?.presentScene(newGame, transition: transition)
+        // Challenge 1
+        if player == player1 {
+            viewController?.playerScored(player: 2)
+        } else {
+            viewController?.playerScored(player: 1)
+        }
+        
+        if viewController?.isGameOver == false {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.newGame()
+            }
         }
     }
     
@@ -212,6 +207,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             banana = nil
             changePlayer()
         }
+    }
+    
+    // Challenge 1
+    func newGame() {
+        let newGame = GameScene(size: self.size)
+        newGame.viewController = viewController
+        viewController?.currentGame = newGame
+        
+        changePlayer()
+        newGame.currentPlayer = currentPlayer
+        
+        let transition = SKTransition.doorway(withDuration: 1.5)
+        view?.presentScene(newGame, transition: transition)
     }
     
 }

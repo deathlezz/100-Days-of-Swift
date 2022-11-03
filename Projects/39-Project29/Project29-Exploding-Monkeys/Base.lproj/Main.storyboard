@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <device id="ipad7_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,7 +13,7 @@
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Project29_Exploding_Monkeys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1133" height="744"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="45" minValue="0.0" maxValue="90" translatesAutoresizingMaskIntoConstraints="NO" id="owX-Lh-8YA">
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i22-6o-ORb">
-                                <rect key="frame" x="1060.5" y="13" width="115.5" height="40.5"/>
+                                <rect key="frame" x="1013.5" y="13" width="115.5" height="40.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40.5" id="SP1-ei-5jY"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115.5" id="xnb-nU-wbK"/>
@@ -64,7 +64,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;&lt;&lt; PLAYER ONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTD-Xx-FgD">
-                                <rect key="frame" x="440" y="53" width="300" height="44"/>
+                                <rect key="frame" x="416.5" y="53" width="300" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Jnd-Oa-ck6"/>
                                     <constraint firstAttribute="height" constant="44" id="eGQ-xI-edI"/>
@@ -84,15 +84,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITU-Cb-Gmj">
-                                <rect key="frame" x="530" y="105" width="120" height="60"/>
+                                <rect key="frame" x="506.5" y="105" width="120" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="6M2-Su-0kK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="6M2-Su-0kK"/>
                                     <constraint firstAttribute="height" constant="60" id="plY-Vh-BUJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="60"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQj-R7-8D4">
+                                <rect key="frame" x="986" y="53" width="143" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="A91-S6-gk3"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="143" id="vcD-Pl-BHG"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="NEW GAME">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
+                                    <color key="baseForegroundColor" red="0.10062518375703045" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="newGame:" destination="BV1-FR-VrT" eventType="touchUpInside" id="670-wR-rJp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <color key="backgroundColor" systemColor="labelColor"/>
@@ -100,6 +115,7 @@
                             <constraint firstItem="YTD-Xx-FgD" firstAttribute="top" secondItem="HxK-72-lNI" secondAttribute="bottom" constant="3" id="2HZ-2b-rmO"/>
                             <constraint firstItem="i22-6o-ORb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ByK-mz-TG8" secondAttribute="trailing" constant="8" symbolic="YES" id="3tZ-nA-lCc"/>
                             <constraint firstItem="i22-6o-ORb" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="13" id="3wS-DF-v3h"/>
+                            <constraint firstItem="vQj-R7-8D4" firstAttribute="top" secondItem="i22-6o-ORb" secondAttribute="bottom" constant="-0.5" id="7xA-BM-nrH"/>
                             <constraint firstItem="ByK-mz-TG8" firstAttribute="leading" secondItem="HxK-72-lNI" secondAttribute="trailing" constant="7" id="8Nj-pG-98k"/>
                             <constraint firstItem="YTD-Xx-FgD" firstAttribute="top" secondItem="HxK-72-lNI" secondAttribute="bottom" constant="3" id="AEQ-Pd-U4b"/>
                             <constraint firstItem="HxK-72-lNI" firstAttribute="leading" secondItem="Z9z-dp-zfN" secondAttribute="trailing" constant="37" id="FM5-iN-P0z"/>
@@ -108,9 +124,11 @@
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="i22-6o-ORb" secondAttribute="trailing" constant="4" id="GT8-tD-suY"/>
                             <constraint firstItem="ITU-Cb-Gmj" firstAttribute="top" secondItem="YTD-Xx-FgD" secondAttribute="bottom" constant="8" symbolic="YES" id="MGA-R8-Ozs"/>
                             <constraint firstItem="owX-Lh-8YA" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="20" id="UzS-fH-anZ"/>
+                            <constraint firstItem="vQj-R7-8D4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YTD-Xx-FgD" secondAttribute="trailing" constant="8" symbolic="YES" id="Ypa-r8-LHT"/>
                             <constraint firstItem="HxK-72-lNI" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="20" id="asw-wD-sIt"/>
                             <constraint firstItem="ITU-Cb-Gmj" firstAttribute="centerX" secondItem="YTD-Xx-FgD" secondAttribute="centerX" id="e35-T7-mds"/>
                             <constraint firstItem="YTD-Xx-FgD" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="eK7-iS-Yry"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="vQj-R7-8D4" secondAttribute="trailing" constant="4" id="feZ-Mx-bwA"/>
                             <constraint firstItem="Z9z-dp-zfN" firstAttribute="leading" secondItem="owX-Lh-8YA" secondAttribute="trailing" constant="7" id="h0K-hZ-JrI"/>
                             <constraint firstItem="owX-Lh-8YA" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="22" id="sXZ-nz-TEv"/>
                         </constraints>
@@ -119,6 +137,7 @@
                         <outlet property="angleLabel" destination="Z9z-dp-zfN" id="CfD-E7-GQr"/>
                         <outlet property="angleSlider" destination="owX-Lh-8YA" id="jOf-zH-dkX"/>
                         <outlet property="launchButton" destination="i22-6o-ORb" id="gcx-AX-cX9"/>
+                        <outlet property="newGameButton" destination="vQj-R7-8D4" id="0IX-G7-LfI"/>
                         <outlet property="playerNumber" destination="YTD-Xx-FgD" id="iOh-Gc-dDf"/>
                         <outlet property="scoreLabel" destination="ITU-Cb-Gmj" id="foO-cV-Y1x"/>
                         <outlet property="velocityLabel" destination="ByK-mz-TG8" id="cYg-Fv-dG6"/>
