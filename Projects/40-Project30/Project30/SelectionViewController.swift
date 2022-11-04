@@ -20,6 +20,9 @@ class SelectionViewController: UITableViewController {
 
 		tableView.rowHeight = 90
 		tableView.separatorStyle = .none
+        
+        // our code
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
 		// load all the JPEGs into our array
 		let fm = FileManager.default
@@ -54,9 +57,9 @@ class SelectionViewController: UITableViewController {
         return items.count * 10
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+//		let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
 		// find the image for this cell, and load its thumbnail
 		let currentImage = items[indexPath.row % items.count]
@@ -66,12 +69,16 @@ class SelectionViewController: UITableViewController {
 
         // our code
         let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
+        
+//        let renderer = UIGraphicsImageRenderer(size: original.size)
 		let renderer = UIGraphicsImageRenderer(size: renderRect.size)
 
 		let rounded = renderer.image { ctx in
+//            ctx.cgContext.addEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
 			ctx.cgContext.addEllipse(in: renderRect)
 			ctx.cgContext.clip()
 
+//            original.draw(at: CGPoint.zero)
 			original.draw(in: renderRect)
 		}
 
