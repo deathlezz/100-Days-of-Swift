@@ -49,7 +49,13 @@ class DetailViewController: UITableViewController {
         switch sectionTitles[indexPath.section] {
         case "Flag":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "Flag", for: indexPath) as? FlagCell {
-                cell.flagView.image = UIImage(named: "flag_hd_\(country.alpha2Code)")
+                
+                // Challenge 2
+                // Use UIImage(contentsOfFile:) instead of UIImage(named:) to not use cache
+                guard let path = Bundle.main.path(forResource: "flag_hd_\(country.alpha2Code)", ofType: "png") else { return cell }
+                guard let image = UIImage(contentsOfFile: path) else { return cell }
+                
+                cell.flagView.image = image
                 cell.flagView.layer.borderWidth = 0.5
                 cell.flagView.layer.borderColor = UIColor.darkGray.cgColor
                 return cell
@@ -99,7 +105,10 @@ class DetailViewController: UITableViewController {
     }
     
     @objc func shareTapped() {
-        guard let image = UIImage(named: "flag_hd_\(country.alpha2Code)")?.jpegData(compressionQuality: 0.8) else {
+        // Challenge 2
+        guard let path = Bundle.main.path(forResource: "flag_hd_\(country.alpha2Code)", ofType: "png") else { return }
+                
+        guard let image = UIImage(contentsOfFile: path) else {
             print("Image not found.")
             return
         }

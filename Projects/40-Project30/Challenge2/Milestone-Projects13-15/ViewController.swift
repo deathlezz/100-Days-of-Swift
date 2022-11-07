@@ -88,7 +88,13 @@ class ViewController: UITableViewController {
         }
         
         cell.countryLabel.text = filteredCountries[indexPath.row].name
-        cell.flagView.image = UIImage(named: "flag_sd_\(filteredCountries[indexPath.row].alpha2Code)")
+        
+        // Challenge 2
+        // Use UIImage(contentsOfFile:) instead of UIImage(named:) to not use cache
+        guard let path = Bundle.main.path(forResource: "flag_sd_\(filteredCountries[indexPath.row].alpha2Code)", ofType: "png") else { return cell }
+        guard let image = UIImage(contentsOfFile: path) else { return cell }
+        
+        cell.flagView.image = image
         cell.flagView.layer.borderColor = UIColor.darkGray.cgColor
         cell.flagView.layer.borderWidth = 0.5
         cell.flagView.layer.cornerRadius = 3
