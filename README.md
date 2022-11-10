@@ -41,3 +41,4 @@
 - [Core Graphics Redux](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/37-CoreGraphics-Redux) - [Course](https://www.hackingwithswift.com/100/91)
 - [Project 28: Secret Swift](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/38-Project28) - [Course](https://www.hackingwithswift.com/100/92)
 - [Project 29: Exploding Monkeys](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/39-Project29) - [Course](https://www.hackingwithswift.com/100/94)
+- [Project 30: Instruments](https://github.com/deathlezz/100-Days-of-Swift/tree/main/Projects/40-Project30) - [Course](https://www.hackingwithswift.com/100/97)
