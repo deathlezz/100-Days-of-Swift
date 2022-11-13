@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var buttonsView: UIView!
     var buttons = [UIButton]()
+    var activatedButtons = [UIButton]()
     var counter = 0
     var level = 1
     
@@ -89,6 +90,7 @@ class ViewController: UIViewController {
             sender.setTitleColor(.black, for: .normal)
         }) { finished in
             sender.isUserInteractionEnabled = false
+            self.activatedButtons.append(sender)
         }
         
         if firstButton == nil {
@@ -127,6 +129,7 @@ class ViewController: UIViewController {
                 }) { [weak self] finished in
                     self?.secondButton.isUserInteractionEnabled = true
                     self?.secondButton = nil
+                    self?.activatedButtons.removeLast(2)
                 }
             }
         }
@@ -159,6 +162,7 @@ class ViewController: UIViewController {
         counter = 0
         firstButton = nil
         secondButton = nil
+        activatedButtons.removeAll()
         pairs.shuffle()
         
         for (index, button) in buttons.enumerated() {
@@ -173,7 +177,7 @@ class ViewController: UIViewController {
                 button.transform = .identity
             }
         }) { finished in
-            for button in self.buttons {
+            for button in self.activatedButtons {
                 UIView.transition(with: button, duration: 0.3, options: .transitionFlipFromRight, animations: {
                     button.setTitleColor(.clear, for: .normal)
                 }) { finished in
