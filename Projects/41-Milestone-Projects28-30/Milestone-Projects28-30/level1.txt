@@ -1,0 +1,12 @@
+apple
+tomato
+chicken
+cow
+turkey
+cucumber
+apple
+tomato
+chicken
+cow
+turkey
+cucumber

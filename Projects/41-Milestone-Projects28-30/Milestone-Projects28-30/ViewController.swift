@@ -13,11 +13,12 @@ class ViewController: UIViewController {
     var firstButton: UIButton!
     var secondButton: UIButton!
     
-    var pairs = ["apple", "tomato", "potato", "carrot", "pineapple", "cucumber", "apple", "tomato", "potato", "carrot", "pineapple", "cucumber"]
+    var pairs = [String]()
     
     var buttonsView: UIView!
     var buttons = [UIButton]()
     var counter = 0
+    var level = 1
     
     override func loadView() {
         view = UIView()
@@ -25,8 +26,6 @@ class ViewController: UIViewController {
         
         buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        buttonsView.layer.borderWidth = 1
-        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -45,7 +44,9 @@ class ViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .plain, target: self, action: #selector(newGameTapped))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Grid", style: .plain, target: self, action: #selector(gridTapped))
+        DispatchQueue.global().async { [weak self] in
+            self?.loadPairs()
+        }
     }
     
     func createButtons() {
@@ -84,8 +85,11 @@ class ViewController: UIViewController {
         guard isGameOver == false else { return }
         guard secondButton == nil else { return }
     
-        sender.setTitleColor(.black, for: .normal)
-        sender.isUserInteractionEnabled = false
+        UIView.transition(with: sender, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+            sender.setTitleColor(.black, for: .normal)
+        }) { finished in
+            sender.isUserInteractionEnabled = false
+        }
         
         if firstButton == nil {
             firstButton = sender
@@ -96,13 +100,14 @@ class ViewController: UIViewController {
             UIView.animate(withDuration: 0.3, delay: 0.5 , animations: { [weak self] in
                 sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
                 self?.firstButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            }) { finished in
-                self.firstButton = nil
-                self.secondButton = nil
-                self.counter += 2
+            }) { [weak self] finished in
+                self?.firstButton = nil
+                self?.secondButton = nil
+                self?.counter += 2
                 
-                if self.counter == 2 {
-                    self.gameOver()
+                if self?.counter == self?.buttons.count {
+                    self?.isGameOver = true
+                    self?.showAlert()
                 }
             }
             
@@ -110,40 +115,43 @@ class ViewController: UIViewController {
             // reverse cards
             secondButton = sender
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                UIView.transition(with: self.firstButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                    self.firstButton.setTitleColor(.clear, for: .normal)
-                }) { finished in
-                    self.firstButton.isUserInteractionEnabled = true
-                    self.firstButton = nil
+                UIView.transition(with: self.firstButton, duration: 0.3, options: .transitionFlipFromRight, animations: { [weak self] in
+                    self?.firstButton.setTitleColor(.clear, for: .normal)
+                }) { [weak self] finished in
+                    self?.firstButton.isUserInteractionEnabled = true
+                    self?.firstButton = nil
                 }
                 
-                UIView.transition(with: self.secondButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                    self.secondButton.setTitleColor(.clear, for: .normal)
-                }) { finished in
-                    self.secondButton.isUserInteractionEnabled = true
-                    self.secondButton = nil
+                UIView.transition(with: self.secondButton, duration: 0.3, options: .transitionFlipFromRight, animations: { [weak self] in
+                    self?.secondButton.setTitleColor(.clear, for: .normal)
+                }) { [weak self] finished in
+                    self?.secondButton.isUserInteractionEnabled = true
+                    self?.secondButton = nil
                 }
             }
         }
+    }
+    
+    func showAlert() {
+        let ac = UIAlertController(title: "You Win!", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Next Level", style: .default) { [weak self] _ in
+            self?.level += 1
+            self?.loadPairs()
+            self?.resetButtons()
+        })
+        ac.addAction(UIAlertAction(title: "New Game", style: .default) { [weak self] _ in
+            self?.level = 1
+            self?.loadPairs()
+            self?.resetButtons()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     @objc func newGameTapped() {
-        UIView.animate(withDuration: 0.3, animations: {
-            for button in self.buttons {
-                button.transform = .identity
-                button.setTitleColor(.clear, for: .normal)
-            }
-        }) { finished in
-            self.newGame()
-        }
-    }
-    
-    @objc func gridTapped() {
-        let ac = UIAlertController(title: "Select grid", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "3 x 4 grid", style: .default))
-        ac.addAction(UIAlertAction(title: "4 x 5 grid", style: .default))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
+        level = 1
+        loadPairs()
+        resetButtons()
     }
     
     func newGame() {
@@ -157,13 +165,38 @@ class ViewController: UIViewController {
             button.setTitle(pairs[index], for: .normal)
             button.isUserInteractionEnabled = true
         }
-        
-        navigationItem.leftBarButtonItem?.title = "New Game"
     }
     
-    func gameOver() {
-        isGameOver = true
-        navigationItem.leftBarButtonItem?.title = "Continue"
+    func resetButtons() {
+        UIView.animate(withDuration: 0.3, animations: {
+            for button in self.buttons {
+                button.transform = .identity
+            }
+        }) { finished in
+            for button in self.buttons {
+                UIView.transition(with: button, duration: 0.3, options: .transitionFlipFromRight, animations: {
+                    button.setTitleColor(.clear, for: .normal)
+                }) { finished in
+                    self.newGame()
+                }
+            }
+        }
+    }
+    
+    func loadPairs() {
+        if level == 5 {
+            level = 1
+        }
+        
+        guard let pairsURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") else {
+            fatalError("Could not find level\(level).txt in the app bundle.")
+        }
+        
+        guard let pairsString = try? String(contentsOf: pairsURL) else {
+            fatalError("Could not load level\(level).txt from the app bundle.")
+        }
+        
+        pairs = pairsString.components(separatedBy: "\n")
     }
 }
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC48FECA29218994006B948C /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = BC48FEC929218994006B948C /* level2.txt */; };
+		BC48FECC29218A16006B948C /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = BC48FECB29218A16006B948C /* level3.txt */; };
+		BC48FECE29218A53006B948C /* level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = BC48FECD29218A53006B948C /* level4.txt */; };
+		BC48FED029218B15006B948C /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = BC48FECF29218B15006B948C /* level1.txt */; };
 		BCEDBCC8291E5E3800D6D3B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEDBCC7291E5E3800D6D3B2 /* AppDelegate.swift */; };
 		BCEDBCCA291E5E3800D6D3B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEDBCC9291E5E3800D6D3B2 /* SceneDelegate.swift */; };
 		BCEDBCCC291E5E3800D6D3B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEDBCCB291E5E3800D6D3B2 /* ViewController.swift */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC48FEC929218994006B948C /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
+		BC48FECB29218A16006B948C /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
+		BC48FECD29218A53006B948C /* level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level4.txt; sourceTree = "<group>"; };
+		BC48FECF29218B15006B948C /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
 		BCEDBCC4291E5E3800D6D3B2 /* Milestone-Projects28-30.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Milestone-Projects28-30.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEDBCC7291E5E3800D6D3B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCEDBCC9291E5E3800D6D3B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +71,10 @@
 				BCEDBCD0291E5E3B00D6D3B2 /* Assets.xcassets */,
 				BCEDBCD2291E5E3B00D6D3B2 /* LaunchScreen.storyboard */,
 				BCEDBCD5291E5E3B00D6D3B2 /* Info.plist */,
+				BC48FECF29218B15006B948C /* level1.txt */,
+				BC48FEC929218994006B948C /* level2.txt */,
+				BC48FECB29218A16006B948C /* level3.txt */,
+				BC48FECD29218A53006B948C /* level4.txt */,
 			);
 			path = "Milestone-Projects28-30";
 			sourceTree = "<group>";
@@ -125,9 +137,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC48FECC29218A16006B948C /* level3.txt in Resources */,
+				BC48FECA29218994006B948C /* level2.txt in Resources */,
+				BC48FED029218B15006B948C /* level1.txt in Resources */,
 				BCEDBCD4291E5E3B00D6D3B2 /* LaunchScreen.storyboard in Resources */,
 				BCEDBCD1291E5E3B00D6D3B2 /* Assets.xcassets in Resources */,
 				BCEDBCCF291E5E3800D6D3B2 /* Main.storyboard in Resources */,
+				BC48FECE29218A53006B948C /* level4.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
