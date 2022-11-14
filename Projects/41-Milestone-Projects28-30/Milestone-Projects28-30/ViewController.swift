@@ -175,12 +175,16 @@ class ViewController: UIViewController {
                 button.transform = .identity
             }
         }) { finished in
-            for button in self.activatedButtons {
-                UIView.transition(with: button, duration: 0.3, options: .transitionFlipFromRight, animations: {
-                    button.setTitleColor(.clear, for: .normal)
-                }) { finished in
-                    self.newGame()
+            if !self.activatedButtons.isEmpty {
+                for button in self.activatedButtons {
+                    UIView.transition(with: button, duration: 0.3, options: .transitionFlipFromRight, animations: {
+                        button.setTitleColor(.clear, for: .normal)
+                    }) { finished in
+                        self.newGame()
+                    }
                 }
+            } else {
+                self.newGame()
             }
         }
     }
