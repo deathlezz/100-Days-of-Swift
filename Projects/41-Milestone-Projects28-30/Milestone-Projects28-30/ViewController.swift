@@ -99,17 +99,17 @@ class ViewController: UIViewController {
             secondButton = sender
             
             // make buttons small
-            UIView.animate(withDuration: 0.3, delay: 0.5 , animations: { [weak self] in
+            UIView.animate(withDuration: 0.3, delay: 0.5 , animations: {
                 sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                self?.firstButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            }) { [weak self] finished in
-                self?.firstButton = nil
-                self?.secondButton = nil
-                self?.counter += 2
+                self.firstButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            }) { finished in
+                self.firstButton = nil
+                self.secondButton = nil
+                self.counter += 2
                 
-                if self?.counter == self?.buttons.count {
-                    self?.isGameOver = true
-                    self?.showAlert()
+                if self.counter == self.buttons.count {
+                    self.isGameOver = true
+                    self.showAlert()
                 }
             }
             
@@ -117,19 +117,19 @@ class ViewController: UIViewController {
             // reverse cards
             secondButton = sender
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                UIView.transition(with: self.firstButton, duration: 0.3, options: .transitionFlipFromRight, animations: { [weak self] in
-                    self?.firstButton.setTitleColor(.clear, for: .normal)
-                }) { [weak self] finished in
-                    self?.firstButton.isUserInteractionEnabled = true
-                    self?.firstButton = nil
+                UIView.transition(with: self.firstButton, duration: 0.3, options: .transitionFlipFromRight, animations: {
+                    self.firstButton.setTitleColor(.clear, for: .normal)
+                }) { finished in
+                    self.firstButton.isUserInteractionEnabled = true
+                    self.firstButton = nil
                 }
                 
-                UIView.transition(with: self.secondButton, duration: 0.3, options: .transitionFlipFromRight, animations: { [weak self] in
-                    self?.secondButton.setTitleColor(.clear, for: .normal)
-                }) { [weak self] finished in
-                    self?.secondButton.isUserInteractionEnabled = true
-                    self?.secondButton = nil
-                    self?.activatedButtons.removeLast(2)
+                UIView.transition(with: self.secondButton, duration: 0.3, options: .transitionFlipFromRight, animations: {
+                    self.secondButton.setTitleColor(.clear, for: .normal)
+                }) { finished in
+                    self.secondButton.isUserInteractionEnabled = true
+                    self.secondButton = nil
+                    self.activatedButtons.removeLast(2)
                 }
             }
         }
