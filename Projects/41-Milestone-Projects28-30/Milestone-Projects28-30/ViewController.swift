@@ -8,16 +8,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    var isGameOver = false
-    var firstButton: UIButton!
-    var secondButton: UIButton!
-    
-    var pairs = [String]()
-    
     var buttonsView: UIView!
     var buttons = [UIButton]()
     var activatedButtons = [UIButton]()
+    
+    var firstButton: UIButton!
+    var secondButton: UIButton!
+    var pairs = [String]()
+    
+    var isGameOver = false
     var counter = 0
     var level = 1
     
@@ -40,7 +39,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         title = "Pairs"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .plain, target: self, action: #selector(newGameTapped))
