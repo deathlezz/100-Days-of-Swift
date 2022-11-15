@@ -45,6 +45,10 @@ class ViewController: UIViewController {
         
         DispatchQueue.global().async { [weak self] in
             self?.loadPairs()
+            
+            DispatchQueue.main.async {
+                self?.createButtons()
+            }
         }
     }
     
@@ -73,11 +77,6 @@ class ViewController: UIViewController {
                 index += 1
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        // create buttons after buttonsView appeared
-        createButtons()
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
